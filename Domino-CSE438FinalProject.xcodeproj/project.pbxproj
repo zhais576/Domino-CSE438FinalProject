@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FB26A4DE98002B45AD /* Tile.swift */; };
+		FDE099F526A4EA750079577D /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE099F426A4EA750079577D /* GameBoard.swift */; };
 		FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */; };
 		FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */; };
 		FDF894B5269A6B83009E7FC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B4269A6B83009E7FC7 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		1C43D1FB26A4DE98002B45AD /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		FDE099F426A4EA750079577D /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		FDF894AD269A6B83009E7FC7 /* Domino-CSE438FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Domino-CSE438FinalProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */,
 				FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */,
 				FDF894B4269A6B83009E7FC7 /* ViewController.swift */,
+				FDE099F426A4EA750079577D /* GameBoard.swift */,
 				1C43D1FB26A4DE98002B45AD /* Tile.swift */,
 				FDF894B6269A6B83009E7FC7 /* Main.storyboard */,
 				FDF894B9269A6B85009E7FC7 /* Assets.xcassets */,
@@ -142,6 +145,7 @@
 			files = (
 				FDF894B5269A6B83009E7FC7 /* ViewController.swift in Sources */,
 				FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */,
+				FDE099F526A4EA750079577D /* GameBoard.swift in Sources */,
 				1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */,
 				FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */,
 			);
