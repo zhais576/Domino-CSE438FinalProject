@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let tile = Tile(side1: 0, side2: 0, origin: .zero)
+        let tile = Tile(side1: 0, side2: 0, origin: CGPoint(x: theGameBoard.frame.midX, y: theGameBoard.frame.midY))
+        theGameBoard.Tiles.append(tile)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
