@@ -26,6 +26,8 @@ class ViewController: UIViewController {
         
         if let selectedTile = theGameBoard.itemAtLocation(touchPoint){
             tileBeingPlayed = selectedTile
+        }else{
+            tileBeingPlayed = nil
         }
     }
     
