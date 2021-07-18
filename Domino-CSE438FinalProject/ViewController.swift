@@ -13,6 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print("hello Jack, this is Lucas")
+        let tile = Tile(side1: 0, side2: 0, origin: .zero)
     }
     
     func testPush(){
