@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C43D1FC26A4DE98002B45AD /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FB26A4DE98002B45AD /* TileView.swift */; };
 		FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */; };
 		FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */; };
 		FDF894B5269A6B83009E7FC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B4269A6B83009E7FC7 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C43D1FB26A4DE98002B45AD /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 		FDF894AD269A6B83009E7FC7 /* Domino-CSE438FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Domino-CSE438FinalProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */,
 				FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */,
 				FDF894B4269A6B83009E7FC7 /* ViewController.swift */,
+				1C43D1FB26A4DE98002B45AD /* TileView.swift */,
 				FDF894B6269A6B83009E7FC7 /* Main.storyboard */,
 				FDF894B9269A6B85009E7FC7 /* Assets.xcassets */,
 				FDF894BB269A6B85009E7FC7 /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 			files = (
 				FDF894B5269A6B83009E7FC7 /* ViewController.swift in Sources */,
 				FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */,
+				1C43D1FC26A4DE98002B45AD /* TileView.swift in Sources */,
 				FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
