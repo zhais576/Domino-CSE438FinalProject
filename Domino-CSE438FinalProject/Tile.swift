@@ -19,7 +19,7 @@ class Tile {
     }
     
     func draw() {
-        let color: UIColor = .black
+        let color: UIColor = .green
         color.setFill()
         let frame = CGRect(origin: self.origin, size: CGSize(width: 30, height: 60))
         framePath = UIBezierPath(roundedRect: frame, cornerRadius: 5)
@@ -27,7 +27,7 @@ class Tile {
     }
     
     func contains(point: CGPoint) -> Bool {
-            return framePath.contains(point)
+            return fra.contains(point)
         }
     
     
