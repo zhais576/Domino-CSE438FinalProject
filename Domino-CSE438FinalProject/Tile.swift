@@ -7,23 +7,26 @@
 
 import UIKit
 
-class Tile: UIView {
+class Tile : UIView {
     
-    var image: UIImageView?
-    var origin: CGPoint?
-    let value: TileStruct?
+    var side1: Int = -1
+    var side2: Int = -1
+    var faceImage: UIImage?
     
-    init(side1: Int, side2: Int, originPoint: CGPoint){
+    init(int1: Int, int2: Int, image: UIImage, frame: CGRect) {
+        self.side1 = int1
+        self.side2 = int2
+        self.faceImage = image
         super.init(frame: frame)
-        value = TileStruct(side1: side1, side2: side2)
+        
+        let myImage = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        myImage.image = faceImage
+        myImage.layer.zPosition = 1
+        self.addSubview(myImage)
+        print("finished new tile")
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
-    
 
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
