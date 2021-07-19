@@ -15,4 +15,11 @@ class Player {
         self.name = name
         self.tilesOnHand = tilesOnHand
     }
+    /**
+     -Parameter index: the index from the tilesOnHand that was chosen.
+     -Returns: The tile that the player would like to attempt
+    */
+    func wouldLikeToThrow(index: Int) -> Tile {
+        return tilesOnHand[index]
+    }
 }

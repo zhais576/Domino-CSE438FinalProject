@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        _ = GameController()
         view.addSubview(tile35)
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(ViewController.dragging(gesture:)))
         tile35.addGestureRecognizer(gesture)

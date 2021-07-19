@@ -9,13 +9,11 @@ import UIKit
 
 class Tile : UIView {
     
-    var side1: Int = -1
-    var side2: Int = -1
+    var sides: [Int] = [-1,-1]
     var faceImage: UIImage?
     
     init(int1: Int, int2: Int, image: UIImage, frame: CGRect) {
-        self.side1 = int1
-        self.side2 = int2
+        self.sides = [int1, int2]
         self.faceImage = image
         super.init(frame: frame)
         
