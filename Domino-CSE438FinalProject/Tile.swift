@@ -7,28 +7,21 @@
 
 import UIKit
 
-class Tile {
+class Tile: UIView {
     
-    let side1: Int
-    let side2: Int
-    var origin: CGPoint
-    var framePath: UIBezierPath = UIBezierPath()
+    var image: UIImageView?
+    var origin: CGPoint?
+    let value: TileStruct?
     
-    init(side1: Int, side2: Int, origin: CGPoint) {
-        self.side1 = side1; self.side2 = side2; self.origin = origin;
+    init(side1: Int, side2: Int, originPoint: CGPoint){
+        super.init(frame: frame)
+        value = TileStruct(side1: side1, side2: side2)
     }
     
-    func draw() {
-        let color: UIColor = .green
-        color.setFill()
-        let frame = CGRect(origin: self.origin, size: CGSize(width: 30, height: 60))
-        framePath = UIBezierPath(roundedRect: frame, cornerRadius: 5)
-        framePath.fill()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    func contains(point: CGPoint) -> Bool {
-            return fra.contains(point)
-        }
     
     
     

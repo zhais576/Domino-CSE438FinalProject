@@ -15,30 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let tile = Tile(side1: 0, side2: 0, origin: CGPoint(x: theGameBoard.frame.midX, y: theGameBoard.frame.midY))
-        theGameBoard.Tiles.append(tile)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard touches.count == 1,
-              let touchPoint = touches.first?.location(in: theGameBoard)
-        else { return }
-        
-        if let selectedTile = theGameBoard.itemAtLocation(touchPoint){
-            tileBeingPlayed = selectedTile
-        }else{
-            tileBeingPlayed = nil
-        }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard touches.count == 1,
-              let touchPoint = touches.first?.location(in: theGameBoard)
-        else { return }
-        
-        tileBeingPlayed?.origin = touchPoint
-        theGameBoard.setNeedsDisplay()
-    }
 
 }
 
