@@ -7,19 +7,48 @@
 
 import Foundation
 import UIKit
-
 class Player {
     var name: String
-    var tilesOnHand: [Tile]
+    private var tilesOnHand: [Tile]
+    var isCurrentlyPlaying: Bool = false
+    
     init(name: String, tilesOnHand: [Tile]) {
         self.name = name
         self.tilesOnHand = tilesOnHand
     }
-    /**
-     -Parameter index: the index from the tilesOnHand that was chosen.
-     -Returns: The tile that the player would like to attempt
-    */
-    func wouldLikeToThrow(index: Int) -> Tile {
-        return tilesOnHand[index]
+    
+    func getTilesOnHand() -> [Tile] {
+        return tilesOnHand
+    }
+    
+    func removeSelectedTile(index: Int) -> Tile {
+        let tileToRemove = tilesOnHand[index]
+        tilesOnHand.remove(at: index)
+        return tileToRemove
+    }
+    
+    func needsToSkip(leftMost: Int?, rightMost: Int?) -> Bool {
+        guard let validLeftMost = leftMost else { return false }
+        let validRightMost = rightMost!
+        for tile in tilesOnHand {
+            if tile.sides.contains(validLeftMost) || tile.sides.contains(validRightMost) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func tryToLayDownTile(dotsOnSide: Int, tileIndex: Int) -> Int? {
+        if tilesOnHand[tileIndex].sides[0] == dotsOnSide {
+            let newDotsOnSide = tilesOnHand[tileIndex].sides[1]
+            tilesOnHand.remove(at: tileIndex)
+            return newDotsOnSide
+        } else if tilesOnHand[tileIndex].sides[1] == dotsOnSide {
+            let newDotsOnSide = tilesOnHand[tileIndex].sides[0]
+            tilesOnHand.remove(at: tileIndex)
+            return newDotsOnSide
+        } else {
+            return nil
+        }
     }
 }

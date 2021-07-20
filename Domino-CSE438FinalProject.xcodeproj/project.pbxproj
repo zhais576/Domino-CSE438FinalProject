@@ -10,7 +10,6 @@
 		1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FB26A4DE98002B45AD /* Tile.swift */; };
 		1C43D1FE26A4F124002B45AD /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FD26A4F124002B45AD /* GameController.swift */; };
 		1C43D20026A4F1CF002B45AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FF26A4F1CF002B45AD /* Player.swift */; };
-		1C43D20226A4F3AE002B45AD /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D20126A4F3AE002B45AD /* Team.swift */; };
 		FDE099F526A4EA750079577D /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE099F426A4EA750079577D /* GameBoard.swift */; };
 		FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */; };
 		FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */; };
@@ -24,7 +23,6 @@
 		1C43D1FB26A4DE98002B45AD /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		1C43D1FD26A4F124002B45AD /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		1C43D1FF26A4F1CF002B45AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		1C43D20126A4F3AE002B45AD /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		FDE099F426A4EA750079577D /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		FDF894AD269A6B83009E7FC7 /* Domino-CSE438FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Domino-CSE438FinalProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 				FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */,
 				FDF894B4269A6B83009E7FC7 /* ViewController.swift */,
 				1C43D1FD26A4F124002B45AD /* GameController.swift */,
-				1C43D20126A4F3AE002B45AD /* Team.swift */,
 				1C43D1FF26A4F1CF002B45AD /* Player.swift */,
 				FDE099F426A4EA750079577D /* GameBoard.swift */,
 				1C43D1FB26A4DE98002B45AD /* Tile.swift */,
@@ -156,7 +153,6 @@
 				1C43D1FE26A4F124002B45AD /* GameController.swift in Sources */,
 				FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */,
 				FDE099F526A4EA750079577D /* GameBoard.swift in Sources */,
-				1C43D20226A4F3AE002B45AD /* Team.swift in Sources */,
 				1C43D20026A4F1CF002B45AD /* Player.swift in Sources */,
 				1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */,
 				FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */,
