@@ -9,20 +9,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var theGameBoard: GameBoard!
-    
-    let tile35 = Tile(int1: 3, int2: 5, image: UIImage(named: "35")!,frame: CGRect(x: 182, y: 611, width: 50, height: 100))
+    @IBOutlet weak var p1TextField: UITextField!
+    @IBOutlet weak var p2TextField: UITextField!
+    @IBOutlet weak var p3TextField: UITextField!
+    @IBOutlet weak var p4TextField: UITextField!
+    @IBOutlet weak var startButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        _ = GameController(team1Name: "t1", team2Name: "t2", player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
-        
-        view.addSubview(tile35)
     }
 
     
+    @IBAction func readyPressed(_ sender: Any) {
+        if p1TextField.text == "" || p2TextField.text == "" || p3TextField.text == "" || p4TextField.text == ""{
+            let namePrompt = UIAlertController(title: "Please enter all names", message: nil, preferredStyle: .alert)
+            namePrompt.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            self.present(namePrompt, animated: true)
+            return
+        }
+        startButton.frame.origin.y = 721
+    }
     
-
+    @IBAction func clearAll(_ sender: Any) {
+        
+    }
+    
 }
 
