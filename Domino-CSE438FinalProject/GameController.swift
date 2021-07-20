@@ -10,6 +10,14 @@ import UIKit
 
 class GameController {
     
+    /**
+     This Struct is SUPER important. it keeps track of the most important details in the game board.
+     Properties:
+     - `tiles`:  are the tiles that have been played.
+     - `leftMostSide` is an optional int that starts as nil, but then contains the number of dots on the end of the left side of the train. This is important because your tile must match this variable in order to have a valid move
+     - `rightMostSide` same thing as `leftMostSide` but on the right hand side of the train.
+     */
+    
     struct Train {
         var tiles: [Tile] = []
         var leftMostSide: Int?
@@ -82,6 +90,11 @@ class GameController {
         return false
     }
     
+    /**
+     Called by layDownTile(), this function updates the player index, which keeps track of the current player's turn.
+     - ToDo: figure out if the isCurrentlyPlaying flag necessary to clean up code.
+     */
+    
     func nextPlayerPlease() {
         playerIndex = ((playerIndex + 1) % 4)
         switch playerIndex {
@@ -113,6 +126,13 @@ class GameController {
         default: print("this shouldnt be happening!")
         }
     }
+    
+    /**
+     - Remark: This function reacts to when the player tries to make a move. it checks whether it is a valid move or not and updates the `Train` (which keeps track of the tiles on the table), the `Player` (which keeps track of the tiles held by each player). If successful, the `playerIndex` gets updated so that it is officially the next player's turn.
+     - Parameters:
+        - index: Used to specify which tile is going to be thrown. Each player has a property called `tilesInHand: [Tile]` which keeps track of the tiles the player hasn't thrown yet.
+        - side: An enum with two cases, `.left` and `.right`. This specifies wether the player wished to throw the specified tile to the left or right  side of the `Train`.
+     */
     
     func layDownTile(index: Int, side: Train.Side) {
         guard let validLeftMostSide = train.leftMostSide else {
@@ -175,6 +195,9 @@ class GameController {
         }
     }
     
+    /**
+     This function covers the edge case where the round has just begun and there are no tiles in the Train yet. it is called in layDownTile for safety reasons.
+     */
     func layDownFirstTile(index: Int) {
         switch playerIndex {
         case 0:
