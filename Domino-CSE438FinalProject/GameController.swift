@@ -221,7 +221,7 @@ class GameController {
         nextPlayerPlease()
     }
     
-    func checkIfRoundIsOver() -> Bool {
+    func roundIsOver() -> Bool {
         var skipCount = 0
         
         for player in players {
@@ -241,6 +241,23 @@ class GameController {
             return true // Game is stuck
         } else {
             return false
+        }
+    }
+    
+    func skippingPlayersTurn() {
+        if !roundIsOver() {
+        switch (playerIndex % 2) {
+        case 0:
+            team1.score += 1
+            print("Team 1 Score: \(team1.score), Team 2 Score: \(team2.score)")
+        case 1:
+            team2.score += 1
+            print("Team 1 Score: \(team1.score), Team 2 Score: \(team2.score)")
+        default: print("this shouldn't happen")
+        }
+        nextPlayerPlease()
+        } else {
+            print("HELP")
         }
     }
 }
