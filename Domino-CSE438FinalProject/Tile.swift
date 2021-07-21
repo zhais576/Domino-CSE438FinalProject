@@ -54,7 +54,7 @@ class Tile : UIView {
    
     //checks the gesture's location and decide left or right in superview
     func playedLeftOrRight(gesture: UIPanGestureRecognizer){
-        if(gesture.location(in: self.superview).x < 195){
+        if gesture.location(in: self.superview).x < 195 {
             print("Played to the left")
         }else{
             print("Played to the right")

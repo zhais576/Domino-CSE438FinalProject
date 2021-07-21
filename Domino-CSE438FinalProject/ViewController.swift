@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     
@@ -31,7 +32,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clearAll(_ sender: Any) {
-        
+        p1TextField.text = ""
+        p2TextField.text = ""
+        p3TextField.text = ""
+        p4TextField.text = ""
     }
     
 }
