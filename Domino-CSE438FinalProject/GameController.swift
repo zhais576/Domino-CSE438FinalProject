@@ -118,6 +118,10 @@ class GameController {
         }
     }
     
+    /**
+     Checks if the round is over, meaning it checks if a player already layed all tiles or if the game is "stuck" meaning that no player can play any tiles.
+     */
+    
     func roundIsOver() -> Bool {
         var skipCount = 0
         for player in players {
@@ -140,6 +144,9 @@ class GameController {
         }
     }
     
+    /**
+     This function reacts to a player pressing the skipped turn button.
+     */
     func skippingPlayersTurn() {
         if !roundIsOver() {
         switch (playerIndex % 2) {
