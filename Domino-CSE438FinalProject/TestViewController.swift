@@ -29,5 +29,26 @@ class TestViewController: UIViewController {
     
     //the round over button holds the place for roundIsOver function
     
-
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touch began")
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touches moved")
+        for tile in gc.players[gc.playerIndex].getTilesOnHand() {
+            if tile.playedTo != nil {
+                gc.layDownTile()
+                leftMostDotOutlet.text = String(describing: gc.train.leftMostSide)
+                rightMostDotOutlet.text = String(describing: gc.train.rightMostSide)
+            }
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touches ended")
+        
+        
+    }
+    
+    
 }
