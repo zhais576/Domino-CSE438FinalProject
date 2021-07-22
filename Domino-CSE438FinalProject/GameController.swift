@@ -59,10 +59,8 @@ class GameController {
         self.player3 = Player(name: player3Name, tilesOnHand: Array(boxOfTiles[7...13]))
         self.player4 = Player(name: player4Name, tilesOnHand: Array(boxOfTiles[21...27]))
         self.players = [self.player1, self.player2, self.player3, self.player4]
-        
         self.team1 = Team(teamName: team1Name, player1: player1, player2: player3)
         self.team2 = Team(teamName: team2Name, player1: player2, player2: player4)
-    
         setOrderOfRotation()
     }
 
@@ -91,43 +89,6 @@ class GameController {
     }
     
     /**
-     Called by layDownTile(), this function updates the player index, which keeps track of the current player's turn.
-     - ToDo: figure out if the isCurrentlyPlaying flag necessary to clean up code.
-     */
-    
-    func nextPlayerPlease() {
-        playerIndex = ((playerIndex + 1) % 4)
-        switch playerIndex {
-        case 0:
-            self.player1.isCurrentlyPlaying = true
-            self.player2.isCurrentlyPlaying = false
-            self.player3.isCurrentlyPlaying = false
-            self.player4.isCurrentlyPlaying = false
-            self.doYouNeedToSkip = self.player1.needsToSkip(leftMost: train.leftMostSide, rightMost: train.rightMostSide)
-        case 1:
-            self.player1.isCurrentlyPlaying = false
-            self.player2.isCurrentlyPlaying = true
-            self.player3.isCurrentlyPlaying = false
-            self.player4.isCurrentlyPlaying = false
-            self.doYouNeedToSkip = self.player2.needsToSkip(leftMost: train.leftMostSide, rightMost: train.rightMostSide)
-        case 2:
-            self.player1.isCurrentlyPlaying = false
-            self.player2.isCurrentlyPlaying = false
-            self.player3.isCurrentlyPlaying = true
-            self.player4.isCurrentlyPlaying = false
-            self.doYouNeedToSkip = self.player3.needsToSkip(leftMost: train.leftMostSide, rightMost: train.rightMostSide)
-        case 3:
-            self.player1.isCurrentlyPlaying = false
-            self.player2.isCurrentlyPlaying = false
-            self.player3.isCurrentlyPlaying = false
-            self.player4.isCurrentlyPlaying = true
-            self.doYouNeedToSkip = self.player4.needsToSkip(leftMost: train.leftMostSide, rightMost: train.rightMostSide)
-
-        default: print("this shouldnt be happening!")
-        }
-    }
-    
-    /**
      - Remark: This function reacts to when the player tries to make a move. it checks whether it is a valid move or not and updates the `Train` (which keeps track of the tiles on the table), the `Player` (which keeps track of the tiles held by each player). If successful, the `playerIndex` gets updated so that it is officially the next player's turn.
      - Parameters:
         - index: Used to specify which tile is going to be thrown. Each player has a property called `tilesInHand: [Tile]` which keeps track of the tiles the player hasn't thrown yet.
@@ -136,94 +97,29 @@ class GameController {
     
     func layDownTile(index: Int, side: Train.Side) {
         guard let validLeftMostSide = train.leftMostSide else {
-            layDownFirstTile(index: index)
+            let tile = players[playerIndex].layDownFirstTile(index: index)
+            train.leftMostSide = tile.sides[0]
+            train.rightMostSide = tile.sides[1]
+            nextPlayerPlease()
             return
         }
-        
         let validRightMostSide = train.rightMostSide!
         
-        switch playerIndex {
-        case 0:
-            if side == .left {
-                if let newLeftMostSide = self.player1.tryToLayDownTile(dotsOnSide: validLeftMostSide, tileIndex: index) {
-                    train.leftMostSide = newLeftMostSide
-                    nextPlayerPlease()
-                }
-            } else {
-                if let newRightMostSide = self.player1.tryToLayDownTile(dotsOnSide: validRightMostSide, tileIndex: index) {
-                    train.rightMostSide = newRightMostSide
-                    nextPlayerPlease()
-                }
+        if side == .left {
+            if let newLeftMostSide = players[playerIndex].tryToLayDownTile(dotsOnSide: validLeftMostSide, tileIndex: index){
+                train.leftMostSide = newLeftMostSide
+                nextPlayerPlease()
             }
-        case 1:
-            if side == .left {
-                if let newLeftMostSide = self.player2.tryToLayDownTile(dotsOnSide: validLeftMostSide, tileIndex: index) {
-                    train.leftMostSide = newLeftMostSide
-                    nextPlayerPlease()
-                }
-            } else {
-                if let newRightMostSide = self.player2.tryToLayDownTile(dotsOnSide: validRightMostSide, tileIndex: index) {
-                    train.rightMostSide = newRightMostSide
-                    nextPlayerPlease()
-                }
+        } else if side == .right {
+            if let newRightMostSide = players[playerIndex].tryToLayDownTile(dotsOnSide: validRightMostSide, tileIndex: index) {
+                train.rightMostSide = newRightMostSide
+                nextPlayerPlease()
             }
-        case 2:
-            if side == .left {
-                if let newLeftMostSide = self.player3.tryToLayDownTile(dotsOnSide: validLeftMostSide, tileIndex: index) {
-                    train.leftMostSide = newLeftMostSide
-                    nextPlayerPlease()
-                }
-            } else {
-                if let newRightMostSide = self.player3.tryToLayDownTile(dotsOnSide: validRightMostSide, tileIndex: index) {
-                    train.rightMostSide = newRightMostSide
-                    nextPlayerPlease()
-                }
-            }
-        case 3:
-            if side == .left {
-                if let newLeftMostSide = self.player4.tryToLayDownTile(dotsOnSide: validLeftMostSide, tileIndex: index) {
-                    train.leftMostSide = newLeftMostSide
-                    nextPlayerPlease()
-                }
-            } else {
-                if let newRightMostSide = self.player4.tryToLayDownTile(dotsOnSide: validRightMostSide, tileIndex: index) {
-                    train.rightMostSide = newRightMostSide
-                    nextPlayerPlease()
-                }
-            }
-        default: print("this shouldnt be happening")
         }
-    }
-    
-    /**
-     This function covers the edge case where the round has just begun and there are no tiles in the Train yet. it is called in layDownTile for safety reasons.
-     */
-    func layDownFirstTile(index: Int) {
-        switch playerIndex {
-        case 0:
-            let tile = self.player1.removeSelectedTile(index: index)
-            train.leftMostSide = tile.sides[0]
-            train.rightMostSide = tile.sides[1]
-        case 1:
-            let tile = self.player2.removeSelectedTile(index: index)
-            train.leftMostSide = tile.sides[0]
-            train.rightMostSide = tile.sides[1]
-        case 2:
-            let tile = self.player3.removeSelectedTile(index: index)
-            train.leftMostSide = tile.sides[0]
-            train.rightMostSide = tile.sides[1]
-        case 3:
-            let tile = self.player4.removeSelectedTile(index: index)
-            train.leftMostSide = tile.sides[0]
-            train.rightMostSide = tile.sides[1]
-        default: print("this shouldnt be happening")
-        }
-        nextPlayerPlease()
     }
     
     func roundIsOver() -> Bool {
         var skipCount = 0
-        
         for player in players {
             if player.needsToSkip(leftMost: train.leftMostSide, rightMost: train.rightMostSide) {
                 skipCount += 1
@@ -259,5 +155,9 @@ class GameController {
         } else {
             print("HELP")
         }
+    }
+    
+    func nextPlayerPlease() {
+        playerIndex = ((playerIndex + 1) % 4)
     }
 }

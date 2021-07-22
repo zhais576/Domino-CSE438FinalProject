@@ -1,8 +1,8 @@
 //
 //  Player.swift
-//  Domino-CSE438FinalProject
+//  DominoesOnCommandLine
 //
-//  Created by Jeanette Rovira on 7/18/21.
+//  Created by Jeanette Rovira on 7/19/21.
 //
 
 import Foundation
@@ -10,7 +10,6 @@ import UIKit
 class Player {
     var name: String
     private var tilesOnHand: [Tile]
-    var isCurrentlyPlaying: Bool = false
     
     init(name: String, tilesOnHand: [Tile]) {
         self.name = name
@@ -19,12 +18,6 @@ class Player {
     
     func getTilesOnHand() -> [Tile] {
         return tilesOnHand
-    }
-    
-    func removeSelectedTile(index: Int) -> Tile {
-        let tileToRemove = tilesOnHand[index]
-        tilesOnHand.remove(at: index)
-        return tileToRemove
     }
     
     func needsToSkip(leftMost: Int?, rightMost: Int?) -> Bool {
@@ -38,7 +31,8 @@ class Player {
         return true
     }
     
-    func tryToLayDownTile(dotsOnSide: Int, tileIndex: Int) -> Int? {
+    func tryToLayDownTile(dotsOnSide: Int?, tileIndex: Int) -> Int? {
+        
         if tilesOnHand[tileIndex].sides[0] == dotsOnSide {
             let newDotsOnSide = tilesOnHand[tileIndex].sides[1]
             tilesOnHand.remove(at: tileIndex)
@@ -51,4 +45,15 @@ class Player {
             return nil
         }
     }
+    
+    /**
+     This fucntion is for laying down the tile in the edge case where the game just began. It basically initiaites the train.
+     */
+    
+    func layDownFirstTile(index: Int) -> Tile {
+        let tileToRemove = tilesOnHand[index]
+        tilesOnHand.remove(at: index)
+        return tileToRemove
+    }
 }
+
