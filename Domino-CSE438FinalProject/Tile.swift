@@ -37,6 +37,11 @@ class Tile : UIView {
         super.init(coder: aDecoder)
     }
     
+    func updateOriginAsAnchor(point: CGPoint){
+        self.frame.origin = point
+        originalCenter = CGPoint(x: point.x + self.frame.size.width / 2, y: point.y + self.frame.size.height / 2)
+    }
+    
     //this handles the dragging gesture
     //tile must be added as a subview
     @objc func dragging(gesture: UIPanGestureRecognizer) {
@@ -47,7 +52,7 @@ class Tile : UIView {
         //when dragging is released
         if gesture.state == UIGestureRecognizer.State.ended{
             //snap back to place
-//            tile35.center = originalCenter
+            tile35.center = originalCenter
             //decide the tile is played to the left or right
             playedLeftOrRight(gesture: gesture)
         }
@@ -62,6 +67,7 @@ class Tile : UIView {
             print("Played to the right")
             self.playedTo = "right"
         }
+        print(self.frame.origin)
     }
     
     

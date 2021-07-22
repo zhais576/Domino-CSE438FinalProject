@@ -10,8 +10,12 @@ import UIKit
 
 class GameController {
     
-    let onScreen = [CGPoint(x: 5, y: 611), CGPoint(x: 60, y: 611), CGPoint(x: 115, y: 611), CGPoint(x: 170, y: 611),CGPoint(x: 225, y: 611), CGPoint(x: 280, y: 611), CGPoint(x: 335, y: 611)]
-    let offScreen = [CGPoint(x: 5, y: 1611), CGPoint(x: 60, y: 1611), CGPoint(x: 115, y: 1611), CGPoint(x: 170, y: 1611),CGPoint(x: 225, y: 1611), CGPoint(x: 280, y: 1611), CGPoint(x: 335, y: 1611)]
+    let onScreen = [CGPoint(x: 5, y: 600), CGPoint(x: 60, y: 600), CGPoint(x: 115, y: 600), CGPoint(x: 170, y: 600),CGPoint(x: 225, y: 600), CGPoint(x: 280, y: 600), CGPoint(x: 335, y: 600)]
+    
+    let p1OffScreen = [CGPoint(x: 5, y: 1600), CGPoint(x: 60, y: 1600), CGPoint(x: 115, y: 1600), CGPoint(x: 170, y: 1600),CGPoint(x: 225, y: 1600), CGPoint(x: 280, y: 1600), CGPoint(x: 335, y: 1600)]
+    let p2OffScreen = [CGPoint(x: 5, y: 2600), CGPoint(x: 60, y: 2600), CGPoint(x: 115, y: 2600), CGPoint(x: 170, y: 2600),CGPoint(x: 225, y: 2600), CGPoint(x: 280, y: 2600), CGPoint(x: 335, y: 2600)]
+    let p3OffScreen = [CGPoint(x: 5, y: 3600), CGPoint(x: 60, y: 3600), CGPoint(x: 115, y: 3600), CGPoint(x: 170, y: 3600),CGPoint(x: 225, y: 3600), CGPoint(x: 280, y: 3600), CGPoint(x: 335, y: 3600)]
+    let p4OffScreen = [CGPoint(x: 5, y: 4600), CGPoint(x: 60, y: 4600), CGPoint(x: 115, y: 4600), CGPoint(x: 170, y: 4600),CGPoint(x: 225, y: 4600), CGPoint(x: 280, y: 4600), CGPoint(x: 335, y: 4600)]
     
     /**
      This Struct is SUPER important. it keeps track of the most important details in the game board.
@@ -53,7 +57,7 @@ class GameController {
 
 //    MARK: - init
     init(team1Name: String, team2Name: String, player1Name: String, player2Name: String, player3Name: String, player4Name: String) {
-        for i in 0...6 { for j in i...6 { boxOfTiles.append(Tile(int1: i, int2: j, image: UIImage(named: "\(i)\(j)")!, frame: CGRect(origin: offScreen[0], size: CGSize(width: 50, height: 100)))) }}
+        for i in 0...6 { for j in i...6 { boxOfTiles.append(Tile(int1: i, int2: j, image: UIImage(named: "\(i)\(j)")!, frame: CGRect(origin: CGPoint(x: 5, y: 1600), size: CGSize(width: 50, height: 100)))) }}
         boxOfTiles.shuffle()
         
         self.player1 = Player(name: player1Name, tilesOnHand: Array(boxOfTiles[0...6]))
@@ -61,6 +65,15 @@ class GameController {
         self.player3 = Player(name: player3Name, tilesOnHand: Array(boxOfTiles[7...13]))
         self.player4 = Player(name: player4Name, tilesOnHand: Array(boxOfTiles[21...27]))
         self.players = [self.player1, self.player2, self.player3, self.player4]
+        
+        //move all tiles off screen in rows, p1(y = 1600), p2(y = 2600), p3(y = 3600) p4(y = 4600)
+        for i in 0..<players.count{
+            player1.getTilesOnHand()[i].updateOriginAsAnchor(point: p1OffScreen[i])
+            player2.getTilesOnHand()[i].updateOriginAsAnchor(point: p2OffScreen[i])
+            player3.getTilesOnHand()[i].updateOriginAsAnchor(point: p3OffScreen[i])
+            player4.getTilesOnHand()[i].updateOriginAsAnchor(point: p4OffScreen[i])
+        }
+        
         self.team1 = Team(teamName: team1Name, player1: player1, player2: player3)
         self.team2 = Team(teamName: team2Name, player1: player2, player2: player4)
         
@@ -77,10 +90,8 @@ class GameController {
         func setOrderOfRotation() {
             for i in 0..<players.count {
                 if checkForDoubleSix(player: players[i]) {
-                    for j in 0..<7 { players[i].getTilesOnHand()[j].frame.origin =  onScreen[j] } // if player
+                    for j in 0..<7 { players[i].getTilesOnHand()[j].updateOriginAsAnchor(point: onScreen[j])} // if player
                     self.playerIndex = i
-                } else {
-                    for j in 0..<7 { players[i].getTilesOnHand()[j].frame.origin =  offScreen[j] }
                 }
             }
         }
