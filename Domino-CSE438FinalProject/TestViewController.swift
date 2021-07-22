@@ -19,10 +19,9 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        print("load")
+
         super.viewDidLoad()
         for tile in gc.players[gc.playerIndex].getTilesOnHand() {
-            print("added tile to : \(tile.frame)")
             view.addSubview(tile)
         }
         view.setNeedsDisplay()
