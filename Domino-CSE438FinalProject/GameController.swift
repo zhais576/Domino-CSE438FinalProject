@@ -50,7 +50,7 @@ class GameController {
     var player3: Player
     var player4: Player
     var players: [Player]
-    var playerIndex = 0
+    var playerIndex = -1
     var team1: Team
     var team2: Team
     var boxOfTiles: [Tile] = []
@@ -136,6 +136,7 @@ class GameController {
             let validRightMostSide = train.rightMostSide!
             
             if players[playerIndex].getTilesOnHand()[index].playedTo == "left" {
+                print("played a tile to the left")
                 if let newLeftMostSide = players[playerIndex].tryToLayDownTile(dotsOnSide: validLeftMostSide, tileIndex: index){
                     train.leftMostSide = newLeftMostSide
                     nextPlayerPlease()

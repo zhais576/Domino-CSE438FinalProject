@@ -32,14 +32,16 @@ class Player {
     }
     
     func tryToLayDownTile(dotsOnSide: Int?, tileIndex: Int) -> Int? {
-        
+        print("player is trying to lay down tile")
         if tilesOnHand[tileIndex].sides[0] == dotsOnSide {
             let newDotsOnSide = tilesOnHand[tileIndex].sides[1]
             tilesOnHand.remove(at: tileIndex)
+            print("removed tile 1")
             return newDotsOnSide
         } else if tilesOnHand[tileIndex].sides[1] == dotsOnSide {
             let newDotsOnSide = tilesOnHand[tileIndex].sides[0]
             tilesOnHand.remove(at: tileIndex)
+            print("removed tile 2")
             return newDotsOnSide
         } else {
             return nil
@@ -55,5 +57,6 @@ class Player {
         tilesOnHand.remove(at: index)
         return tileToRemove
     }
+    
 }
 

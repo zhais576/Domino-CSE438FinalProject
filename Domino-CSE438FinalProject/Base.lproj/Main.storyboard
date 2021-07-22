@@ -151,6 +151,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="player tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWq-HJ-Fq9">
+                                        <rect key="frame" x="169" y="181" width="76" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                             </view>
@@ -161,6 +168,7 @@
                     <navigationItem key="navigationItem" id="dXb-fy-1vf"/>
                     <connections>
                         <outlet property="leftMostDotOutlet" destination="Mlj-tc-bWU" id="Kc4-tK-3tg"/>
+                        <outlet property="playerLabel" destination="vWq-HJ-Fq9" id="T8O-3z-m2G"/>
                         <outlet property="rightMostDotOutlet" destination="68u-hE-WjY" id="YB4-Ev-2vU"/>
                     </connections>
                 </viewController>
@@ -388,6 +396,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="SFz-UJ-Aa5"/>
         <segue reference="eqr-yZ-KwD"/>
         <segue reference="1T5-DG-9tK"/>
     </inferredMetricsTieBreakers>
