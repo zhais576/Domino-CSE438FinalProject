@@ -114,7 +114,7 @@ class GameController {
         func getIndexOfTileThatGotPlayed() -> Int? {
             var index = 0
             for tile in players[playerIndex].getTilesOnHand() {
-                if tile.playedTo != nil {
+                if tile.playedTo != "pending" {
                     return index
                 }
                 index += 1
@@ -136,7 +136,6 @@ class GameController {
             let validRightMostSide = train.rightMostSide!
             
             if players[playerIndex].getTilesOnHand()[index].playedTo == "left" {
-                print("played a tile to the left")
                 if let newLeftMostSide = players[playerIndex].tryToLayDownTile(dotsOnSide: validLeftMostSide, tileIndex: index){
                     train.leftMostSide = newLeftMostSide
                     nextPlayerPlease()
@@ -147,6 +146,7 @@ class GameController {
                     nextPlayerPlease()
                 }
             }
+            
         }
     /**
      Checks if the round is over, meaning it checks if a player already layed all tiles or if the game is "stuck" meaning that no player can play any tiles.
@@ -199,4 +199,7 @@ class GameController {
     func nextPlayerPlease() {
         playerIndex = ((playerIndex + 1) % 4)
     }
+    
+    
+    
 }

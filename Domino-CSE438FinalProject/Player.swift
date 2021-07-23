@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 class Player {
+    
     var name: String
+    let trashCan: CGPoint = CGPoint(x: -1000, y: -1000)
     private var tilesOnHand: [Tile]
     
     init(name: String, tilesOnHand: [Tile]) {
@@ -32,16 +34,18 @@ class Player {
     }
     
     func tryToLayDownTile(dotsOnSide: Int?, tileIndex: Int) -> Int? {
-        print("player is trying to lay down tile")
+        //print("player is trying to lay down tile")
         if tilesOnHand[tileIndex].sides[0] == dotsOnSide {
             let newDotsOnSide = tilesOnHand[tileIndex].sides[1]
+            tilesOnHand[tileIndex].updateOriginAsAnchor(point: trashCan) // this line move tile out of screen, "deleting" it
             tilesOnHand.remove(at: tileIndex)
-            print("removed tile 1")
+            //print("removed tile 1")
             return newDotsOnSide
         } else if tilesOnHand[tileIndex].sides[1] == dotsOnSide {
             let newDotsOnSide = tilesOnHand[tileIndex].sides[0]
+            tilesOnHand[tileIndex].updateOriginAsAnchor(point: trashCan) // this line move tile out of screen, "deleting" it
             tilesOnHand.remove(at: tileIndex)
-            print("removed tile 2")
+            //print("removed tile 2")
             return newDotsOnSide
         } else {
             return nil
@@ -54,6 +58,7 @@ class Player {
     
     func layDownFirstTile(index: Int) -> Tile {
         let tileToRemove = tilesOnHand[index]
+        tilesOnHand[index].updateOriginAsAnchor(point: trashCan) // this line move tile out of screen, "deleting" it
         tilesOnHand.remove(at: index)
         return tileToRemove
     }

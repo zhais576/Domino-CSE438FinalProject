@@ -12,7 +12,7 @@ class Tile : UIView {
     var sides: [Int] = [-1,-1]
     var faceImage: UIImage?
     var originalCenter: CGPoint! //copies the original center after init
-    var playedTo: String? = nil
+    var playedTo: String = "pending"
     
     init(int1: Int, int2: Int, image: UIImage, frame: CGRect) {
         
