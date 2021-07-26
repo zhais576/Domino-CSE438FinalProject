@@ -9,14 +9,14 @@ import UIKit
 
 class Tile : UIView {
     
-    //MARK: - variables
+    //MARK: - Variables
     
     var sides: [Int] = [-1,-1]
     var faceImage: UIImage?
-    var playedTo: String = "pending"
+    var playedTo: String = "pending" //state of the tile
     var originalCenter: CGPoint!
     
-    //MARK: - init
+    //MARK: - Init
     
     init(int1: Int, int2: Int, image: UIImage, frame: CGRect) {
         
@@ -37,7 +37,7 @@ class Tile : UIView {
         super.init(coder: aDecoder)
     }
     
-    //MARK: - helper functions
+    //MARK: - Helper Functions
     
     func updateOriginAsAnchor(point: CGPoint){
         self.frame.origin = point

@@ -9,7 +9,7 @@ import UIKit
 
 class GamePlayViewController: UIViewController {
     
-    var currentTile: Tile!
+    //MARK: - Outlets
     
     @IBOutlet weak var left: UILabel!
     @IBOutlet weak var right: UILabel!
@@ -17,12 +17,19 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var gameOverButton: UIButton!
     @IBOutlet weak var playerTag: UILabel!
     
+    //MARK: - Variables
+    
+    var currentTile: Tile! //the tile being dragged, not necessarily being legalled played
     let gameMaster = GameManager(player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
+    
+    //MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
     }
+    
+    //MARK: - Helper Functions
     
     func setUpView(){
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
@@ -30,25 +37,25 @@ class GamePlayViewController: UIViewController {
         right.text = "-1"
         skipButton.isHidden = true
         gameOverButton.isHidden = true
-        for tile in gameMaster.boxOfTiles{
+        for tile in gameMaster.boxOfTiles{ //add all tiles to current view
             view.addSubview(tile)
             let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragging(gesture:)))
             tile.addGestureRecognizer(gesture)
-            tile.isUserInteractionEnabled = true
+            tile.isUserInteractionEnabled = true //add gesture to each tiles
         }
-        currentTile = gameMaster.defaultTile
+        currentTile = gameMaster.defaultTile //set tile being played to default, aka a custom null
     }
     
     //Dragging gesture added to the tile class
     @objc func dragging(gesture: UIPanGestureRecognizer) {
-        currentTile = gameMaster.defaultTile
+        currentTile = gameMaster.defaultTile //reset current tile incase it is linked to another tile
         if let selectedTile = gesture.view as? Tile{
-            currentTile = selectedTile
+            currentTile = selectedTile //select the tile
             let translation = gesture.translation(in: self.view)
             currentTile.center = CGPoint(x: currentTile.center.x + translation.x, y: currentTile.center.y + translation.y)
-            gesture.setTranslation(CGPoint.zero, in: self.view)
+            gesture.setTranslation(CGPoint.zero, in: self.view) //set dragging position change
             if gesture.state == UIGestureRecognizer.State.ended{
-                //snap back to place
+                //snaps back to place
                 currentTile.center = currentTile.originalCenter
                 //checks if tile is played in the field, left or right
                 if (0...400).contains(gesture.location(in: self.view).y) { //only if the tile is moved to this zone
@@ -58,7 +65,7 @@ class GamePlayViewController: UIViewController {
                         currentTile.playedTo = "right"
                     }
                     if gameMaster.playTile(tile: currentTile){ //check if tile can be played
-                        gameMaster.skipCounter = 0
+                        gameMaster.skipCounter = 0 //reset skipCounter
                         gameMaster.removeTile(tile: currentTile)
                         if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{ // player has 0 tiles, game ends
                             gameMaster.gameOver()
@@ -95,12 +102,13 @@ class GamePlayViewController: UIViewController {
         if gameMaster.skipCounter == 4{ //skip 4 times, game ends
             gameMaster.gameOver()
             gameOverButton.isHidden = false
-            skipButton.isHidden = true
+        }else{ //else current player skip, calls for next player
+            gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
+            gameMaster.nextPlayer()
+            reloadScreen()
         }
-        gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
-        gameMaster.nextPlayer()
-        reloadScreen()
     }
+
     
     
 }

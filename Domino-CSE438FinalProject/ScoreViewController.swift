@@ -9,16 +9,8 @@ import UIKit
 
 class ScoreViewController: UIViewController {
 
-    var currentTeam1Pts: Int = 10
-    var currentTeam2Pts: Int = 0
-    var p1Dots: Int = 0
-    var p2Dots: Int = 0
-    var p3Dots: Int = 0
-    var p4Dots: Int = 0
-    var totalDots: Int = 0
-    var totalPts: Int = 0
-    var winningThreshold: Int = 20
-
+    //MARK: - Outlets
+    
     @IBOutlet weak var p1DotsLabel: UILabel!
     @IBOutlet weak var p2DotsLabel: UILabel!
     @IBOutlet weak var p3DotsLabel: UILabel!
@@ -30,6 +22,20 @@ class ScoreViewController: UIViewController {
     @IBOutlet weak var currentTeam1PtsLabel: UILabel!
     @IBOutlet weak var currentTeam2PtsLabel: UILabel!
     
+    //MARK: - Variables
+    
+    var currentTeam1Pts: Int = 10
+    var currentTeam2Pts: Int = 0
+    var p1Dots: Int = 0
+    var p2Dots: Int = 0
+    var p3Dots: Int = 0
+    var p4Dots: Int = 0
+    var totalDots: Int = 0
+    var totalPts: Int = 0
+    var winningThreshold: Int = 20
+    
+    //MARK: - Init
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //TODO: change player dots here
@@ -38,7 +44,6 @@ class ScoreViewController: UIViewController {
         p2Dots = 30
         p3Dots = 30
         p4Dots = 0
-        
         setUpView()
         addPtsToTeam()
         checkIfTeamWon()
@@ -69,28 +74,23 @@ class ScoreViewController: UIViewController {
         currentTeam2PtsLabel.text = String(currentTeam2Pts)
     }
     
-    //if team points exceed winningThreshold 20
-    //        display winning message
-    //        game ends, game controller resets
-    //        go back to team name aka ViewController class
-    //if neither of the team wins,
     func checkIfTeamWon(){
         //replace these 2 lines with proper team points
         if currentTeam1Pts >= winningThreshold{
             //team1 win
-            winningDisplay(team: "Team 1") //replace with team names
-            newGameButton.isHidden = false
+            winningDisplay(team: "Team 1") //display winning message, replace with team names
+            newGameButton.isHidden = false //new game
         }else if currentTeam2Pts >= winningThreshold{
             //team2 win
-            winningDisplay(team: "Team 2") //replace with team names
-            newGameButton.isHidden = false
+            winningDisplay(team: "Team 2") //display winning message, replace with team names
+            newGameButton.isHidden = false //new game
         }else{
             //game not end, next round
-            newRoundButton.isHidden = false
+            newRoundButton.isHidden = false //neither team meets threshold, new round
         }
     }
     
-    func winningDisplay(team: String){
+    func winningDisplay(team: String){ //UIAlert displaying winning team
         let winningAlert = UIAlertController(title: team + " has won with \(currentTeam2Pts) points!", message: nil, preferredStyle: .alert)
         winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
         self.present(winningAlert, animated: true)

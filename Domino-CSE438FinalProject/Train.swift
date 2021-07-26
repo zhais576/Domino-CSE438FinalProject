@@ -9,8 +9,16 @@ import Foundation
 
 struct Train {
     
+    //MARK: - Variables
+    
     var tiles: [Tile] = []
     var leftEnd: Int = -1
     var rightEnd: Int = -1
+    
+    //MARK: - Helper Functions
+    
+    func update(){
+        
+    }
     
 }
