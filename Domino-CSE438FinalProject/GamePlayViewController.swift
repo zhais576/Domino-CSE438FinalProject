@@ -58,14 +58,14 @@ class GamePlayViewController: UIViewController {
                     if gameMaster.playTile(tile: currentTile){ //check if tile can be played
                         gameMaster.skipCounter = 0
                         gameMaster.removeTile(tile: currentTile)
-                        if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{
+                        if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{ // player has 0 tiles, game ends
                             gameMaster.gameOver()
                             gameOverButton.isHidden = false
-                            skipButton.isHidden = true
+                        }else{
+                            gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
+                            gameMaster.nextPlayer()
+                            reloadScreen()
                         }
-                        gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
-                        gameMaster.nextPlayer()
-                        reloadScreen()
                     }
                 }
             }
@@ -88,7 +88,7 @@ class GamePlayViewController: UIViewController {
     @IBAction func skipPressed(_ sender: Any) {
         gameMaster.skipCounter += 1
         skipButton.isHidden = true
-        if gameMaster.skipCounter == 4{
+        if gameMaster.skipCounter == 4{ //skip 4 times, game ends
             gameMaster.gameOver()
             gameOverButton.isHidden = false
             skipButton.isHidden = true
