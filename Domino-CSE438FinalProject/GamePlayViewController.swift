@@ -26,7 +26,7 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let names = UserDefaultsHandler().decode(fromWhere: .playerNames) as? [String] {
+        if let names = UserDefaultsHandler().decode(fromWhere: .playerNames) as? [String] { //replace p1 p2 p3 p4 with real player names
             gameMaster.player1.name = names[0]
             gameMaster.player2.name = names[1]
             gameMaster.player3.name = names[2]
@@ -74,7 +74,6 @@ class GamePlayViewController: UIViewController {
                         gameMaster.skipCounter = 0 //reset skipCounter
                         gameMaster.removeTile(tile: currentTile)
                         if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{ // player has 0 tiles, game ends
-                            gameMaster.gameOver()
                             gameOverButton.isHidden = false
                         }else{
                             gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
@@ -106,7 +105,6 @@ class GamePlayViewController: UIViewController {
         gameMaster.skipCounter += 1
         skipButton.isHidden = true
         if gameMaster.skipCounter == 4{ //skip 4 times, game ends
-            gameMaster.gameOver()
             gameOverButton.isHidden = false
         }else{ //else current player skip, calls for next player
             gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
@@ -115,6 +113,11 @@ class GamePlayViewController: UIViewController {
         }
     }
 
+    @IBAction func gameOverPressed(_ sender: Any) {
+        let scoreVC = ScoreViewController()
+        scoreVC.gameMaster = gameMaster
+        navigationController?.pushViewController(scoreVC, animated: true)
+    }
     
     
 }

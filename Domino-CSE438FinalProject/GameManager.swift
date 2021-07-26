@@ -161,8 +161,15 @@ class GameManager {
         return noSkip
     }
     
-    func gameOver(){ //currently does nothing, will use for passing data to next vc
-        print("game over!!!")
+    func countDot(player: Int) -> Int{
+        var count = 0
+        for tile in players[player].tilesOnHand{
+            for side in tile.sides{
+                count += side
+            }
+            print("player \(player) tile: \(tile.sides)")
+        }
+        return count
     }
     
 }
