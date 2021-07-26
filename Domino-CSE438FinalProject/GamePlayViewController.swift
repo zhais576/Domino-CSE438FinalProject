@@ -15,6 +15,7 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var right: UILabel!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var gameOverButton: UIButton!
+    @IBOutlet weak var playerTag: UILabel!
     
     let gameMaster = GameManager(player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
     
@@ -24,6 +25,7 @@ class GamePlayViewController: UIViewController {
     }
     
     func setUpView(){
+        playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
         left.text = "-1"
         right.text = "-1"
         skipButton.isHidden = true
@@ -73,6 +75,8 @@ class GamePlayViewController: UIViewController {
     }
     
     func reloadScreen(){
+        //update current player tag
+        playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
         //update train int
         left.text = String(gameMaster.train.leftEnd)
         right.text = String(gameMaster.train.rightEnd)

@@ -42,6 +42,7 @@ class ScoreViewController: UIViewController {
         setUpView()
         addPtsToTeam()
         checkIfTeamWon()
+        
     }
     
     func setUpView(){
