@@ -33,7 +33,7 @@ class ScoreViewController: UIViewController {
     var p4Dots: Int = 0
     var totalDots: Int = 0
     var totalPts: Int = 0
-    var winningThreshold: Int = 20
+    var winningThreshold: Int = 6
     
     //MARK: - Init
     

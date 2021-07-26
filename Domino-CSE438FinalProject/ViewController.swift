@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)//hides navigation bar
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         startButton.isHidden = true
         clearAll() //clears all textfield and user defaults
     }
