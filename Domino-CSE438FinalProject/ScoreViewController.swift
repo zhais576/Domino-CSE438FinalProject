@@ -25,7 +25,7 @@ class ScoreViewController: UIViewController {
     //MARK: - Variables
     
     var gameMaster: GameManager!
-    var currentTeam1Pts: Int = 0 //TODO: load team scores from userdefaults
+    var currentTeam1Pts: Int = 0
     var currentTeam2Pts: Int = 0
     var p1Dots: Int = 0
     var p2Dots: Int = 0
@@ -40,15 +40,18 @@ class ScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        //TODO: change player dots here
+        //calculate player dots
         p1Dots = gameMaster.countDot(player: 0)
         p2Dots = gameMaster.countDot(player: 1)
         p3Dots = gameMaster.countDot(player: 2)
         p4Dots = gameMaster.countDot(player: 3)
+        //loads previous team scores
+        currentTeam1Pts = UserDefaultsHandler().decode(fromWhere: .team1Score) as! Int
+        currentTeam2Pts = UserDefaultsHandler().decode(fromWhere: .team2Score) as! Int
         //calculate the points of each player here, load to pts variable
         setUpView()
         addPtsToTeam()
-        checkIfTeamWon() 
+        checkIfTeamWon()
     }
     
     func setUpView(){
@@ -110,7 +113,9 @@ class ScoreViewController: UIViewController {
         //reset team pts labels
         team1PtsLabel.text = String(currentTeam1Pts)
         team2PtsLabel.text = String(currentTeam2Pts)
-        //TODO: update currentTeam1Pts and currentTeam2Pts to userdefault
+        //update currentTeam1Pts and currentTeam2Pts to userdefault
+        UserDefaultsHandler().encode(data: currentTeam1Pts, whereTo: .team1Score)
+        UserDefaultsHandler().encode(data: currentTeam2Pts, whereTo: .team2Score)
     }
     
     func checkIfTeamWon(){
@@ -136,11 +141,12 @@ class ScoreViewController: UIViewController {
     }
     
     @objc func newGamePressed(){
-        
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func newRoundPressed(){
-        
+        let newGame = GamePlayViewController()
+        navigationController?.pushViewController(newGame, animated: true)
     }
 
 }

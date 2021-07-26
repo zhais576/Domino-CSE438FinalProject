@@ -11,16 +11,16 @@ class GamePlayViewController: UIViewController {
     
     //MARK: - Outlets
     
-    @IBOutlet weak var left: UILabel!
-    @IBOutlet weak var right: UILabel!
-    @IBOutlet weak var skipButton: UIButton!
-    @IBOutlet weak var gameOverButton: UIButton!
-    @IBOutlet weak var playerTag: UILabel!
+    var left: UILabel!
+    var right: UILabel!
+    var skipButton: UIButton!
+    var gameOverButton: UIButton!
+    var playerTag: UILabel!
     
     //MARK: - Variables
     
     var currentTile: Tile! //the tile being dragged, not necessarily being legalled played
-    var gameMaster = GameManager(player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
+    var gameMaster: GameManager = GameManager(player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
     
     //MARK: - Init
     
@@ -38,6 +38,26 @@ class GamePlayViewController: UIViewController {
     //MARK: - Helper Functions
     
     func setUpView(){
+        view.backgroundColor = .systemGreen
+        //setup labels
+        left = UILabel(frame: CGRect(x: 77, y: 200, width: 64, height: 21))
+        view.addSubview(left)
+        right = UILabel(frame: CGRect(x: 263, y: 200, width: 74, height: 21))
+        view.addSubview(right)
+        playerTag = UILabel(frame: CGRect(x: 8, y: 620, width: 374, height: 21))
+        view.addSubview(playerTag)
+        //setup Buttons
+        skipButton = UIButton(frame: CGRect(x: 146, y: 266, width: 120, height: 120))
+        skipButton.backgroundColor = .systemPink
+        skipButton.setTitle("Skip", for: .normal)
+        skipButton.addTarget(self, action: #selector(skipPressed), for: .touchUpInside)
+        view.addSubview(skipButton)
+        gameOverButton = UIButton(frame: CGRect(x: 146, y: 417, width: 120, height: 120))
+        gameOverButton.backgroundColor = .systemBlue
+        gameOverButton.setTitle("Game Over", for: .normal)
+        gameOverButton.addTarget(self, action: #selector(gameOverPressed), for: .touchUpInside)
+        view.addSubview(gameOverButton)
+        //load labels
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
         left.text = "-1"
         right.text = "-1"
@@ -100,8 +120,7 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-    
-    @IBAction func skipPressed(_ sender: Any) {
+    @objc func skipPressed(){
         gameMaster.skipCounter += 1
         skipButton.isHidden = true
         if gameMaster.skipCounter == 4{ //skip 4 times, game ends
@@ -112,12 +131,11 @@ class GamePlayViewController: UIViewController {
             reloadScreen()
         }
     }
-
-    @IBAction func gameOverPressed(_ sender: Any) {
+    
+    @objc func gameOverPressed(){
         let scoreVC = ScoreViewController()
         scoreVC.gameMaster = gameMaster
         navigationController?.pushViewController(scoreVC, animated: true)
     }
-    
     
 }

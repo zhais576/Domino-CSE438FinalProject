@@ -82,7 +82,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Clear"/>
                                 <connections>
-                                    <action selector="clearAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8HY-Iz-P4e"/>
+                                    <action selector="clearPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="irU-8G-phx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYR-9u-m9D">
@@ -90,7 +90,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
-                                    <segue destination="s19-fO-gzH" kind="show" id="4cC-7e-nEK"/>
+                                    <action selector="startPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S2Y-Vj-GCv"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EGe-e5-8yb">
@@ -134,9 +134,6 @@
                                         <color key="backgroundColor" systemColor="systemPinkColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Skip"/>
-                                        <connections>
-                                            <action selector="skipPressed:" destination="s19-fO-gzH" eventType="touchUpInside" id="1b5-kJ-EgG"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Left End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRb-Vx-Reg">
                                         <rect key="frame" x="77" y="200" width="64" height="21"/>
@@ -160,9 +157,6 @@
                                         <state key="normal" title="Game Over">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
-                                        <connections>
-                                            <action selector="gameOverPressed:" destination="s19-fO-gzH" eventType="touchUpInside" id="Duf-Ne-LH8"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33b-UF-h0R">
                                         <rect key="frame" x="8" y="620" width="374" height="21"/>
@@ -179,13 +173,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="dXb-fy-1vf"/>
-                    <connections>
-                        <outlet property="gameOverButton" destination="J7h-Bt-NAa" id="KoU-M8-w8M"/>
-                        <outlet property="left" destination="WRb-Vx-Reg" id="d52-sL-uAB"/>
-                        <outlet property="playerTag" destination="33b-UF-h0R" id="HAV-Mf-EEP"/>
-                        <outlet property="right" destination="SnI-oe-7Cg" id="Kvy-P8-U7J"/>
-                        <outlet property="skipButton" destination="gMY-UX-W0V" id="YVI-qm-HwA"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DAQ-nc-cou" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -275,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C07-bB-y5e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1276.9230769230769" y="882.93838862559232"/>
+            <point key="canvasLocation" x="1003" y="756"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mlg-sC-iJS">
