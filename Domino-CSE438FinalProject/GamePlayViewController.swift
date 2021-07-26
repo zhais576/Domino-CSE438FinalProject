@@ -20,12 +20,18 @@ class GamePlayViewController: UIViewController {
     //MARK: - Variables
     
     var currentTile: Tile! //the tile being dragged, not necessarily being legalled played
-    let gameMaster = GameManager(player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
+    var gameMaster = GameManager(player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
     
     //MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let names = UserDefaultsHandler().decode(fromWhere: .playerNames) as? [String] {
+            gameMaster.player1.name = names[0]
+            gameMaster.player2.name = names[1]
+            gameMaster.player3.name = names[2]
+            gameMaster.player4.name = names[3]
+        }
         setUpView()
     }
     

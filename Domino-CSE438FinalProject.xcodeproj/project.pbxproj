@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FB26A4DE98002B45AD /* Tile.swift */; };
 		1C43D20026A4F1CF002B45AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FF26A4F1CF002B45AD /* Player.swift */; };
+		1CF3BBBD26AF3FF400E0E2DC /* UserDefaultsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */; };
 		FD2D90CD26AF1BC700EE5A91 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2D90CC26AF1BC700EE5A91 /* GameManager.swift */; };
 		FD2D90CF26AF1BEF00EE5A91 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2D90CE26AF1BEF00EE5A91 /* Train.swift */; };
 		FDDBC24926A7463500307A10 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDBC24826A7463500307A10 /* GamePlayViewController.swift */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		1C43D1FB26A4DE98002B45AD /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		1C43D1FF26A4F1CF002B45AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHandler.swift; sourceTree = "<group>"; };
 		FD2D90CC26AF1BC700EE5A91 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		FD2D90CE26AF1BEF00EE5A91 /* Train.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train.swift; sourceTree = "<group>"; };
 		FDDBC24826A7463500307A10 /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				FDF894B2269A6B83009E7FC7 /* SceneDelegate.swift */,
 				FDF894B4269A6B83009E7FC7 /* ViewController.swift */,
 				FDDBC24826A7463500307A10 /* GamePlayViewController.swift */,
+				1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */,
 				FDDBC24C26A7DA5700307A10 /* ScoreViewController.swift */,
 				FD2D90CC26AF1BC700EE5A91 /* GameManager.swift */,
 				1C43D1FB26A4DE98002B45AD /* Tile.swift */,
@@ -162,6 +165,7 @@
 				1C43D20026A4F1CF002B45AD /* Player.swift in Sources */,
 				1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */,
 				FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */,
+				1CF3BBBD26AF3FF400E0E2DC /* UserDefaultsHandler.swift in Sources */,
 				FD2D90CF26AF1BEF00EE5A91 /* Train.swift in Sources */,
 				FDDBC24D26A7DA5700307A10 /* ScoreViewController.swift in Sources */,
 			);

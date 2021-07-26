@@ -34,6 +34,7 @@ class ViewController: UIViewController {
             self.present(namePrompt, animated: true)
             return
         }
+        UserDefaultsHandler().encode(data: [p1TextField.text!, p2TextField.text!, p3TextField.text!, p4TextField.text!], whereTo: .playerNames)
         startButton.isHidden = false //display start button
     }
     
