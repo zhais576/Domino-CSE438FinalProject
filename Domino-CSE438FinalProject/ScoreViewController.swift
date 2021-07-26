@@ -39,12 +39,12 @@ class ScoreViewController: UIViewController {
         p3Dots = 30
         p4Dots = 0
         
-        setUpScores()
+        setUpView()
         addPtsToTeam()
         checkIfTeamWon()
     }
     
-    func setUpScores(){
+    func setUpView(){
         totalDots = p1Dots + p2Dots + p3Dots + p4Dots
         totalPts = Int(round(Double(totalDots / 10)))
         //update dots labels
@@ -54,6 +54,8 @@ class ScoreViewController: UIViewController {
         p4DotsLabel.text = String(p4Dots)
         totalDotsLabel.text = String(totalDots)
         totalPtsLabel.text = String(totalPts)
+        newGameButton.isHidden = true
+        newRoundButton.isHidden = true
     }
     
     func addPtsToTeam(){
@@ -76,14 +78,14 @@ class ScoreViewController: UIViewController {
         if currentTeam1Pts >= winningThreshold{
             //team1 win
             winningDisplay(team: "Team 1") //replace with team names
-            newGameButton.frame.origin.y = 764
+            newGameButton.isHidden = false
         }else if currentTeam2Pts >= winningThreshold{
             //team2 win
             winningDisplay(team: "Team 2") //replace with team names
-            newGameButton.frame.origin.y = 764
+            newGameButton.isHidden = false
         }else{
             //game not end, next round
-            newRoundButton.frame.origin.y = 764
+            newRoundButton.isHidden = false
         }
     }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var p1TextField: UITextField!
     @IBOutlet weak var p2TextField: UITextField!
     @IBOutlet weak var p3TextField: UITextField!
@@ -18,8 +18,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
+        startButton.isHidden = true
     }
-
+    
     
     @IBAction func readyPressed(_ sender: Any) {
         if p1TextField.text == "" || p2TextField.text == "" || p3TextField.text == "" || p4TextField.text == ""{
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
             self.present(namePrompt, animated: true)
             return
         }
-        startButton.frame.origin.y = 721
+        startButton.isHidden = false
     }
     
     @IBAction func clearAll(_ sender: Any) {
