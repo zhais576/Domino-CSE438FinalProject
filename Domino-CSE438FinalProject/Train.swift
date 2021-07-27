@@ -33,9 +33,7 @@ struct Train {
         for tile in tiles {
             
             if leftIndex < 1 {
-                
                 tile.frame = CGRect(origin: leftPositions[leftIndex], size: CGSize(width: 50, height: 100))
-                tile.transform = tile.transform.rotated(by: .pi/2)
                 leftIndex += 1
                 rightIndex += 1
                 
@@ -43,11 +41,9 @@ struct Train {
                 
                 if tile.playedTo == "left" {
                     tile.frame = CGRect(origin: leftPositions[leftIndex], size: CGSize(width: 50, height: 100))
-                    tile.transform = tile.transform.rotated(by: .pi/2)
                     leftIndex += 1
                 } else {
                     tile.frame = CGRect(origin: rightPositions[rightIndex], size: CGSize(width: 50, height: 100))
-                    tile.transform =  tile.transform.rotated(by: 3 * .pi / 2)
                     rightIndex += 1
                 }
                 

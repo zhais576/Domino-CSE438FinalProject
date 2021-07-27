@@ -106,6 +106,7 @@ class GameManager {
         if train.leftEnd == -1{ //first tile ever played in a round
             train.leftEnd = tile.sides[0]
             train.rightEnd = tile.sides[1]
+            tile.transform = tile.transform.rotated(by: .pi/2)
             return true
         }
         if tile.playedTo == "left"{ //played to the right or left, checks if valid move here.
@@ -113,9 +114,12 @@ class GameManager {
                 //update train left end
                 if tile.sides[0] == train.leftEnd{
                     train.leftEnd = tile.sides[1]
-                }else{
+                    tile.transform = tile.transform.rotated(by: -1 * .pi/2)
+                } else{
                     train.leftEnd = tile.sides[0]
+                    tile.transform = tile.transform.rotated(by: -1 * .pi/2)
                 }
+                print("\(tile.sides[0]) - \(tile.sides[1])")
                 return true
             }
         }else if tile.playedTo == "right"{
@@ -123,10 +127,12 @@ class GameManager {
                 //update train right end
                 if tile.sides[0] == train.rightEnd{
                     train.rightEnd = tile.sides[1]
+                    tile.transform = tile.transform.rotated(by: .pi / 2)
                 }else{
                     train.rightEnd = tile.sides[0]
+                    tile.transform = tile.transform.rotated(by: .pi / 2)
                 }
-                //
+                print("\(tile.sides[0]) - \(tile.sides[1])")
                 return true
             }
         }
