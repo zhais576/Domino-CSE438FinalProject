@@ -41,7 +41,7 @@ class GameManager {
         //create all 28 tiles
         for i in 0...6 {
             for j in i...6 {
-                let tile = Tile(int1: i, int2: j, image: UIImage(named: "\(i)\(j)")!, frame: CGRect(origin: CGPoint(x: 5, y: 1600), size: CGSize(width: 50, height: 100)))
+                let tile = Tile(int1: i, int2: j, image: UIImage(named: "\(i)\(j)")!, frame: CGRect(origin: CGPoint(x: 5, y: 1600), size: CGSize(width: 25, height: 50)))
                 boxOfTiles.append(tile)
             }
         }

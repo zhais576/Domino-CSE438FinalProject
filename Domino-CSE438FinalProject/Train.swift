@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Train {
     
@@ -17,7 +18,37 @@ struct Train {
     
     //MARK: - Helper Functions
     
-    func update(){
+    let firstPosition = CGPoint(x: 170, y: 65)
+    
+    let leftPositions = [CGPoint(x: 120, y: 65), CGPoint(x: 70, y: 65), CGPoint(x: 20, y: 65), // First One DOWN
+                         CGPoint(x: 20, y: 90), CGPoint(x: 20, y: 140), CGPoint(x: 20, y: 190), CGPoint(x: 20, y: 240), CGPoint(x: 20, y: 290), CGPoint(x: 20, y: 340), CGPoint(x: 20, y: 390), CGPoint(x: 20, y: 440), CGPoint(x: 20, y: 490), CGPoint(x: 20, y: 540), CGPoint(x: 20, y: 590) ]
+    let rightPositions = [CGPoint(x: 220, y: 65), CGPoint(x: 270, y: 65), CGPoint(x: 320, y: 65), // First One DOWN
+                          CGPoint(x: 345, y: 90), CGPoint(x: 345, y: 140), CGPoint(x: 345, y: 190), CGPoint(x: 345, y: 240), CGPoint(x: 345, y: 290), CGPoint(x: 345, y: 340), CGPoint(x: 345, y: 390), CGPoint(x: 345, y: 440), CGPoint(x: 345, y: 490), CGPoint(x: 345, y: 540), CGPoint(x: 345, y: 590) ]
+    
+    
+    
+    func drawTiles(){
+        var leftIndex = 0
+        var rightIndex = 0
+        for tile in tiles {
+            
+            if tiles.count <= 1 {
+                
+                tile.frame = CGRect(origin: firstPosition, size: CGSize(width: 50, height: 100))
+                
+            } else {
+                
+                if tile.playedTo == "left" {
+                    tile.frame = CGRect(origin: leftPositions[leftIndex], size: CGSize(width: 50, height: 100))
+                    leftIndex += 1
+                } else {
+                    tile.frame(forAlignmentRect: CGRect(origin: rightPositions[rightIndex], size: CGSize(width: 50, height: 100)))
+                    rightIndex += 1
+                }
+                
+            }
+            
+        }
         
     }
     

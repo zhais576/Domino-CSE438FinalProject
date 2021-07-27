@@ -44,6 +44,13 @@ class GamePlayViewController: UIViewController {
     
     //MARK: - Helper Functions
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let position = touch.location(in: view)
+              print(position)
+            }
+    }
+    
     func setUpView(){
         view.backgroundColor = .systemGreen
         //setup team scores
@@ -141,6 +148,9 @@ class GamePlayViewController: UIViewController {
         right.text = String(gameMaster.train.rightEnd)
         //exchange onboard tiles with new player's tiles
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
+        // draw tiles
+        gameMaster.train.drawTiles()
+        
         //if player cannot play, prompt skip
         if !gameMaster.canPlay(player: gameMaster.currentPlayer){
             skipButton.isHidden = false
