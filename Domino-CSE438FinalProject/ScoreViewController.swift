@@ -85,9 +85,17 @@ class ScoreViewController: UIViewController {
         newRoundButton.backgroundColor = .systemGreen
         newRoundButton.addTarget(self, action: #selector(newRoundPressed), for: .touchUpInside)
         view.addSubview(newRoundButton)
+        
+        
         //set up total dots and points
         totalDots = p1Dots + p2Dots + p3Dots + p4Dots
-        totalPts = Int(round(Double(totalDots / 10)))
+        
+        if totalDots % 10 < 5 {
+            totalPts = totalDots/10
+        } else {
+            totalPts = totalDots/10 + 1
+        }
+        
         //update dots labels
         p1DotsLabel.text = "Player \(gameMaster.player1.name): \(p1Dots) dots"
         p2DotsLabel.text = "Player \(gameMaster.player2.name): \(p2Dots) dots"
@@ -122,11 +130,15 @@ class ScoreViewController: UIViewController {
         //replace these 2 lines with proper team points
         if currentTeam1Pts >= winningThreshold{
             //team1 win
-            winningDisplay(team: "Team 1") //display winning message, replace with team names
-            newGameButton.isHidden = false //new game
+            let winningAlert = UIAlertController(title: "team 1  has won with with a score of 20 - \(currentTeam2Pts)!", message: nil, preferredStyle: .alert)
+            winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            self.present(winningAlert, animated: true)
+            newGameButton.isHidden = false // new game
         }else if currentTeam2Pts >= winningThreshold{
             //team2 win
-            winningDisplay(team: "Team 2") //display winning message, replace with team names
+            let winningAlert = UIAlertController(title: "team 2  has won with with a score of 20 - \(currentTeam1Pts)!", message: nil, preferredStyle: .alert)
+            winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            self.present(winningAlert, animated: true)
             newGameButton.isHidden = false //new game
         }else{
             print("no team won yet")
@@ -134,18 +146,18 @@ class ScoreViewController: UIViewController {
         }
     }
     
-    func winningDisplay(team: String){ //UIAlert displaying winning team
-        let winningAlert = UIAlertController(title: team + " has won with \(currentTeam2Pts) points!", message: nil, preferredStyle: .alert)
-        winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
-        self.present(winningAlert, animated: true)
-    }
-    
     @objc func newGamePressed(){
+        UserDefaultsHandler().encode(data: 0, whereTo: .team1Score)
+        UserDefaultsHandler().encode(data: 0, whereTo: .team2Score)
         navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func newRoundPressed(){
         let newGame = GamePlayViewController()
+        newGame.team1Score = self.currentTeam1Pts
+        newGame.team2Score = self.currentTeam2Pts
+        UserDefaultsHandler().encode(data: self.currentTeam1Pts, whereTo: .team1Score)
+        UserDefaultsHandler().encode(data: self.currentTeam2Pts, whereTo: .team2Score)
         navigationController?.pushViewController(newGame, animated: true)
     }
 

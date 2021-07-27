@@ -20,6 +20,7 @@ class GamePlayViewController: UIViewController {
     var left: UILabel!
     var right: UILabel!
     var skipButton: UIButton!
+    var roundOverButton: UIButton!
     var gameOverButton: UIButton!
     var playerTag: UILabel!
     
@@ -47,29 +48,40 @@ class GamePlayViewController: UIViewController {
         view.backgroundColor = .systemGreen
         //setup team scores
         team1ScoreLabel = UILabel(frame: CGRect(x: 10, y: 35, width: view.frame.width/2, height: 21))
-        team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): 0"
+        team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
         view.addSubview(team1ScoreLabel)
         team2ScoreLabel = UILabel(frame: CGRect(x: view.frame.width/2, y: 35, width: view.frame.width/2, height: 21))
-        team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): 0"
+        team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
         view.addSubview(team2ScoreLabel)
         
         //setup team labels
+        
         left = UILabel(frame: CGRect(x: 77, y: 200, width: 64, height: 21))
         view.addSubview(left)
         right = UILabel(frame: CGRect(x: 263, y: 200, width: 74, height: 21))
         view.addSubview(right)
         playerTag = UILabel(frame: CGRect(x: 8, y: 620, width: 374, height: 21))
         view.addSubview(playerTag)
-        //setup Buttons
+        
+        //setup Skip
         skipButton = UIButton(frame: CGRect(x: 146, y: 266, width: 120, height: 120))
         skipButton.backgroundColor = .systemPink
         skipButton.setTitle("Skip", for: .normal)
         skipButton.addTarget(self, action: #selector(skipPressed), for: .touchUpInside)
         view.addSubview(skipButton)
+        
+        //setup Round Over
+        roundOverButton = UIButton(frame: CGRect(x: 146, y: 417, width: 120, height: 120))
+        roundOverButton.backgroundColor = .systemBlue
+        roundOverButton.setTitle("Round Over", for: .normal)
+        roundOverButton.addTarget(self, action: #selector(roundIsOver), for: .touchUpInside)
+        view.addSubview(roundOverButton)
+        
+        // setup game Over
         gameOverButton = UIButton(frame: CGRect(x: 146, y: 417, width: 120, height: 120))
+        gameOverButton.setTitle("New Game", for: .normal)
         gameOverButton.backgroundColor = .systemBlue
-        gameOverButton.setTitle("Game Over", for: .normal)
-        gameOverButton.addTarget(self, action: #selector(gameOverPressed), for: .touchUpInside)
+        gameOverButton.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
         view.addSubview(gameOverButton)
         //load labels
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
@@ -77,6 +89,7 @@ class GamePlayViewController: UIViewController {
         right.text = "-1"
         skipButton.isHidden = true
         gameOverButton.isHidden = true
+        roundOverButton.isHidden = true
         for tile in gameMaster.boxOfTiles{ //add all tiles to current view
             view.addSubview(tile)
             let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragging(gesture:)))
@@ -108,7 +121,7 @@ class GamePlayViewController: UIViewController {
                         gameMaster.skipCounter = 0 //reset skipCounter
                         gameMaster.removeTile(tile: currentTile)
                         if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{ // player has 0 tiles, game ends
-                            gameOverButton.isHidden = false
+                            roundOverButton.isHidden = false
                         }else{
                             gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
                             gameMaster.nextPlayer()
@@ -134,37 +147,56 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-    @objc func skipPressed(){
-        gameMaster.skipCounter += 1
-        switch gameMaster.currentPlayer {
-        case 1, 3:
-            team1Score += 1
-            team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(team1Score)"
-            UserDefaultsHandler().encode(data: team1Score, whereTo: .team1Score)
-        default:
-            team2Score += 1
-            team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(team2Score)"
-            UserDefaultsHandler().encode(data: team2Score, whereTo: .team2Score)
-        }
+    // MARK: - SKIP PRESSED
     
-         // MARK: -TODO
-//        if gameMaster.skipCounter == 2 {
-//
-//        }
+    @objc func skipPressed() {
+        gameMaster.skipCounter += 1
+        print(gameMaster.skipCounter)
+//        Defines the logic for awarding points (to the other team) for skipping your turn.
+        if gameMaster.skipCounter == 1 || gameMaster.skipCounter == 3 { // This if statement is here because you can't concede for making your own team-mate skip his/her turn.
+            switch gameMaster.currentPlayer {
+            case 1, 3: // if members of team 2 skip their turn, team 1 gets some points.
+                team1Score += 1
+                team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(team1Score)"
+                UserDefaultsHandler().encode(data: team1Score, whereTo: .team1Score)
+            default:
+                team2Score += 1
+                team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(team2Score)"
+                UserDefaultsHandler().encode(data: team2Score, whereTo: .team2Score)
+            }
+        }
         skipButton.isHidden = true
-        if gameMaster.skipCounter == 4{ //skip 4 times, game ends
+        if gameMaster.skipCounter == 4{ //skip 4 times, round ends
+            roundOverButton.isHidden = false
+        } else if team1Score >= 1 {
+            let winningAlert = UIAlertController(title: "team has won with with a score of 20 - \(team2Score)!", message: nil, preferredStyle: .alert)
+            winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            self.present(winningAlert, animated: true)
             gameOverButton.isHidden = false
-        }else{ //else current player skip, calls for next player
+        } else if team2Score >= 1 {
+            let winningAlert = UIAlertController(title: "team 2 has won with with a score of 20 - \(team1Score)!", message: nil, preferredStyle: .alert)
+            winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            self.present(winningAlert, animated: true)
+            gameOverButton.isHidden = false
+        }else { //else current player skip, calls for next player
             gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
             gameMaster.nextPlayer()
             reloadScreen()
         }
     }
     
-    @objc func gameOverPressed(){
+    // MARK: - GAME OVER PRESSED
+    
+    @objc func roundIsOver(){
         let scoreVC = ScoreViewController()
         scoreVC.gameMaster = gameMaster
         navigationController?.pushViewController(scoreVC, animated: true)
     }
     
+    
+    @objc func newGamePressed(){
+        UserDefaultsHandler().encode(data: 0, whereTo: .team1Score)
+        UserDefaultsHandler().encode(data: 0, whereTo: .team2Score)
+        navigationController?.popToRootViewController(animated: true)
+    }
 }

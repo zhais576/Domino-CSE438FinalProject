@@ -60,6 +60,9 @@ class GameManager {
         displayOffScreen(player: 4)
         //decide which player goes first, and move first player's tile on screen
         checkFirst()
+        // Encode both team's scores to zero
+        UserDefaultsHandler().encode(data: 0, whereTo: .team1Score)
+        UserDefaultsHandler().encode(data: 0, whereTo: .team2Score)
     }
     
     //MARK: - Helper Functions
