@@ -168,12 +168,12 @@ class GamePlayViewController: UIViewController {
         skipButton.isHidden = true
         if gameMaster.skipCounter == 4{ //skip 4 times, round ends
             roundOverButton.isHidden = false
-        } else if team1Score >= 1 {
+        } else if team1Score >= 20 {
             let winningAlert = UIAlertController(title: "team has won with with a score of 20 - \(team2Score)!", message: nil, preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
             gameOverButton.isHidden = false
-        } else if team2Score >= 1 {
+        } else if team2Score >= 20 {
             let winningAlert = UIAlertController(title: "team 2 has won with with a score of 20 - \(team1Score)!", message: nil, preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
