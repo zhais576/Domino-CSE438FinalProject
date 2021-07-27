@@ -11,6 +11,12 @@ class GamePlayViewController: UIViewController {
     
     //MARK: - Outlets
     
+    var team1ScoreLabel: UILabel!
+    var team2ScoreLabel: UILabel!
+    
+    var team1Score = 0
+    var team2Score = 0
+    
     var left: UILabel!
     var right: UILabel!
     var skipButton: UIButton!
@@ -39,7 +45,15 @@ class GamePlayViewController: UIViewController {
     
     func setUpView(){
         view.backgroundColor = .systemGreen
-        //setup labels
+        //setup team scores
+        team1ScoreLabel = UILabel(frame: CGRect(x: 10, y: 35, width: view.frame.width/2, height: 21))
+        team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): 0"
+        view.addSubview(team1ScoreLabel)
+        team2ScoreLabel = UILabel(frame: CGRect(x: view.frame.width/2, y: 35, width: view.frame.width/2, height: 21))
+        team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): 0"
+        view.addSubview(team2ScoreLabel)
+        
+        //setup team labels
         left = UILabel(frame: CGRect(x: 77, y: 200, width: 64, height: 21))
         view.addSubview(left)
         right = UILabel(frame: CGRect(x: 263, y: 200, width: 74, height: 21))
@@ -122,6 +136,21 @@ class GamePlayViewController: UIViewController {
     
     @objc func skipPressed(){
         gameMaster.skipCounter += 1
+        switch gameMaster.currentPlayer {
+        case 1, 3:
+            team1Score += 1
+            team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(team1Score)"
+            UserDefaultsHandler().encode(data: team1Score, whereTo: .team1Score)
+        default:
+            team2Score += 1
+            team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(team2Score)"
+            UserDefaultsHandler().encode(data: team2Score, whereTo: .team2Score)
+        }
+    
+         // MARK: -TODO
+//        if gameMaster.skipCounter == 2 {
+//
+//        }
         skipButton.isHidden = true
         if gameMaster.skipCounter == 4{ //skip 4 times, game ends
             gameOverButton.isHidden = false
