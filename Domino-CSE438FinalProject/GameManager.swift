@@ -113,26 +113,26 @@ class GameManager {
             if tile.sides.contains(train.leftEnd){ //if can be played to the left
                 //update train left end
                 if tile.sides[0] == train.leftEnd{
+                    print("\(tile.sides[0])-\(tile.sides[1])")
+                    tile.transform = tile.transform.rotated(by: .pi/2)
                     train.leftEnd = tile.sides[1]
-                    tile.transform = tile.transform.rotated(by: -1 * .pi/2)
                 } else{
+                    print("\(tile.sides[1])-\(tile.sides[0])")
+                    tile.transform = tile.transform.rotated(by: -.pi/2)
                     train.leftEnd = tile.sides[0]
-                    tile.transform = tile.transform.rotated(by: -1 * .pi/2)
                 }
-                print("\(tile.sides[0]) - \(tile.sides[1])")
                 return true
             }
         }else if tile.playedTo == "right"{
             if tile.sides.contains(train.rightEnd){ //if can be played to the right
                 //update train right end
                 if tile.sides[0] == train.rightEnd{
+                    tile.transform = tile.transform.rotated(by: -.pi/2)
                     train.rightEnd = tile.sides[1]
-                    tile.transform = tile.transform.rotated(by: .pi / 2)
                 }else{
+                    tile.transform = tile.transform.rotated(by: .pi/2)
                     train.rightEnd = tile.sides[0]
-                    tile.transform = tile.transform.rotated(by: .pi / 2)
                 }
-                print("\(tile.sides[0]) - \(tile.sides[1])")
                 return true
             }
         }

@@ -28,22 +28,21 @@ struct Train {
     
     
     func drawTiles(){
-        var leftIndex = 0
         var rightIndex = 0
+        var leftIndex = 0
         for tile in tiles {
-            
             if leftIndex < 1 {
-                tile.frame = CGRect(origin: leftPositions[leftIndex], size: CGSize(width: 50, height: 100))
+                tile.center = leftPositions[leftIndex]
                 leftIndex += 1
                 rightIndex += 1
                 
             } else {
                 
                 if tile.playedTo == "left" {
-                    tile.frame = CGRect(origin: leftPositions[leftIndex], size: CGSize(width: 50, height: 100))
+                    tile.center = leftPositions[leftIndex]
                     leftIndex += 1
                 } else {
-                    tile.frame = CGRect(origin: rightPositions[rightIndex], size: CGSize(width: 50, height: 100))
+                    tile.center = rightPositions[rightIndex]
                     rightIndex += 1
                 }
                 
