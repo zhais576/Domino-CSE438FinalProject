@@ -9,6 +9,13 @@ import UIKit
 
 class GamePlayViewController: UIViewController {
     
+    //MARK: - Constants
+    
+    let miniTileRightPositions = [CGPoint(x: 375, y: 120), CGPoint(x: 375, y: 150),CGPoint(x: 375, y: 180), CGPoint(x: 375, y: 210), CGPoint(x: 375, y: 240), CGPoint(x: 375, y: 270), CGPoint(x: 375, y: 300)]
+    let miniTileLeftPositions = [CGPoint(x: -35, y: 120), CGPoint(x: -35, y: 150),CGPoint(x: -35, y: 180), CGPoint(x: -35, y: 210), CGPoint(x: -35, y: 240), CGPoint(x: -35, y: 270), CGPoint(x: -35, y: 300)]
+    let miniTileUpPositions = [CGPoint(x: 93, y: 75), CGPoint(x: 123, y: 75),CGPoint(x: 153, y: 75), CGPoint(x: 183, y: 75), CGPoint(x: 213, y: 75), CGPoint(x: 243, y: 75), CGPoint(x: 273, y: 75)]
+    
+    
     //MARK: - Outlets
     
     var team1ScoreLabel: UILabel!
@@ -19,6 +26,7 @@ class GamePlayViewController: UIViewController {
     var playerTag: UILabel!
     var playerPanel: UIView!
     var statsPanel: UIView!
+    var miniTilePanel: UIView!
     
     //MARK: - Variables
     
@@ -48,13 +56,16 @@ class GamePlayViewController: UIViewController {
         //setup team scores
         team1ScoreLabel = UILabel(frame: CGRect(x: 40, y: 50, width: 130, height: 30))
         team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
+        team1ScoreLabel.layer.zPosition = 1
         view.addSubview(team1ScoreLabel)
         team2ScoreLabel = UILabel(frame: CGRect(x: 220, y: 50, width: 100, height: 30))
         team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
+        team2ScoreLabel.layer.zPosition = 1
         view.addSubview(team2ScoreLabel)
         
         //setup current player tag
         playerTag = UILabel(frame: CGRect(x: 10, y: 660, width: 374, height: 21))
+        playerTag.layer.zPosition = 1
         view.addSubview(playerTag)
         
         //setup Skip
@@ -62,6 +73,7 @@ class GamePlayViewController: UIViewController {
         skipButton.backgroundColor = .systemPink
         skipButton.setTitle("Skip", for: .normal)
         skipButton.addTarget(self, action: #selector(skipPressed), for: .touchUpInside)
+        skipButton.layer.zPosition = 2
         view.addSubview(skipButton)
         
         //setup Round Over
@@ -69,6 +81,7 @@ class GamePlayViewController: UIViewController {
         roundOverButton.backgroundColor = .systemBlue
         roundOverButton.setTitle("Round Over", for: .normal)
         roundOverButton.addTarget(self, action: #selector(roundIsOver), for: .touchUpInside)
+        roundOverButton.layer.zPosition = 2
         view.addSubview(roundOverButton)
         
         // setup game Over
@@ -76,19 +89,26 @@ class GamePlayViewController: UIViewController {
         gameOverButton.setTitle("New Game", for: .normal)
         gameOverButton.backgroundColor = .systemBlue
         gameOverButton.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
+        gameOverButton.layer.zPosition = 2
         view.addSubview(gameOverButton)
         
         //setup player background
         playerPanel = UIView(frame: CGRect(x: 0, y: 640, width: 390, height: 204))
         playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        playerPanel.layer.zPosition = -1
+        playerPanel.layer.zPosition = 0
         view.addSubview(playerPanel)
         
         //setup stats background
         statsPanel = UIView(frame: CGRect(x: 0, y: 0, width: 390, height: 110))
         statsPanel.backgroundColor = .orange
-        statsPanel.layer.zPosition = -1
+        statsPanel.layer.zPosition = 0
         view.addSubview(statsPanel)
+        
+        //setup miniTile view
+        miniTilePanel = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        miniTilePanel.layer.zPosition = -1
+        refreshMiniTile()
+        view.addSubview(miniTilePanel)
         
         //load labels
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
@@ -96,6 +116,7 @@ class GamePlayViewController: UIViewController {
         gameOverButton.isHidden = true
         roundOverButton.isHidden = true
         for tile in gameMaster.boxOfTiles{ //add all tiles to current view
+            tile.layer.zPosition = 3
             view.addSubview(tile)
             let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragging(gesture:)))
             tile.addGestureRecognizer(gesture)
@@ -147,15 +168,49 @@ class GamePlayViewController: UIViewController {
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
         //update player panel color
         playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        //update all the mini tiles
+        refreshMiniTile()
         //if player cannot play, prompt skip
         if !gameMaster.canPlay(player: gameMaster.currentPlayer){
             skipButton.isHidden = false
         }
     }
     
+    func refreshMiniTile(){
+        for item in miniTilePanel.subviews{
+            item.removeFromSuperview()
+        }
+        gameMaster.nextPlayer()
+        for i in 0..<gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count{
+            let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
+            miniTile.image = UIImage(named: "00")
+            miniTile.transform = miniTile.transform.rotated(by: .pi / 2)
+            miniTile.frame.origin = miniTileRightPositions[i]
+            miniTilePanel.addSubview(miniTile)
+        }
+        gameMaster.nextPlayer()
+        for i in 0..<gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count{
+            let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
+            miniTile.image = UIImage(named: "00")
+            miniTile.frame.origin = miniTileUpPositions[i]
+            miniTile.layer.zPosition = -1
+            miniTilePanel.addSubview(miniTile)
+        }
+        gameMaster.nextPlayer()
+        for i in 0..<gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count{
+            let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
+            miniTile.image = UIImage(named: "00")
+            miniTile.transform = miniTile.transform.rotated(by: .pi / 2)
+            miniTile.frame.origin = miniTileLeftPositions[i]
+            miniTilePanel.addSubview(miniTile)
+        }
+        gameMaster.nextPlayer() //return to current player
+    }
+    
     // MARK: - SKIP PRESSED
     
     @objc func skipPressed() {
+        print("SKip skip")
         gameMaster.skipCounter += 1
 //        Defines the logic for awarding points (to the other team) for skipping your turn.
         if gameMaster.skipCounter == 1 || gameMaster.skipCounter == 3 { // This if statement is here because you can't concede for making your own team-mate skip his/her turn.
