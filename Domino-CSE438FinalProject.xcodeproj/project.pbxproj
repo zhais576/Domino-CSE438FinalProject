@@ -12,6 +12,7 @@
 		1CF3BBBD26AF3FF400E0E2DC /* UserDefaultsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */; };
 		FD2D90CD26AF1BC700EE5A91 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2D90CC26AF1BC700EE5A91 /* GameManager.swift */; };
 		FD2D90CF26AF1BEF00EE5A91 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2D90CE26AF1BEF00EE5A91 /* Train.swift */; };
+		FD6B439C26B10B04009BF271 /* TrainCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B439B26B10B04009BF271 /* TrainCoordinates.swift */; };
 		FDDBC24926A7463500307A10 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDBC24826A7463500307A10 /* GamePlayViewController.swift */; };
 		FDDBC24D26A7DA5700307A10 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDBC24C26A7DA5700307A10 /* ScoreViewController.swift */; };
 		FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF894B0269A6B83009E7FC7 /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 		1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHandler.swift; sourceTree = "<group>"; };
 		FD2D90CC26AF1BC700EE5A91 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		FD2D90CE26AF1BEF00EE5A91 /* Train.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train.swift; sourceTree = "<group>"; };
+		FD6B439B26B10B04009BF271 /* TrainCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainCoordinates.swift; sourceTree = "<group>"; };
 		FDDBC24826A7463500307A10 /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
 		FDDBC24C26A7DA5700307A10 /* ScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		FDF894AD269A6B83009E7FC7 /* Domino-CSE438FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Domino-CSE438FinalProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 				1C43D1FB26A4DE98002B45AD /* Tile.swift */,
 				1C43D1FF26A4F1CF002B45AD /* Player.swift */,
 				FD2D90CE26AF1BEF00EE5A91 /* Train.swift */,
+				FD6B439B26B10B04009BF271 /* TrainCoordinates.swift */,
 				1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */,
 				FDF894B6269A6B83009E7FC7 /* Main.storyboard */,
 				FDF894B9269A6B85009E7FC7 /* Assets.xcassets */,
@@ -163,6 +166,7 @@
 				FDDBC24926A7463500307A10 /* GamePlayViewController.swift in Sources */,
 				FDF894B1269A6B83009E7FC7 /* AppDelegate.swift in Sources */,
 				1C43D20026A4F1CF002B45AD /* Player.swift in Sources */,
+				FD6B439C26B10B04009BF271 /* TrainCoordinates.swift in Sources */,
 				1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */,
 				FDF894B3269A6B83009E7FC7 /* SceneDelegate.swift in Sources */,
 				1CF3BBBD26AF3FF400E0E2DC /* UserDefaultsHandler.swift in Sources */,

@@ -117,7 +117,6 @@ class ScoreViewController: UIViewController {
             //add totalPts to team here
             currentTeam2Pts += totalPts
         }
-        print("player \(allDots.firstIndex(of: allDots.min()!)! + 1) has won it!")
         //reset team pts labels
         team1PtsLabel.text = String(currentTeam1Pts)
         team2PtsLabel.text = String(currentTeam2Pts)
@@ -141,7 +140,6 @@ class ScoreViewController: UIViewController {
             self.present(winningAlert, animated: true)
             newGameButton.isHidden = false //new game
         }else{
-            print("no team won yet")
             newRoundButton.isHidden = false //neither team meets threshold, new round
         }
     }

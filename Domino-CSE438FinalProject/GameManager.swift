@@ -41,7 +41,7 @@ class GameManager {
         //create all 28 tiles
         for i in 0...6 {
             for j in i...6 {
-                let tile = Tile(int1: i, int2: j, image: UIImage(named: "\(i)\(j)")!, frame: CGRect(origin: CGPoint(x: 5, y: 1600), size: CGSize(width: 25, height: 50)))
+                let tile = Tile(int1: i, int2: j, image: UIImage(named: "\(i)\(j)")!, frame: CGRect(origin: CGPoint(x: 5, y: 1600), size: CGSize(width: 50, height: 100)))
                 boxOfTiles.append(tile)
             }
         }
@@ -106,19 +106,15 @@ class GameManager {
         if train.leftEnd == -1{ //first tile ever played in a round
             train.leftEnd = tile.sides[0]
             train.rightEnd = tile.sides[1]
-            tile.transform = tile.transform.rotated(by: .pi/2)
+            tile.playedTo = "first"
             return true
         }
         if tile.playedTo == "left"{ //played to the right or left, checks if valid move here.
             if tile.sides.contains(train.leftEnd){ //if can be played to the left
                 //update train left end
                 if tile.sides[0] == train.leftEnd{
-                    print("\(tile.sides[0])-\(tile.sides[1])")
-                    tile.transform = tile.transform.rotated(by: .pi/2)
                     train.leftEnd = tile.sides[1]
-                } else{
-                    print("\(tile.sides[1])-\(tile.sides[0])")
-                    tile.transform = tile.transform.rotated(by: -.pi/2)
+                }else{
                     train.leftEnd = tile.sides[0]
                 }
                 return true
@@ -127,12 +123,11 @@ class GameManager {
             if tile.sides.contains(train.rightEnd){ //if can be played to the right
                 //update train right end
                 if tile.sides[0] == train.rightEnd{
-                    tile.transform = tile.transform.rotated(by: -.pi/2)
                     train.rightEnd = tile.sides[1]
                 }else{
-                    tile.transform = tile.transform.rotated(by: .pi/2)
                     train.rightEnd = tile.sides[0]
                 }
+                //
                 return true
             }
         }
@@ -176,7 +171,6 @@ class GameManager {
             for side in tile.sides{
                 count += side
             }
-            print("player \(player) tile: \(tile.sides)")
         }
         return count
     }

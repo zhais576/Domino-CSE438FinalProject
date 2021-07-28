@@ -13,10 +13,6 @@ class GamePlayViewController: UIViewController {
     
     var team1ScoreLabel: UILabel!
     var team2ScoreLabel: UILabel!
-    
-    var team1Score = 0
-    var team2Score = 0
-    
     var left: UILabel!
     var right: UILabel!
     var skipButton: UIButton!
@@ -28,6 +24,8 @@ class GamePlayViewController: UIViewController {
     
     var currentTile: Tile! //the tile being dragged, not necessarily being legalled played
     var gameMaster: GameManager = GameManager(player1Name: "p1", player2Name: "p2", player3Name: "p3", player4Name: "p4")
+    var team1Score = 0
+    var team2Score = 0
     
     //MARK: - Init
     
@@ -44,28 +42,21 @@ class GamePlayViewController: UIViewController {
     
     //MARK: - Helper Functions
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let position = touch.location(in: view)
-              print(position)
-            }
-    }
-    
     func setUpView(){
         view.backgroundColor = .systemGreen
         //setup team scores
-        team1ScoreLabel = UILabel(frame: CGRect(x: 10, y: 35, width: view.frame.width/2, height: 21))
+        team1ScoreLabel = UILabel(frame: CGRect(x: 55, y: 85, width: 130, height: 30))
         team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
         view.addSubview(team1ScoreLabel)
-        team2ScoreLabel = UILabel(frame: CGRect(x: view.frame.width/2, y: 35, width: view.frame.width/2, height: 21))
+        team2ScoreLabel = UILabel(frame: CGRect(x: 220, y: 85, width: 100, height: 30))
         team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
         view.addSubview(team2ScoreLabel)
         
         //setup team labels
         
-        left = UILabel(frame: CGRect(x: 77, y: 200, width: 64, height: 21))
+        left = UILabel(frame: CGRect(x: 70, y: 50, width: 64, height: 21))
         view.addSubview(left)
-        right = UILabel(frame: CGRect(x: 263, y: 200, width: 74, height: 21))
+        right = UILabel(frame: CGRect(x: 260, y: 50, width: 74, height: 21))
         view.addSubview(right)
         playerTag = UILabel(frame: CGRect(x: 8, y: 620, width: 374, height: 21))
         view.addSubview(playerTag)
@@ -127,6 +118,7 @@ class GamePlayViewController: UIViewController {
                     if gameMaster.playTile(tile: currentTile){ //check if tile can be played
                         gameMaster.skipCounter = 0 //reset skipCounter
                         gameMaster.removeTile(tile: currentTile)
+                        view.addSubview(gameMaster.train.update(tile: currentTile)) // update train when a tile is removed
                         if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{ // player has 0 tiles, game ends
                             roundOverButton.isHidden = false
                         }else{
@@ -148,9 +140,6 @@ class GamePlayViewController: UIViewController {
         right.text = String(gameMaster.train.rightEnd)
         //exchange onboard tiles with new player's tiles
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
-        // draw tiles
-        gameMaster.train.drawTiles()
-        
         //if player cannot play, prompt skip
         if !gameMaster.canPlay(player: gameMaster.currentPlayer){
             skipButton.isHidden = false
@@ -161,7 +150,6 @@ class GamePlayViewController: UIViewController {
     
     @objc func skipPressed() {
         gameMaster.skipCounter += 1
-        print(gameMaster.skipCounter)
 //        Defines the logic for awarding points (to the other team) for skipping your turn.
         if gameMaster.skipCounter == 1 || gameMaster.skipCounter == 3 { // This if statement is here because you can't concede for making your own team-mate skip his/her turn.
             switch gameMaster.currentPlayer {
