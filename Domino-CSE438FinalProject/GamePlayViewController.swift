@@ -13,12 +13,12 @@ class GamePlayViewController: UIViewController {
     
     var team1ScoreLabel: UILabel!
     var team2ScoreLabel: UILabel!
-    var left: UILabel!
-    var right: UILabel!
     var skipButton: UIButton!
     var roundOverButton: UIButton!
     var gameOverButton: UIButton!
     var playerTag: UILabel!
+    var playerPanel: UIView!
+    var statsPanel: UIView!
     
     //MARK: - Variables
     
@@ -44,21 +44,17 @@ class GamePlayViewController: UIViewController {
     
     func setUpView(){
         view.backgroundColor = .systemGreen
+        
         //setup team scores
-        team1ScoreLabel = UILabel(frame: CGRect(x: 55, y: 85, width: 130, height: 30))
+        team1ScoreLabel = UILabel(frame: CGRect(x: 40, y: 50, width: 130, height: 30))
         team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
         view.addSubview(team1ScoreLabel)
-        team2ScoreLabel = UILabel(frame: CGRect(x: 220, y: 85, width: 100, height: 30))
+        team2ScoreLabel = UILabel(frame: CGRect(x: 220, y: 50, width: 100, height: 30))
         team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
         view.addSubview(team2ScoreLabel)
         
-        //setup team labels
-        
-        left = UILabel(frame: CGRect(x: 70, y: 50, width: 64, height: 21))
-        view.addSubview(left)
-        right = UILabel(frame: CGRect(x: 260, y: 50, width: 74, height: 21))
-        view.addSubview(right)
-        playerTag = UILabel(frame: CGRect(x: 8, y: 620, width: 374, height: 21))
+        //setup current player tag
+        playerTag = UILabel(frame: CGRect(x: 10, y: 660, width: 374, height: 21))
         view.addSubview(playerTag)
         
         //setup Skip
@@ -81,10 +77,21 @@ class GamePlayViewController: UIViewController {
         gameOverButton.backgroundColor = .systemBlue
         gameOverButton.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
         view.addSubview(gameOverButton)
+        
+        //setup player background
+        playerPanel = UIView(frame: CGRect(x: 0, y: 640, width: 390, height: 204))
+        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        playerPanel.layer.zPosition = -1
+        view.addSubview(playerPanel)
+        
+        //setup stats background
+        statsPanel = UIView(frame: CGRect(x: 0, y: 0, width: 390, height: 110))
+        statsPanel.backgroundColor = .orange
+        statsPanel.layer.zPosition = -1
+        view.addSubview(statsPanel)
+        
         //load labels
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
-        left.text = "-1"
-        right.text = "-1"
         skipButton.isHidden = true
         gameOverButton.isHidden = true
         roundOverButton.isHidden = true
@@ -110,7 +117,7 @@ class GamePlayViewController: UIViewController {
                 //snaps back to place
                 currentTile.center = currentTile.originalCenter
                 //checks if tile is played in the field, left or right
-                if (120...610).contains(gesture.location(in: self.view).y) { //only if the tile is moved to this zone
+                if (110...640).contains(gesture.location(in: self.view).y) { //only if the tile is moved to this zone
                     if gesture.location(in: self.view).x < 195 {  //checks played left or right
                         currentTile.playedTo = "left"
                     } else {
@@ -136,11 +143,10 @@ class GamePlayViewController: UIViewController {
     func reloadScreen(){
         //update current player tag
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
-        //update train int
-        left.text = String(gameMaster.train.leftEnd)
-        right.text = String(gameMaster.train.rightEnd)
         //exchange onboard tiles with new player's tiles
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
+        //update player panel color
+        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         //if player cannot play, prompt skip
         if !gameMaster.canPlay(player: gameMaster.currentPlayer){
             skipButton.isHidden = false
