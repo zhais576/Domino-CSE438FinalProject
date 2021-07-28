@@ -16,14 +16,29 @@ struct Train {
     var leftEnd: Int = -1
     var rightEnd: Int = -1
     
+    
     //MARK: - Helper Functions
     
     
     
-    let leftPositions = [CGPoint(x: 170, y: 65), CGPoint(x: 120, y: 65), CGPoint(x: 70, y: 65), CGPoint(x: 20, y: 65), // First One DOWN
-                         CGPoint(x: 20, y: 90), CGPoint(x: 20, y: 140), CGPoint(x: 20, y: 190), CGPoint(x: 20, y: 240), CGPoint(x: 20, y: 290), CGPoint(x: 20, y: 340), CGPoint(x: 20, y: 390), CGPoint(x: 20, y: 440), CGPoint(x: 20, y: 490), CGPoint(x: 20, y: 540), CGPoint(x: 20, y: 590) ]
-    let rightPositions = [CGPoint(x: 220, y: 65), CGPoint(x: 270, y: 65), CGPoint(x: 320, y: 65), // First One DOWN
-                          CGPoint(x: 345, y: 90), CGPoint(x: 345, y: 140), CGPoint(x: 345, y: 190), CGPoint(x: 345, y: 240), CGPoint(x: 345, y: 290), CGPoint(x: 345, y: 340), CGPoint(x: 345, y: 390), CGPoint(x: 345, y: 440), CGPoint(x: 345, y: 490), CGPoint(x: 345, y: 540), CGPoint(x: 345, y: 590) ]
+    let leftPositions = [CGPoint(x: 195, y: 300),
+                         CGPoint(x: 145, y: 300),
+                         CGPoint(x: 95, y: 300),// TURN DOWN
+                         CGPoint(x: 95, y: 325),
+                         CGPoint(x: 95, y: 375),
+                         CGPoint(x: 95, y: 425),
+                         CGPoint(x: 95, y: 475),
+                         CGPoint(x: 120, y: 525)] // TURN LEFT ONE THEN UP ONE
+    
+    
+    let rightPositions = [CGPoint(x: 245, y: 300),
+                         CGPoint(x: 305, y: 300),
+                         CGPoint(x: 355, y: 300),// TURN DOWN
+                         CGPoint(x: 355, y: 325),
+                         CGPoint(x: 355, y: 375),
+                         CGPoint(x: 355, y: 425),
+                         CGPoint(x: 355, y: 475),
+                         CGPoint(x: 355, y: 525)] // TURN LEFT ONE THEN UP ONE
     
     
     
@@ -31,17 +46,21 @@ struct Train {
         var rightIndex = 0
         var leftIndex = 0
         for tile in tiles {
-            if leftIndex < 1 {
+            if leftIndex < 1 { // FIRST TILE EDGE CASE
                 tile.center = leftPositions[leftIndex]
                 leftIndex += 1
-                rightIndex += 1
                 
             } else {
                 
                 if tile.playedTo == "left" {
+                    
                     tile.center = leftPositions[leftIndex]
                     leftIndex += 1
                 } else {
+                    
+                    if rightIndex < 3 {
+                        
+                    }
                     tile.center = rightPositions[rightIndex]
                     rightIndex += 1
                 }
