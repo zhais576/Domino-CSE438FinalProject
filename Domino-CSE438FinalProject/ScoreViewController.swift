@@ -54,7 +54,10 @@ class ScoreViewController: UIViewController {
         checkIfTeamWon()
     }
     
+    
+    
     func setUpView(){
+        addImages()
         //set up label
         p1DotsLabel = UILabel(frame: CGRect(x: 30, y: 80, width: 200, height: 30))
         view.addSubview(p1DotsLabel)
@@ -105,6 +108,21 @@ class ScoreViewController: UIViewController {
         roundPtsLabel.text = "Round has \(totalPts) points"
         newGameButton.isHidden = true
         newRoundButton.isHidden = true
+    }
+    
+    func addImages() {
+        var xOffset: CGFloat = 0
+        var yOffset: CGFloat = 0
+        for player in gameMaster.players {
+            for tile in player.tilesOnHand {
+                let tileImage = UIImageView(frame: CGRect(x: 30 + xOffset, y: 110 + yOffset, width: 25, height: 50))
+                tileImage.image = UIImage(named: "\(tile.sides[0])\(tile.sides[1])")
+                view.addSubview(tileImage)
+                xOffset += 25
+            }
+            xOffset = 0
+            yOffset += 80
+        }
     }
     
     func addPtsToTeam(){
