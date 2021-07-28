@@ -110,7 +110,7 @@ class GamePlayViewController: UIViewController {
                 //snaps back to place
                 currentTile.center = currentTile.originalCenter
                 //checks if tile is played in the field, left or right
-                if (0...400).contains(gesture.location(in: self.view).y) { //only if the tile is moved to this zone
+                if (120...610).contains(gesture.location(in: self.view).y) { //only if the tile is moved to this zone
                     if gesture.location(in: self.view).x < 195 {  //checks played left or right
                         currentTile.playedTo = "left"
                     } else {
