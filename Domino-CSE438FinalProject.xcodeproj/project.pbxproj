@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C43D1FC26A4DE98002B45AD /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FB26A4DE98002B45AD /* Tile.swift */; };
 		1C43D20026A4F1CF002B45AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C43D1FF26A4F1CF002B45AD /* Player.swift */; };
+		1C8D623826B20EA300E6209B /* rip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C8D623726B20EA300E6209B /* rip.mp3 */; };
 		1CF3BBBD26AF3FF400E0E2DC /* UserDefaultsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */; };
 		FD2D90CD26AF1BC700EE5A91 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2D90CC26AF1BC700EE5A91 /* GameManager.swift */; };
 		FD2D90CF26AF1BEF00EE5A91 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2D90CE26AF1BEF00EE5A91 /* Train.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		1C43D1FB26A4DE98002B45AD /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		1C43D1FF26A4F1CF002B45AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		1C8D623726B20EA300E6209B /* rip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rip.mp3; sourceTree = "<group>"; };
 		1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHandler.swift; sourceTree = "<group>"; };
 		FD2D90CC26AF1BC700EE5A91 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		FD2D90CE26AF1BEF00EE5A91 /* Train.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				1CF3BBBC26AF3FF400E0E2DC /* UserDefaultsHandler.swift */,
 				FDF894B6269A6B83009E7FC7 /* Main.storyboard */,
 				FDF894B9269A6B85009E7FC7 /* Assets.xcassets */,
+				1C8D623726B20EA300E6209B /* rip.mp3 */,
 				FDF894BB269A6B85009E7FC7 /* LaunchScreen.storyboard */,
 				FDF894BE269A6B85009E7FC7 /* Info.plist */,
 			);
@@ -148,6 +151,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C8D623826B20EA300E6209B /* rip.mp3 in Resources */,
 				FDF894BD269A6B85009E7FC7 /* LaunchScreen.storyboard in Resources */,
 				FDF894BA269A6B85009E7FC7 /* Assets.xcassets in Resources */,
 				FDF894B8269A6B83009E7FC7 /* Main.storyboard in Resources */,
