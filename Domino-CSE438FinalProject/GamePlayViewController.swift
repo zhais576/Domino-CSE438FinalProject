@@ -69,19 +69,23 @@ class GamePlayViewController: UIViewController {
         view.addSubview(playerTag)
         
         //setup Skip
-        skipButton = UIButton(frame: CGRect(x: 146, y: 266, width: 120, height: 120))
+        skipButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 530))
         skipButton.backgroundColor = .systemPink
-        skipButton.setTitle("Skip", for: .normal)
+        skipButton.setTitle("No Valid Dominos to Play! \n Tap to Skip Turn", for: .normal)
+        skipButton.titleLabel?.lineBreakMode = .byWordWrapping
+        skipButton.titleLabel?.textAlignment = .center
         skipButton.addTarget(self, action: #selector(skipPressed), for: .touchUpInside)
-        skipButton.layer.zPosition = 2
+        skipButton.layer.zPosition = 1
         view.addSubview(skipButton)
         
         //setup Round Over
-        roundOverButton = UIButton(frame: CGRect(x: 146, y: 417, width: 120, height: 120))
+        roundOverButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 530))
         roundOverButton.backgroundColor = .systemBlue
-        roundOverButton.setTitle("Round Over", for: .normal)
+        roundOverButton.setTitle("Round Over \n Tap to View Score", for: .normal)
+        skipButton.titleLabel?.lineBreakMode = .byWordWrapping
+        skipButton.titleLabel?.textAlignment = .center
         roundOverButton.addTarget(self, action: #selector(roundIsOver), for: .touchUpInside)
-        roundOverButton.layer.zPosition = 2
+        roundOverButton.layer.zPosition = 1
         view.addSubview(roundOverButton)
         
         // setup game Over
