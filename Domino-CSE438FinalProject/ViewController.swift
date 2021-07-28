@@ -21,6 +21,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        p1TextField.autocorrectionType = .no
+        p2TextField.autocorrectionType = .no
+        p3TextField.autocorrectionType = .no
+        p4TextField.autocorrectionType = .no
         navigationController?.setNavigationBarHidden(true, animated: true)//hides navigation bar
     }
     

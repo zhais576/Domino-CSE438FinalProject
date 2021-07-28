@@ -102,6 +102,7 @@ class GamePlayViewController: UIViewController {
         currentTile = gameMaster.defaultTile //reset current tile incase it is linked to another tile
         if let selectedTile = gesture.view as? Tile{
             currentTile = selectedTile //select the tile
+            self.view.bringSubviewToFront(currentTile)
             let translation = gesture.translation(in: self.view)
             currentTile.center = CGPoint(x: currentTile.center.x + translation.x, y: currentTile.center.y + translation.y)
             gesture.setTranslation(CGPoint.zero, in: self.view) //set dragging position change
