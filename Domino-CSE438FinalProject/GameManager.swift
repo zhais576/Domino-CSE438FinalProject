@@ -72,6 +72,9 @@ class GameManager {
             if players[i].tilesOnHand.contains(where: { $0.sides == [6,6] }){
                 displayOnScreen(player: i)
                 currentPlayer = i
+                for tile in players[i].tilesOnHand{
+                    tile.shade.isHidden = true
+                }
             }
         }
     }
@@ -96,9 +99,10 @@ class GameManager {
         }
     }
     
-    func displayOnScreen(player: Int){ //move player's tile on screen
+    func displayOnScreen(player: Int){ //move player's tile on screen, always shade all tiles
         for i in 0..<players[player].tilesOnHand.count{
             players[player].tilesOnHand[i].updateOriginAsAnchor(point: onScreen[i])
+            players[player].tilesOnHand[i].shade.isHidden = false
         }
     }
     
@@ -155,11 +159,9 @@ class GameManager {
         var noSkip: Bool = false
         guard train.leftEnd != -1 else {return true}
         for tile in players[player].tilesOnHand{
-            if tile.sides.contains(train.leftEnd){
+            if tile.sides.contains(train.leftEnd) || tile.sides.contains(train.rightEnd){
                 noSkip = true
-            }
-            if tile.sides.contains(train.rightEnd){
-                noSkip = true
+                tile.shade.isHidden = true
             }
         }
         return noSkip

@@ -15,6 +15,7 @@ class Tile : UIView {
     var faceImage: UIImage?
     var playedTo: String = "pending" //state of the tile
     var originalCenter: CGPoint!
+    var shade: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     //MARK: - Init
     
@@ -31,6 +32,13 @@ class Tile : UIView {
         myImage.layer.zPosition = 1
         self.addSubview(myImage)
         
+        //add shade to tile, turn on by default
+        shade = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        shade.backgroundColor = .black
+        shade.alpha = 0.5
+        shade.layer.cornerRadius = 0.1088 * frame.width
+        shade.layer.zPosition = 10
+        self.addSubview(shade)
     }
     
     required init?(coder aDecoder: NSCoder) {
