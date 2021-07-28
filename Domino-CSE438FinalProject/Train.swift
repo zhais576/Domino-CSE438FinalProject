@@ -32,13 +32,12 @@ struct Train {
     
     
     let rightPositions = [CGPoint(x: 245, y: 300),
-                         CGPoint(x: 305, y: 300),
-                         CGPoint(x: 355, y: 300),// TURN DOWN
-                         CGPoint(x: 355, y: 325),
-                         CGPoint(x: 355, y: 375),
-                         CGPoint(x: 355, y: 425),
-                         CGPoint(x: 355, y: 475),
-                         CGPoint(x: 355, y: 525)] // TURN LEFT ONE THEN UP ONE
+                         CGPoint(x: 295, y: 300), // TURN DOWN
+                         CGPoint(x: 295, y: 325),
+                         CGPoint(x: 295, y: 375),
+                         CGPoint(x: 295, y: 425),
+                         CGPoint(x: 295, y: 475),
+                         CGPoint(x: 295, y: 525)] // TURN LEFT ONE THEN UP ONE
     
     
     
