@@ -16,6 +16,7 @@ class Tile : UIView {
     var playedTo: String = "pending" //state of the tile
     var originalCenter: CGPoint!
     var shade: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var theme: String = "white"
     
     //MARK: - Init
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct Train {
+class Train {
     
     //MARK: - Variables
     
@@ -21,11 +21,14 @@ struct Train {
     
     //MARK: - Helper Functions
     
-    mutating func update(tile: Tile) -> UIImageView{ //adds UIImageView of the tile to the train
+    func update(tile: Tile) -> UIImageView{ //adds UIImageView of the tile to the train
         
         let tileImage = UIImageView(frame: CGRect(x: -1000, y: -1000, width: 25, height: 50)) //initalized to be vertical
-        tileImage.image = UIImage(named: "\(tile.sides[0])\(tile.sides[1])")
-        
+        if tile.theme == "pink"{
+            tileImage.image = UIImage(named: "pink\(tile.sides[0])\(tile.sides[1])")
+        }else if tile.theme == "teal"{
+            tileImage.image = UIImage(named: "teal\(tile.sides[0])\(tile.sides[1])")
+        }
         
         if tile.playedTo == "first"{
 

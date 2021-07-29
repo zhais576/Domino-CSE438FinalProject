@@ -185,6 +185,11 @@ class GameManager {
     func assignTileColor(player: Int, color: String){
         for tile in players[player].tilesOnHand{
             tile.faceImage.image = UIImage(named: color + "\(tile.sides[0])\(tile.sides[1])")
+            if color == "pink"{
+                tile.theme = "pink"
+            }else if color == "teal"{
+                tile.theme = "teal"
+            }
         }
     }
     
