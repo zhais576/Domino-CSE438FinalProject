@@ -55,7 +55,7 @@ class GamePlayViewController: UIViewController {
     //MARK: - Helper Functions
     
     func setUpView(){
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = hexColor(hexInt: 0xFF121B35)
         
         //setup team scores
         team1ScoreLabel = UILabel(frame: CGRect(x: 90, y: 50, width: 130, height: 30))
@@ -270,6 +270,29 @@ class GamePlayViewController: UIViewController {
         return tileTint
     }
     
+    func playThemeSong() {
+        let url = Bundle.main.url(forResource: "rip", withExtension: "mp3")!
+        do
+          {
+              player = try AVAudioPlayer(contentsOf: url, fileTypeHint: nil)
+          } catch let error as NSError {
+              print(error)
+          }
+        
+        player.numberOfLoops = 0
+        player.prepareToPlay()
+        player.play()
+        
+    }
+    
+    func hexColor(hexInt: Int) -> UIColor{
+        let red  = CGFloat((hexInt >> 16) & 0xFF) / 255.0
+        let green = CGFloat((hexInt >> 8) & 0xFF) / 255.0
+        let blue = CGFloat(hexInt & 0xFF) / 255.0
+        let alpha = CGFloat((hexInt >> 24) & 0xFF) / 255.0
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
     // MARK: - SKIP PRESSED
     
     @objc func skipPressed() {
@@ -335,18 +358,5 @@ class GamePlayViewController: UIViewController {
         navigationController?.popToRootViewController(animated: false)
     }
     
-    func playThemeSong() {
-        let url = Bundle.main.url(forResource: "rip", withExtension: "mp3")!
-        do
-          {
-              player = try AVAudioPlayer(contentsOf: url, fileTypeHint: nil)
-          } catch let error as NSError {
-              print(error)
-          }
-        
-        player.numberOfLoops = 0
-        player.prepareToPlay()
-        player.play()
-        
-    }
+
 }
