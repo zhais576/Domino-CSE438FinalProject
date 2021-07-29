@@ -118,7 +118,7 @@ class ScoreViewController: UIViewController {
                 let tileImage = UIImageView(frame: CGRect(x: 30 + xOffset, y: 110 + yOffset, width: 25, height: 50))
                 tileImage.image = UIImage(named: "\(tile.sides[0])\(tile.sides[1])")
                 view.addSubview(tileImage)
-                xOffset += 25
+                xOffset += 30
             }
             xOffset = 0
             yOffset += 80
@@ -165,7 +165,7 @@ class ScoreViewController: UIViewController {
     @objc func newGamePressed(){
         UserDefaultsHandler().encode(data: 0, whereTo: .team1Score)
         UserDefaultsHandler().encode(data: 0, whereTo: .team2Score)
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popToRootViewController(animated: false)
     }
     
     @objc func newRoundPressed(){
@@ -174,7 +174,7 @@ class ScoreViewController: UIViewController {
         newGame.team2Score = self.currentTeam2Pts
         UserDefaultsHandler().encode(data: self.currentTeam1Pts, whereTo: .team1Score)
         UserDefaultsHandler().encode(data: self.currentTeam2Pts, whereTo: .team2Score)
-        navigationController?.pushViewController(newGame, animated: true)
+        navigationController?.pushViewController(newGame, animated: false)
     }
 
 }

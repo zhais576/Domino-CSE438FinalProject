@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         p2TextField.autocorrectionType = .no
         p3TextField.autocorrectionType = .no
         p4TextField.autocorrectionType = .no
-        navigationController?.setNavigationBarHidden(true, animated: true)//hides navigation bar
+        navigationController?.setNavigationBarHidden(true, animated: false)//hides navigation bar
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     
     @IBAction func startPressed(_ sender: Any) {
         let newGame = GamePlayViewController()
-        navigationController?.pushViewController(newGame, animated: true)
+        navigationController?.pushViewController(newGame, animated: false)
     }
     
     func clearAll(){

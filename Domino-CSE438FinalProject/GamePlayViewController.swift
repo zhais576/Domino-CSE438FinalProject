@@ -27,6 +27,7 @@ class GamePlayViewController: UIViewController {
     var playerPanel: UIView!
     var statsPanel: UIView!
     var miniTilePanel: UIView!
+    var quitButton: UIButton!
     
     //MARK: - Variables
     
@@ -54,12 +55,14 @@ class GamePlayViewController: UIViewController {
         view.backgroundColor = .systemGreen
         
         //setup team scores
-        team1ScoreLabel = UILabel(frame: CGRect(x: 40, y: 50, width: 130, height: 30))
+        team1ScoreLabel = UILabel(frame: CGRect(x: 90, y: 50, width: 130, height: 30))
         team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
+        team1ScoreLabel.textAlignment = .center
         team1ScoreLabel.layer.zPosition = 1
         view.addSubview(team1ScoreLabel)
-        team2ScoreLabel = UILabel(frame: CGRect(x: 220, y: 50, width: 100, height: 30))
+        team2ScoreLabel = UILabel(frame: CGRect(x: 240, y: 50, width: 130, height: 30))
         team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
+        team2ScoreLabel.textAlignment = .center
         team2ScoreLabel.layer.zPosition = 1
         view.addSubview(team2ScoreLabel)
         
@@ -113,6 +116,15 @@ class GamePlayViewController: UIViewController {
         miniTilePanel.layer.zPosition = -1
         refreshMiniTile()
         view.addSubview(miniTilePanel)
+        
+        //setup quit button
+        quitButton = UIButton(frame:CGRect(x: 30, y: 50, width: 50, height: 30))
+        quitButton.setTitle("quit", for: .normal)
+        quitButton.backgroundColor = .systemRed
+        quitButton.addTarget(self, action: #selector(quitPressed), for: .touchUpInside)
+        quitButton.layer.zPosition = 2
+        quitButton.isUserInteractionEnabled = true
+        view.addSubview(quitButton)
         
         //load labels
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
@@ -214,9 +226,8 @@ class GamePlayViewController: UIViewController {
     // MARK: - SKIP PRESSED
     
     @objc func skipPressed() {
-        print("SKip skip")
         gameMaster.skipCounter += 1
-//        Defines the logic for awarding points (to the other team) for skipping your turn.
+        //Defines the logic for awarding points (to the other team) for skipping your turn.
         if gameMaster.skipCounter == 1 || gameMaster.skipCounter == 3 { // This if statement is here because you can't concede for making your own team-mate skip his/her turn.
             switch gameMaster.currentPlayer {
             case 1, 3: // if members of team 2 skip their turn, team 1 gets some points.
@@ -254,13 +265,24 @@ class GamePlayViewController: UIViewController {
     @objc func roundIsOver(){
         let scoreVC = ScoreViewController()
         scoreVC.gameMaster = gameMaster
-        navigationController?.pushViewController(scoreVC, animated: true)
+        navigationController?.pushViewController(scoreVC, animated: false)
     }
     
     
     @objc func newGamePressed(){
+        restart()
+    }
+    
+    @objc func quitPressed(){
+        let quitAlert = UIAlertController(title: "Do you wish to quit?", message: "All progress will be lost.", preferredStyle: .alert)
+        quitAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        quitAlert.addAction(UIAlertAction(title: "Quit", style: .default, handler: { action in self.restart() }))
+        self.present(quitAlert, animated: true)
+    }
+    
+    func restart(){
         UserDefaultsHandler().encode(data: 0, whereTo: .team1Score)
         UserDefaultsHandler().encode(data: 0, whereTo: .team2Score)
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popToRootViewController(animated: false)
     }
 }
