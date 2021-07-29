@@ -34,7 +34,7 @@ class GameManager {
     var boxOfTiles: [Tile] = []
     var train: Train = Train()
     var skipCounter: Int = 0
-    var playerColors: [UIColor] = [.systemRed, .systemYellow, .systemBlue, .systemIndigo]
+    var playerColors: [UIColor] = [.systemTeal, .systemPink, .systemTeal, .systemPink]
     
     //MARK: - Init
     

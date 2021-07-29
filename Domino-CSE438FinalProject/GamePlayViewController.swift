@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import AVFoundation
+import AudioToolbox
 class GamePlayViewController: UIViewController {
     
     //MARK: - Constants
@@ -48,6 +49,8 @@ class GamePlayViewController: UIViewController {
         }
         setUpView()
     }
+    var player = AVAudioPlayer()
+    
     
     //MARK: - Helper Functions
     
@@ -107,7 +110,11 @@ class GamePlayViewController: UIViewController {
         
         //setup stats background
         statsPanel = UIView(frame: CGRect(x: 0, y: 0, width: 390, height: 110))
-        statsPanel.backgroundColor = .orange
+        if gameMaster.currentPlayer == 1 || gameMaster.currentPlayer == 3 {
+            statsPanel.backgroundColor = .systemPink
+        } else {
+            statsPanel.backgroundColor = .systemTeal
+        }
         statsPanel.layer.zPosition = 0
         view.addSubview(statsPanel)
         
@@ -189,6 +196,7 @@ class GamePlayViewController: UIViewController {
         //if player cannot play, prompt skip
         if !gameMaster.canPlay(player: gameMaster.currentPlayer){
             skipButton.isHidden = false
+            playThemeSong()
         }
     }
     
@@ -226,6 +234,8 @@ class GamePlayViewController: UIViewController {
     // MARK: - SKIP PRESSED
     
     @objc func skipPressed() {
+        
+        player.stop()
         gameMaster.skipCounter += 1
         //Defines the logic for awarding points (to the other team) for skipping your turn.
         if gameMaster.skipCounter == 1 || gameMaster.skipCounter == 3 { // This if statement is here because you can't concede for making your own team-mate skip his/her turn.
@@ -284,5 +294,20 @@ class GamePlayViewController: UIViewController {
         UserDefaultsHandler().encode(data: 0, whereTo: .team1Score)
         UserDefaultsHandler().encode(data: 0, whereTo: .team2Score)
         navigationController?.popToRootViewController(animated: false)
+    }
+    
+    func playThemeSong() {
+        let url = Bundle.main.url(forResource: "rip", withExtension: "mp3")!
+        do
+          {
+              player = try AVAudioPlayer(contentsOf: url, fileTypeHint: nil)
+          } catch let error as NSError {
+              print(error)
+          }
+        
+        player.numberOfLoops = 0
+        player.prepareToPlay()
+        player.play()
+        
     }
 }
