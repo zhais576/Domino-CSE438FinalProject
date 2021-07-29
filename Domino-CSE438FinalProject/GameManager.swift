@@ -54,6 +54,10 @@ class GameManager {
         player3 = Player(inputName: player3Name, inputTiles: Array(boxOfTiles[7...13]))
         player4 = Player(inputName: player4Name, inputTiles: Array(boxOfTiles[21...27]))
         players = [player1, player2, player3, player4]
+        assignTileColor(player: 0, color: "teal")
+        assignTileColor(player: 1, color: "pink")
+        assignTileColor(player: 2, color: "teal")
+        assignTileColor(player: 3, color: "pink")
         //move all tiles off screen in rows, p1(y = 1600), p2(y = 2600), p3(y = 3600) p4(y = 4600)
         displayOffScreen(player: 1)
         displayOffScreen(player: 2)
@@ -177,5 +181,12 @@ class GameManager {
         }
         return count
     }
+    
+    func assignTileColor(player: Int, color: String){
+        for tile in players[player].tilesOnHand{
+            tile.faceImage.image = UIImage(named: color + "\(tile.sides[0])\(tile.sides[1])")
+        }
+    }
+    
     
 }
