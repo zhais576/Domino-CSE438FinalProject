@@ -26,6 +26,7 @@ struct Train {
         let tileImage = UIImageView(frame: CGRect(x: -1000, y: -1000, width: 25, height: 50)) //initalized to be vertical
         tileImage.image = UIImage(named: "\(tile.sides[0])\(tile.sides[1])")
         
+        
         if tile.playedTo == "first"{
 
             //first image always rotate 90
@@ -50,10 +51,7 @@ struct Train {
             tileImage.frame.origin = positions.rightPositions[rightIterator]
             //icrement right iterator
             rightIterator += 1
-            
-            
         }
-        print(" ")
         return tileImage
     }
     

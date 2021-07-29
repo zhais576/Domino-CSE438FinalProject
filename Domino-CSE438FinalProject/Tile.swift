@@ -39,6 +39,11 @@ class Tile : UIView {
         shade.layer.cornerRadius = 0.1088 * frame.width
         shade.layer.zPosition = 10
         self.addSubview(shade)
+        
+        //tile 3d shadow
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = 0.1088 * self.frame.width
+        self.layer.shadowOpacity = 0.3
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -189,8 +189,9 @@ class GamePlayViewController: UIViewController {
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
         //exchange onboard tiles with new player's tiles
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
-        //update player panel color
+        //update player panel and stats panel color
         playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        statsPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         //update all the mini tiles
         refreshMiniTile()
         //if player cannot play, prompt skip
@@ -201,6 +202,7 @@ class GamePlayViewController: UIViewController {
     }
     
     func refreshMiniTile(){
+        let tintColor: [UIColor] = [.blue, .red, .blue, .red]
         for item in miniTilePanel.subviews{
             item.removeFromSuperview()
         }
@@ -208,7 +210,16 @@ class GamePlayViewController: UIViewController {
         for i in 0..<gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count{
             let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
             miniTile.image = UIImage(named: "00")
-            miniTile.transform = miniTile.transform.rotated(by: .pi / 2)
+            
+            miniTile.layer.shadowColor = tintColor[gameMaster.currentPlayer].cgColor
+            miniTile.layer.shadowRadius = 0.1088 * miniTile.frame.width
+            miniTile.layer.shadowOpacity = 0.8
+            
+            let shade = makeTileTint()
+            shade.backgroundColor = tintColor[gameMaster.currentPlayer]
+            miniTile.addSubview(shade)
+            
+            miniTile.transform = miniTile.transform.rotated(by: -.pi / 2)
             miniTile.frame.origin = miniTileRightPositions[i]
             miniTilePanel.addSubview(miniTile)
         }
@@ -216,6 +227,16 @@ class GamePlayViewController: UIViewController {
         for i in 0..<gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count{
             let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
             miniTile.image = UIImage(named: "00")
+            
+            miniTile.layer.shadowColor = tintColor[gameMaster.currentPlayer].cgColor
+            miniTile.layer.shadowRadius = 0.1088 * miniTile.frame.width
+            miniTile.layer.shadowOpacity = 0.8
+            
+            let shade = makeTileTint()
+            shade.backgroundColor = tintColor[gameMaster.currentPlayer]
+            miniTile.addSubview(shade)
+            
+            miniTile.transform = miniTile.transform.rotated(by: .pi)
             miniTile.frame.origin = miniTileUpPositions[i]
             miniTile.layer.zPosition = -1
             miniTilePanel.addSubview(miniTile)
@@ -224,11 +245,29 @@ class GamePlayViewController: UIViewController {
         for i in 0..<gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count{
             let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
             miniTile.image = UIImage(named: "00")
+            
+            miniTile.layer.shadowColor = tintColor[gameMaster.currentPlayer].cgColor
+            miniTile.layer.shadowRadius = 0.1088 * miniTile.frame.width
+            miniTile.layer.shadowOpacity = 0.8
+            
+            let shade = makeTileTint()
+            shade.backgroundColor = tintColor[gameMaster.currentPlayer]
+            miniTile.addSubview(shade)
+    
             miniTile.transform = miniTile.transform.rotated(by: .pi / 2)
             miniTile.frame.origin = miniTileLeftPositions[i]
             miniTilePanel.addSubview(miniTile)
         }
         gameMaster.nextPlayer() //return to current player
+    }
+    
+    func makeTileTint() -> UIView{
+        let tileTint = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 50))
+        tileTint.backgroundColor = .yellow
+        tileTint.alpha = 0.5
+        tileTint.layer.cornerRadius = 0.1088 * tileTint.frame.width
+        tileTint.layer.zPosition = 10
+        return tileTint
     }
     
     // MARK: - SKIP PRESSED
