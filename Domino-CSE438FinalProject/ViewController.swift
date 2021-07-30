@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        startButton.isHidden = true
+        //startButton.isHidden = true
         clearAll() //clears all textfield and user defaults
     }
     
