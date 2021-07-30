@@ -104,7 +104,8 @@ class GamePlayViewController: UIViewController {
         
         //setup player background
         playerPanel = UIView(frame: CGRect(x: 0, y: 640, width: 390, height: 204))
-        //playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        playerPanel.alpha = 0.5
         playerPanel.layer.zPosition = 0
         view.addSubview(playerPanel)
         
@@ -197,7 +198,7 @@ class GamePlayViewController: UIViewController {
         //exchange onboard tiles with new player's tiles
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
         //update player panel and stats panel color
-            //playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         statsPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         //update all the mini tiles
         refreshMiniTile()
