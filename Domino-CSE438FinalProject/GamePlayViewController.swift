@@ -318,7 +318,6 @@ class GamePlayViewController: UIViewController {
             print(error)
         }
         skipPlayer.numberOfLoops = 0
-        skipPlayer.prepareToPlay()
     }
     
     func hexColor(hexInt: Int) -> UIColor{
@@ -389,6 +388,7 @@ class GamePlayViewController: UIViewController {
     @objc func skipPressed() {
         
         skipPlayer.stop()
+        skipPlayer.currentTime = 0
         gameMaster.skipCounter += 1
         //Defines the logic for awarding points (to the other team) for skipping your turn.
         if gameMaster.skipCounter == 1 || gameMaster.skipCounter == 3 { // This if statement is here because you can't concede for making your own team-mate skip his/her turn.
