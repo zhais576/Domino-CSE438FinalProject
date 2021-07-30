@@ -71,17 +71,20 @@ class GamePlayViewController: UIViewController {
         //setup team scores
         team1ScoreLabel = UILabel(frame: CGRect(x: 90, y: 50, width: 130, height: 30))
         team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
+        team1ScoreLabel.textColor = .white
         team1ScoreLabel.textAlignment = .center
         team1ScoreLabel.layer.zPosition = 1
         view.addSubview(team1ScoreLabel)
         team2ScoreLabel = UILabel(frame: CGRect(x: 240, y: 50, width: 130, height: 30))
         team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
+        team2ScoreLabel.textColor = .white
         team2ScoreLabel.textAlignment = .center
         team2ScoreLabel.layer.zPosition = 1
         view.addSubview(team2ScoreLabel)
         
         //setup current player tag
-        playerTag = UILabel(frame: CGRect(x: 10, y: 660, width: 374, height: 21))
+        playerTag = UILabel(frame: CGRect(x: 60, y: 660, width: 374, height: 21))
+        playerTag.textColor = .white
         playerTag.layer.zPosition = 1
         view.addSubview(playerTag)
         
@@ -118,8 +121,8 @@ class GamePlayViewController: UIViewController {
         playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         playerPanel.layer.zPosition = 0
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
-        playerPanelGlow = UIView(frame: CGRect(x: -30, y: 640, width: 450, height: 204))
-        playerPanelGlow.backgroundColor = hexColor(hexInt: 0xFF121B35)
+        playerPanelGlow = UIView(frame: CGRect(x: -30, y: 638, width: 450, height: 204))
+        playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         playerPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         playerPanelGlow.layer.shadowOpacity = 1
         playerPanelGlow.layer.shadowOffset = .zero
@@ -133,13 +136,13 @@ class GamePlayViewController: UIViewController {
         statsPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         statsPanel.layer.zPosition = 0
         drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
-        statsPanelGlow = UIView(frame: CGRect(x: -30, y: 0, width: 450, height: 110))
-        statsPanelGlow.backgroundColor = hexColor(hexInt: 0xFF121B35)
+        statsPanelGlow = UIView(frame: CGRect(x: -30, y: 2, width: 450, height: 110))
+        statsPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         statsPanelGlow.layer.shadowOpacity = 1
         statsPanelGlow.layer.shadowOffset = .zero
         statsPanelGlow.layer.shadowRadius = 10
-        statsPanelGlow.layer.zPosition = -1
+        statsPanelGlow.layer.zPosition = 0
         view.addSubview(statsPanelGlow)
         view.addSubview(statsPanel)
         
@@ -166,6 +169,7 @@ class GamePlayViewController: UIViewController {
         for tile in gameMaster.boxOfTiles{ //add all tiles to current view
             tile.layer.zPosition = 3
             //tile glowing color
+            
             if tile.theme == "pink"{
                 tile.layer.shadowColor = UIColor.red.cgColor
             }else if tile.theme == "teal"{
@@ -224,7 +228,9 @@ class GamePlayViewController: UIViewController {
         //update player panel and stats panel color
         playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
+        playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         playerPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        statsPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         //update all the mini tiles
@@ -237,7 +243,6 @@ class GamePlayViewController: UIViewController {
     }
     
     func refreshMiniTile(){
-        let tintColor: [UIColor] = [.blue, .red, .blue, .red]
         for item in miniTilePanel.subviews{
             item.removeFromSuperview()
         }
@@ -246,12 +251,12 @@ class GamePlayViewController: UIViewController {
             let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
             miniTile.image = UIImage(named: "00")
             
-            miniTile.layer.shadowColor = tintColor[gameMaster.currentPlayer].cgColor
+            miniTile.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
             miniTile.layer.shadowRadius = 0.1088 * miniTile.frame.width
             miniTile.layer.shadowOpacity = 0.8
             
             let shade = makeTileTint()
-            shade.backgroundColor = tintColor[gameMaster.currentPlayer]
+            shade.backgroundColor = gameMaster.shadowColors[gameMaster.currentPlayer]
             miniTile.addSubview(shade)
             
             miniTile.transform = miniTile.transform.rotated(by: -.pi / 2)
@@ -263,12 +268,12 @@ class GamePlayViewController: UIViewController {
             let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
             miniTile.image = UIImage(named: "00")
             
-            miniTile.layer.shadowColor = tintColor[gameMaster.currentPlayer].cgColor
+            miniTile.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
             miniTile.layer.shadowRadius = 0.1088 * miniTile.frame.width
             miniTile.layer.shadowOpacity = 0.8
             
             let shade = makeTileTint()
-            shade.backgroundColor = tintColor[gameMaster.currentPlayer]
+            shade.backgroundColor = gameMaster.shadowColors[gameMaster.currentPlayer]
             miniTile.addSubview(shade)
             
             miniTile.transform = miniTile.transform.rotated(by: .pi)
@@ -281,12 +286,12 @@ class GamePlayViewController: UIViewController {
             let miniTile = UIImageView(frame: CGRect(x: -100, y: -100, width: 25, height: 50))
             miniTile.image = UIImage(named: "00")
             
-            miniTile.layer.shadowColor = tintColor[gameMaster.currentPlayer].cgColor
+            miniTile.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
             miniTile.layer.shadowRadius = 0.1088 * miniTile.frame.width
             miniTile.layer.shadowOpacity = 0.8
             
             let shade = makeTileTint()
-            shade.backgroundColor = tintColor[gameMaster.currentPlayer]
+            shade.backgroundColor = gameMaster.shadowColors[gameMaster.currentPlayer]
             miniTile.addSubview(shade)
             
             miniTile.transform = miniTile.transform.rotated(by: .pi / 2)
@@ -324,7 +329,7 @@ class GamePlayViewController: UIViewController {
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    func drawShadow(view: UIView, lineColor: UIColor, shadowColor: UIColor, thickness: CGFloat = 3, range: CGFloat = 10) {
+    func drawShadow(view: UIView, lineColor: UIColor, shadowColor: UIColor, thickness: CGFloat = 2, range: CGFloat = 10) {
         //this function uses CALayer to create shadow on the inside of the UIView to mimic glowing effect
         //this function is modified from "https://stackoverflow.com/a/67839910", credit to <teradyl>
         let size = view.frame.size
