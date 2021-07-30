@@ -13,7 +13,7 @@ class GameManager {
     //MARK: - Constants
     
     //all tiles are initialized, relocate current player's to onScreen, the rest off screen
-    let onScreen = [CGPoint(x: 5, y: 700), CGPoint(x: 60, y: 700), CGPoint(x: 115, y: 700), CGPoint(x: 170, y: 700),CGPoint(x: 225, y: 700), CGPoint(x: 280, y: 700), CGPoint(x: 335, y: 700)]
+    let onScreen = [CGPoint(x: 5, y: 710), CGPoint(x: 60, y: 710), CGPoint(x: 115, y: 710), CGPoint(x: 170, y: 710),CGPoint(x: 225, y: 710), CGPoint(x: 280, y: 710), CGPoint(x: 335, y: 710)]
     let p1OffScreen = [CGPoint(x: 5, y: 1600), CGPoint(x: 60, y: 1600), CGPoint(x: 115, y: 1600), CGPoint(x: 170, y: 1600),CGPoint(x: 225, y: 1600), CGPoint(x: 280, y: 1600), CGPoint(x: 335, y: 1600)]
     let p2OffScreen = [CGPoint(x: 5, y: 2600), CGPoint(x: 60, y: 2600), CGPoint(x: 115, y: 2600), CGPoint(x: 170, y: 2600),CGPoint(x: 225, y: 2600), CGPoint(x: 280, y: 2600), CGPoint(x: 335, y: 2600)]
     let p3OffScreen = [CGPoint(x: 5, y: 3600), CGPoint(x: 60, y: 3600), CGPoint(x: 115, y: 3600), CGPoint(x: 170, y: 3600),CGPoint(x: 225, y: 3600), CGPoint(x: 280, y: 3600), CGPoint(x: 335, y: 3600)]

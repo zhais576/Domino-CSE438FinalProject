@@ -117,11 +117,11 @@ class GamePlayViewController: UIViewController {
         view.addSubview(gameOverButton)
         
         //setup player background
-        playerPanel = UIView(frame: CGRect(x: 0, y: 640, width: 390, height: 204))
+        playerPanel = UIView(frame: CGRect(x: 0, y: 700, width: 390, height: 144))
         playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         playerPanel.layer.zPosition = 0
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
-        playerPanelGlow = UIView(frame: CGRect(x: -30, y: 638, width: 450, height: 204))
+        playerPanelGlow = UIView(frame: CGRect(x: playerPanel.frame.origin.x - 30, y: playerPanel.frame.origin.y - 2, width: playerPanel.frame.width + 60, height: playerPanel.frame.height))
         playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         playerPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         playerPanelGlow.layer.shadowOpacity = 1
@@ -136,7 +136,7 @@ class GamePlayViewController: UIViewController {
         statsPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         statsPanel.layer.zPosition = 0
         drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
-        statsPanelGlow = UIView(frame: CGRect(x: -30, y: 2, width: 450, height: 110))
+        statsPanelGlow = UIView(frame: CGRect(x: statsPanel.frame.origin.x - 30, y: statsPanel.frame.origin.y - 2, width: statsPanel.frame.width + 60, height: statsPanel.frame.height))
         statsPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         statsPanelGlow.layer.shadowOpacity = 1
