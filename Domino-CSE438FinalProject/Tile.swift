@@ -43,7 +43,7 @@ class Tile : UIView {
         //tile 3d shadow
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowRadius = 0.1088 * self.frame.width
-        self.layer.shadowOpacity = 0.3
+        self.layer.shadowOpacity = 1
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -104,7 +104,7 @@ class GamePlayViewController: UIViewController {
         
         //setup player background
         playerPanel = UIView(frame: CGRect(x: 0, y: 640, width: 390, height: 204))
-        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        //playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         playerPanel.layer.zPosition = 0
         view.addSubview(playerPanel)
         
@@ -140,10 +140,17 @@ class GamePlayViewController: UIViewController {
         roundOverButton.isHidden = true
         for tile in gameMaster.boxOfTiles{ //add all tiles to current view
             tile.layer.zPosition = 3
-            view.addSubview(tile)
+            //tile glowing color
+            if tile.theme == "pink"{
+                tile.layer.shadowColor = UIColor.red.cgColor
+            }else if tile.theme == "teal"{
+                tile.layer.shadowColor = UIColor.blue.cgColor
+            }
+            //add gesture to each tiles
             let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragging(gesture:)))
             tile.addGestureRecognizer(gesture)
-            tile.isUserInteractionEnabled = true //add gesture to each tiles
+            tile.isUserInteractionEnabled = true
+            view.addSubview(tile)
         }
         currentTile = gameMaster.defaultTile //set tile being played to default, aka a custom null
     }
@@ -190,7 +197,7 @@ class GamePlayViewController: UIViewController {
         //exchange onboard tiles with new player's tiles
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
         //update player panel and stats panel color
-        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+            //playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         statsPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         //update all the mini tiles
         refreshMiniTile()
