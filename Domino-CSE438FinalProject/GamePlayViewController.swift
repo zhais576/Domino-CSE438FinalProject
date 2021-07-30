@@ -31,6 +31,7 @@ class GamePlayViewController: UIViewController {
     var quitButton: UIButton!
     var skipPlayer: AVAudioPlayer!
     var playerPanelGlow: UIView!
+    var statsPanelGlow: UIView!
     
     //MARK: - Variables
     
@@ -118,7 +119,7 @@ class GamePlayViewController: UIViewController {
         playerPanel.layer.zPosition = 0
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         playerPanelGlow = UIView(frame: CGRect(x: -30, y: 640, width: 450, height: 204))
-        playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        playerPanelGlow.backgroundColor = hexColor(hexInt: 0xFF121B35)
         playerPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         playerPanelGlow.layer.shadowOpacity = 1
         playerPanelGlow.layer.shadowOffset = .zero
@@ -129,12 +130,17 @@ class GamePlayViewController: UIViewController {
         
         //setup stats background
         statsPanel = UIView(frame: CGRect(x: 0, y: 0, width: 390, height: 110))
-        if gameMaster.currentPlayer == 1 || gameMaster.currentPlayer == 3 {
-            statsPanel.backgroundColor = .systemPink
-        } else {
-            statsPanel.backgroundColor = .systemTeal
-        }
+        statsPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         statsPanel.layer.zPosition = 0
+        drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
+        statsPanelGlow = UIView(frame: CGRect(x: -30, y: 0, width: 450, height: 110))
+        statsPanelGlow.backgroundColor = hexColor(hexInt: 0xFF121B35)
+        statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        statsPanelGlow.layer.shadowOpacity = 1
+        statsPanelGlow.layer.shadowOffset = .zero
+        statsPanelGlow.layer.shadowRadius = 10
+        statsPanelGlow.layer.zPosition = -1
+        view.addSubview(statsPanelGlow)
         view.addSubview(statsPanel)
         
         //setup miniTile view
@@ -218,9 +224,9 @@ class GamePlayViewController: UIViewController {
         //update player panel and stats panel color
         playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
-        playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         playerPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
-        statsPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         //update all the mini tiles
         refreshMiniTile()
         //if player cannot play, prompt skip
