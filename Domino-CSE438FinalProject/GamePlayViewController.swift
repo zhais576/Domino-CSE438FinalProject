@@ -113,9 +113,9 @@ class GamePlayViewController: UIViewController {
         
         //setup player background
         playerPanel = UIView(frame: CGRect(x: 0, y: 640, width: 390, height: 204))
-        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        playerPanel.alpha = 0.3
+        playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         playerPanel.layer.zPosition = 0
+        drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         view.addSubview(playerPanel)
         
         //setup stats background
@@ -207,7 +207,8 @@ class GamePlayViewController: UIViewController {
         //exchange onboard tiles with new player's tiles
         gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
         //update player panel and stats panel color
-        playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
+        drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         statsPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         //update all the mini tiles
         refreshMiniTile()
@@ -270,7 +271,7 @@ class GamePlayViewController: UIViewController {
             let shade = makeTileTint()
             shade.backgroundColor = tintColor[gameMaster.currentPlayer]
             miniTile.addSubview(shade)
-    
+            
             miniTile.transform = miniTile.transform.rotated(by: .pi / 2)
             miniTile.frame.origin = miniTileLeftPositions[i]
             miniTilePanel.addSubview(miniTile)
@@ -290,9 +291,9 @@ class GamePlayViewController: UIViewController {
     func loadSkipAudio() {
         let url = Bundle.main.url(forResource: "rip", withExtension: "mp3")!
         do{
-              skipPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: nil)
+            skipPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: nil)
         } catch let error as NSError {
-              print(error)
+            print(error)
         }
         skipPlayer.numberOfLoops = 0
         skipPlayer.prepareToPlay()
@@ -304,6 +305,61 @@ class GamePlayViewController: UIViewController {
         let blue = CGFloat(hexInt & 0xFF) / 255.0
         let alpha = CGFloat((hexInt >> 24) & 0xFF) / 255.0
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
+    func drawShadow(view: UIView, lineColor: UIColor, shadowColor: UIColor, thickness: CGFloat = 3, range: CGFloat = 10) {
+        //this function uses CALayer to create shadow on the inside of the UIView to mimic glowing effect
+        //this function is modified from "https://stackoverflow.com/a/67839910", credit to <teradyl>
+        let size = view.frame.size
+        view.clipsToBounds = true
+
+        //clear existing shadows
+        if let sublayers = view.layer.sublayers, !sublayers.isEmpty {
+            for sublayer in sublayers {
+                sublayer.removeFromSuperlayer()
+            }
+        }
+
+        let topShadowLayer: CALayer = CALayer()
+        topShadowLayer.backgroundColor = lineColor.cgColor
+        topShadowLayer.position = CGPoint(x: size.width / 2, y: -(size.height / 2) + thickness)
+        topShadowLayer.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        topShadowLayer.shadowColor = shadowColor.cgColor
+        topShadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+        topShadowLayer.shadowOpacity = 1
+        topShadowLayer.shadowRadius = range
+
+        let bottomShadowLayer: CALayer = CALayer()
+        bottomShadowLayer.backgroundColor = lineColor.cgColor
+        bottomShadowLayer.position = CGPoint(x: size.width / 2, y: size.height + (size.height / 2) - thickness)
+        bottomShadowLayer.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        bottomShadowLayer.shadowColor = shadowColor.cgColor
+        bottomShadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+        bottomShadowLayer.shadowOpacity = 1
+        bottomShadowLayer.shadowRadius = range
+
+        let leftShadowLayer: CALayer = CALayer()
+        leftShadowLayer.backgroundColor = lineColor.cgColor
+        leftShadowLayer.position = CGPoint(x: -(size.width / 2) + thickness, y: size.height / 2)
+        leftShadowLayer.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        leftShadowLayer.shadowColor = shadowColor.cgColor
+        leftShadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+        leftShadowLayer.shadowOpacity = 1
+        leftShadowLayer.shadowRadius = range
+
+        let rightShadowLayer: CALayer = CALayer()
+        rightShadowLayer.backgroundColor = lineColor.cgColor
+        rightShadowLayer.position = CGPoint(x: size.width + (size.width / 2) - thickness, y: size.height / 2)
+        rightShadowLayer.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        rightShadowLayer.shadowColor = shadowColor.cgColor
+        rightShadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+        rightShadowLayer.shadowOpacity = 1
+        rightShadowLayer.shadowRadius = range
+        
+        view.layer.addSublayer(topShadowLayer)
+        view.layer.addSublayer(bottomShadowLayer)
+        view.layer.addSublayer(leftShadowLayer)
+        view.layer.addSublayer(rightShadowLayer)
     }
     
     // MARK: - SKIP PRESSED
@@ -371,5 +427,5 @@ class GamePlayViewController: UIViewController {
         navigationController?.popToRootViewController(animated: false)
     }
     
-
+    
 }

@@ -116,7 +116,7 @@ class ScoreViewController: UIViewController {
         for player in gameMaster.players {
             for tile in player.tilesOnHand {
                 let tileImage = UIImageView(frame: CGRect(x: 30 + xOffset, y: 110 + yOffset, width: 25, height: 50))
-                tileImage.image = UIImage(named: "\(tile.sides[0])\(tile.sides[1])")
+                tileImage.image = tile.faceImage.image
                 view.addSubview(tileImage)
                 xOffset += 30
             }

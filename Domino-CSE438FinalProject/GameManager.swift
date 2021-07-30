@@ -35,6 +35,7 @@ class GameManager {
     var train: Train = Train()
     var skipCounter: Int = 0
     var playerColors: [UIColor] = [.systemTeal, .systemPink, .systemTeal, .systemPink]
+    var shadowColors: [UIColor] = [.blue, .red, .blue, .red]
     
     //MARK: - Init
     
