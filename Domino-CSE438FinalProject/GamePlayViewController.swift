@@ -29,6 +29,7 @@ class GamePlayViewController: UIViewController {
     var statsPanel: UIView!
     var miniTilePanel: UIView!
     var quitButton: UIButton!
+    var skipPlayer: AVAudioPlayer!
     
     //MARK: - Variables
     
@@ -49,8 +50,16 @@ class GamePlayViewController: UIViewController {
         }
         setUpView()
     }
-    var player = AVAudioPlayer()
     
+    override func viewDidAppear(_ animated: Bool) {
+        //setup audio
+        DispatchQueue.global(qos: .background).async{ [self] in
+            loadSkipAudio()
+            DispatchQueue.main.async {
+                skipPlayer.prepareToPlay()
+            }
+        }
+    }
     
     //MARK: - Helper Functions
     
@@ -105,7 +114,7 @@ class GamePlayViewController: UIViewController {
         //setup player background
         playerPanel = UIView(frame: CGRect(x: 0, y: 640, width: 390, height: 204))
         playerPanel.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        playerPanel.alpha = 0.5
+        playerPanel.alpha = 0.3
         playerPanel.layer.zPosition = 0
         view.addSubview(playerPanel)
         
@@ -205,7 +214,7 @@ class GamePlayViewController: UIViewController {
         //if player cannot play, prompt skip
         if !gameMaster.canPlay(player: gameMaster.currentPlayer){
             skipButton.isHidden = false
-            playThemeSong()
+            skipPlayer.play()
         }
     }
     
@@ -278,19 +287,15 @@ class GamePlayViewController: UIViewController {
         return tileTint
     }
     
-    func playThemeSong() {
+    func loadSkipAudio() {
         let url = Bundle.main.url(forResource: "rip", withExtension: "mp3")!
-        do
-          {
-              player = try AVAudioPlayer(contentsOf: url, fileTypeHint: nil)
-          } catch let error as NSError {
+        do{
+              skipPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: nil)
+        } catch let error as NSError {
               print(error)
-          }
-        
-        player.numberOfLoops = 0
-        player.prepareToPlay()
-        player.play()
-        
+        }
+        skipPlayer.numberOfLoops = 0
+        skipPlayer.prepareToPlay()
     }
     
     func hexColor(hexInt: Int) -> UIColor{
@@ -305,7 +310,7 @@ class GamePlayViewController: UIViewController {
     
     @objc func skipPressed() {
         
-        player.stop()
+        skipPlayer.stop()
         gameMaster.skipCounter += 1
         //Defines the logic for awarding points (to the other team) for skipping your turn.
         if gameMaster.skipCounter == 1 || gameMaster.skipCounter == 3 { // This if statement is here because you can't concede for making your own team-mate skip his/her turn.
