@@ -32,6 +32,7 @@ class GamePlayViewController: UIViewController {
     var skipPlayer: AVAudioPlayer!
     var playerPanelGlow: UIView!
     var statsPanelGlow: UIView!
+    var entryBlocker: UIButton!
     
     //MARK: - Variables
     
@@ -153,13 +154,24 @@ class GamePlayViewController: UIViewController {
         view.addSubview(miniTilePanel)
         
         //setup quit button
-        quitButton = UIButton(frame:CGRect(x: 30, y: 50, width: 50, height: 30))
+        quitButton = UIButton(frame: CGRect(x: 30, y: 50, width: 50, height: 30))
         quitButton.setTitle("quit", for: .normal)
         quitButton.backgroundColor = .systemRed
         quitButton.addTarget(self, action: #selector(quitPressed), for: .touchUpInside)
         quitButton.layer.zPosition = 2
         quitButton.isUserInteractionEnabled = true
         view.addSubview(quitButton)
+        
+        //setup blocker, blocker stops the last user seeing the new user's tiles, until the new user double taps
+        entryBlocker = UIButton(frame: CGRect(x: 0, y: 702, width: 390, height: 140))
+        entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        entryBlocker.setTitle("Player \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
+        entryBlocker.titleLabel?.lineBreakMode = .byWordWrapping
+        entryBlocker.titleLabel?.textAlignment = .center
+        entryBlocker.addTarget(self, action: #selector(self.doubleTap), for: .touchDownRepeat)
+        entryBlocker.layer.zPosition = 4
+        
+        view.addSubview(entryBlocker)
         
         //load labels
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
@@ -169,7 +181,6 @@ class GamePlayViewController: UIViewController {
         for tile in gameMaster.boxOfTiles{ //add all tiles to current view
             tile.layer.zPosition = 3
             //tile glowing color
-            
             if tile.theme == "pink"{
                 tile.layer.shadowColor = UIColor.red.cgColor
             }else if tile.theme == "teal"{
@@ -223,8 +234,6 @@ class GamePlayViewController: UIViewController {
     func reloadScreen(){
         //update current player tag
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
-        //exchange onboard tiles with new player's tiles
-        gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
         //update player panel and stats panel color
         playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
@@ -233,13 +242,11 @@ class GamePlayViewController: UIViewController {
         statsPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
+        //put on blocker so the tile isnt seen until tapped twice
+        entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        entryBlocker.isHidden = false
         //update all the mini tiles
         refreshMiniTile()
-        //if player cannot play, prompt skip
-        if !gameMaster.canPlay(player: gameMaster.currentPlayer){
-            skipButton.isHidden = false
-            skipPlayer.play()
-        }
     }
     
     func refreshMiniTile(){
@@ -381,6 +388,17 @@ class GamePlayViewController: UIViewController {
         view.layer.addSublayer(bottomShadowLayer)
         view.layer.addSublayer(leftShadowLayer)
         view.layer.addSublayer(rightShadowLayer)
+    }
+    
+    @objc func doubleTap(){
+        entryBlocker.isHidden = true
+        //exchange onboard tiles with new player's tiles
+        gameMaster.displayOnScreen(player: gameMaster.currentPlayer)
+        //if player cannot play, prompt skip
+        if !gameMaster.canPlay(player: gameMaster.currentPlayer){
+            skipButton.isHidden = false
+            skipPlayer.play()
+        }
     }
     
     // MARK: - SKIP PRESSED

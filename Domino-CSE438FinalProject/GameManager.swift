@@ -76,11 +76,7 @@ class GameManager {
     func checkFirst(){ //checks for [6,6] and set him as current player
         for i in 0..<players.count{
             if players[i].tilesOnHand.contains(where: { $0.sides == [6,6] }){
-                displayOnScreen(player: i)
                 currentPlayer = i
-                for tile in players[i].tilesOnHand{
-                    tile.shade.isHidden = true
-                }
             }
         }
     }
@@ -163,7 +159,12 @@ class GameManager {
     
     func canPlay(player: Int) -> Bool{ //check if the current player has to skip
         var noSkip: Bool = false
-        guard train.leftEnd != -1 else {return true}
+        if train.leftEnd == -1{
+            for tile in players[player].tilesOnHand{
+                tile.shade.isHidden = true
+            }
+            return true
+        }
         for tile in players[player].tilesOnHand{
             if tile.sides.contains(train.leftEnd) || tile.sides.contains(train.rightEnd){
                 noSkip = true
