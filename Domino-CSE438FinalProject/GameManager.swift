@@ -162,6 +162,8 @@ class GameManager {
         if train.leftEnd == -1{
             for tile in players[player].tilesOnHand{
                 tile.shade.isHidden = true
+                tile.possiblePlay.append("left")
+                tile.possiblePlay.append("right")
             }
             return true
         }

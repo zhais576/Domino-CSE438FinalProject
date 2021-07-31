@@ -35,6 +35,8 @@ class GamePlayViewController: UIViewController {
     var entryBlocker: UIButton!
     var leftEndZone: UIView!
     var rightEndZone: UIView!
+    var leftEndZoneGlow: UIView!
+    var rightEndZoneGlow: UIView!
     
     //MARK: - Variables
     
@@ -176,14 +178,32 @@ class GamePlayViewController: UIViewController {
         
         //setup left end zone and right end zone that is possible for a tile to land
         leftEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
-        leftEndZone.backgroundColor = .green
+        leftEndZone.backgroundColor = hexColor(hexInt: 0xFF121B35)
         leftEndZone.layer.zPosition = 1
         leftEndZone.isHidden = true
+        leftEndZoneGlow = UIView(frame: leftEndZone.frame)
+        leftEndZoneGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        leftEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        leftEndZoneGlow.layer.shadowOpacity = 1
+        leftEndZoneGlow.layer.shadowOffset = .zero
+        leftEndZoneGlow.layer.shadowRadius = 5
+        leftEndZoneGlow.layer.zPosition = 0
+        leftEndZoneGlow.isHidden = true
+        view.addSubview(leftEndZoneGlow)
         view.addSubview(leftEndZone)
         rightEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
-        rightEndZone.backgroundColor = .green
+        rightEndZone.backgroundColor = hexColor(hexInt: 0xFF121B35)
         rightEndZone.layer.zPosition = 1
         rightEndZone.isHidden = true
+        rightEndZoneGlow = UIView(frame: rightEndZone.frame)
+        rightEndZoneGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        rightEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        rightEndZoneGlow.layer.shadowOpacity = 1
+        rightEndZoneGlow.layer.shadowOffset = .zero
+        rightEndZoneGlow.layer.shadowRadius = 5
+        rightEndZoneGlow.layer.zPosition = 0
+        rightEndZoneGlow.isHidden = true
+        view.addSubview(rightEndZoneGlow)
         view.addSubview(rightEndZone)
         
         //load labels
@@ -219,18 +239,20 @@ class GamePlayViewController: UIViewController {
             gesture.setTranslation(CGPoint.zero, in: self.view) //set dragging position change
             
             if currentTile.possiblePlay.contains("left"){
-                print("light up left")
                 leftEndZone.isHidden = false
+                leftEndZoneGlow.isHidden = false
             }
             if currentTile.possiblePlay.contains("right"){
-                print("light up right")
                 rightEndZone.isHidden = false
+                rightEndZoneGlow.isHidden = false
             }
             
             if gesture.state == UIGestureRecognizer.State.ended{
                 //turn zone off
                 leftEndZone.isHidden = true
+                leftEndZoneGlow.isHidden = true
                 rightEndZone.isHidden = true
+                rightEndZoneGlow.isHidden = true
                 //snaps back to place
                 currentTile.center = currentTile.originalCenter
                 //checks if tile is played in the field, left or right
@@ -436,12 +458,18 @@ class GamePlayViewController: UIViewController {
         }
         leftEndZone.frame.size = leftZoneSize
         leftEndZone.frame.origin = gameMaster.train.positions.leftPositions[gameMaster.train.leftIterator]
+        drawShadow(view: leftEndZone, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
+        leftEndZoneGlow.frame = leftEndZone.frame
+        leftEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
         var rightZoneSize = CGSize(width: 25, height: 50)
         if gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "left" || gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "right"{
             rightZoneSize = CGSize(width: 50, height: 25)
         }
         rightEndZone.frame.size = rightZoneSize
         rightEndZone.frame.origin = gameMaster.train.positions.rightPositions[gameMaster.train.rightIterator]
+        drawShadow(view: rightEndZone, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
+        rightEndZoneGlow.frame = rightEndZone.frame
+        rightEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
     }
     
     // MARK: - SKIP PRESSED
