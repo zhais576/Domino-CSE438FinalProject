@@ -14,9 +14,11 @@ class Tile : UIView {
     var sides: [Int] = [-1,-1]
     var faceImage: UIImageView!
     var playedTo: String = "pending" //state of the tile
+    var possiblePlay: [String] = []
     var originalCenter: CGPoint!
     var shade: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var theme: String = "white"
+    
     
     //MARK: - Init
     

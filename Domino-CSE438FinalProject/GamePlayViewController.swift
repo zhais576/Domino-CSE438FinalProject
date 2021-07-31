@@ -33,6 +33,8 @@ class GamePlayViewController: UIViewController {
     var playerPanelGlow: UIView!
     var statsPanelGlow: UIView!
     var entryBlocker: UIButton!
+    var leftEndZone: UIView!
+    var rightEndZone: UIView!
     
     //MARK: - Variables
     
@@ -170,8 +172,17 @@ class GamePlayViewController: UIViewController {
         entryBlocker.titleLabel?.textAlignment = .center
         entryBlocker.addTarget(self, action: #selector(self.doubleTap), for: .touchDownRepeat)
         entryBlocker.layer.zPosition = 4
-        
         view.addSubview(entryBlocker)
+        
+        //setup left end zone and right end zone that is possible for a tile to land
+        leftEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
+        leftEndZone.backgroundColor = .green
+        leftEndZone.layer.zPosition = 1
+        view.addSubview(leftEndZone)
+        rightEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
+        rightEndZone.backgroundColor = .green
+        rightEndZone.layer.zPosition = 1
+        view.addSubview(rightEndZone)
         
         //load labels
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
@@ -204,6 +215,14 @@ class GamePlayViewController: UIViewController {
             let translation = gesture.translation(in: self.view)
             currentTile.center = CGPoint(x: currentTile.center.x + translation.x, y: currentTile.center.y + translation.y)
             gesture.setTranslation(CGPoint.zero, in: self.view) //set dragging position change
+            
+            if currentTile.possiblePlay.contains("left"){
+                print("light up left")
+            }
+            if currentTile.possiblePlay.contains("right"){
+                print("light up right")
+            }
+            
             if gesture.state == UIGestureRecognizer.State.ended{
                 //snaps back to place
                 currentTile.center = currentTile.originalCenter
@@ -247,6 +266,8 @@ class GamePlayViewController: UIViewController {
         entryBlocker.isHidden = false
         //update all the mini tiles
         refreshMiniTile()
+        //update train end check zone
+        updateTrainZone()
     }
     
     func refreshMiniTile(){
@@ -398,6 +419,17 @@ class GamePlayViewController: UIViewController {
         if !gameMaster.canPlay(player: gameMaster.currentPlayer){
             skipButton.isHidden = false
             skipPlayer.play()
+        }
+    }
+    
+    func updateTrainZone(){
+        var leftZoneSize = CGSize(width: 25, height: 50)
+        if gameMaster.train.positions.leftOrientations[gameMaster.train.leftIterator] == "left" || gameMaster.train.positions.leftOrientations[gameMaster.train.leftIterator] == "right"{
+            leftZoneSize = CGSize(width: 50, height: 25)
+        }
+        var rightZoneSize = CGSize(width: 25, height: 50)
+        if gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "left" || gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "right"{
+            rightZoneSize = CGSize(width: 50, height: 25)
         }
     }
     

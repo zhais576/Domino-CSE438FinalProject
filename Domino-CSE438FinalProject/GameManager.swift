@@ -166,7 +166,13 @@ class GameManager {
             return true
         }
         for tile in players[player].tilesOnHand{
-            if tile.sides.contains(train.leftEnd) || tile.sides.contains(train.rightEnd){
+            if tile.sides.contains(train.leftEnd){
+                tile.possiblePlay.append("left")
+                noSkip = true
+                tile.shade.isHidden = true
+            }
+            if tile.sides.contains(train.rightEnd){
+                tile.possiblePlay.append("right")
                 noSkip = true
                 tile.shade.isHidden = true
             }
