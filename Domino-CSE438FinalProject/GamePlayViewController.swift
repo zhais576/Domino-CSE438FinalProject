@@ -180,6 +180,7 @@ class GamePlayViewController: UIViewController {
         leftEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
         leftEndZone.backgroundColor = hexColor(hexInt: 0xFF121B35)
         leftEndZone.layer.zPosition = 1
+        drawShadow(view: leftEndZone, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         leftEndZone.isHidden = true
         leftEndZoneGlow = UIView(frame: leftEndZone.frame)
         leftEndZoneGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
@@ -194,6 +195,7 @@ class GamePlayViewController: UIViewController {
         rightEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
         rightEndZone.backgroundColor = hexColor(hexInt: 0xFF121B35)
         rightEndZone.layer.zPosition = 1
+        drawShadow(view: rightEndZone, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         rightEndZone.isHidden = true
         rightEndZoneGlow = UIView(frame: rightEndZone.frame)
         rightEndZoneGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
