@@ -167,7 +167,7 @@ class GamePlayViewController: UIViewController {
         //setup blocker, blocker stops the last user seeing the new user's tiles, until the new user double taps
         entryBlocker = UIButton(frame: CGRect(x: 0, y: 702, width: 390, height: 140))
         entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        entryBlocker.setTitle("Player \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
+        entryBlocker.setTitle("Pass the phone to \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
         entryBlocker.titleLabel?.lineBreakMode = .byWordWrapping
         entryBlocker.titleLabel?.textAlignment = .center
         entryBlocker.addTarget(self, action: #selector(self.doubleTap), for: .touchDownRepeat)
@@ -270,6 +270,7 @@ class GamePlayViewController: UIViewController {
         drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         //put on blocker so the tile isnt seen until tapped twice
         entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        entryBlocker.setTitle("Pass the phone to \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
         entryBlocker.isHidden = false
         //update all the mini tiles
         refreshMiniTile()
