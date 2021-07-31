@@ -178,10 +178,12 @@ class GamePlayViewController: UIViewController {
         leftEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
         leftEndZone.backgroundColor = .green
         leftEndZone.layer.zPosition = 1
+        leftEndZone.isHidden = true
         view.addSubview(leftEndZone)
         rightEndZone = UIView(frame: CGRect(origin: gameMaster.train.positions.firstPosition, size: CGSize(width: 50, height: 25)))
         rightEndZone.backgroundColor = .green
         rightEndZone.layer.zPosition = 1
+        rightEndZone.isHidden = true
         view.addSubview(rightEndZone)
         
         //load labels
@@ -218,12 +220,17 @@ class GamePlayViewController: UIViewController {
             
             if currentTile.possiblePlay.contains("left"){
                 print("light up left")
+                leftEndZone.isHidden = false
             }
             if currentTile.possiblePlay.contains("right"){
                 print("light up right")
+                rightEndZone.isHidden = false
             }
             
             if gesture.state == UIGestureRecognizer.State.ended{
+                //turn zone off
+                leftEndZone.isHidden = true
+                rightEndZone.isHidden = true
                 //snaps back to place
                 currentTile.center = currentTile.originalCenter
                 //checks if tile is played in the field, left or right
@@ -427,10 +434,14 @@ class GamePlayViewController: UIViewController {
         if gameMaster.train.positions.leftOrientations[gameMaster.train.leftIterator] == "left" || gameMaster.train.positions.leftOrientations[gameMaster.train.leftIterator] == "right"{
             leftZoneSize = CGSize(width: 50, height: 25)
         }
+        leftEndZone.frame.size = leftZoneSize
+        leftEndZone.frame.origin = gameMaster.train.positions.leftPositions[gameMaster.train.leftIterator]
         var rightZoneSize = CGSize(width: 25, height: 50)
         if gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "left" || gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "right"{
             rightZoneSize = CGSize(width: 50, height: 25)
         }
+        rightEndZone.frame.size = rightZoneSize
+        rightEndZone.frame.origin = gameMaster.train.positions.rightPositions[gameMaster.train.rightIterator]
     }
     
     // MARK: - SKIP PRESSED

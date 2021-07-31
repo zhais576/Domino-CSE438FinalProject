@@ -166,6 +166,7 @@ class GameManager {
             return true
         }
         for tile in players[player].tilesOnHand{
+            tile.possiblePlay = []
             if tile.sides.contains(train.leftEnd){
                 tile.possiblePlay.append("left")
                 noSkip = true
