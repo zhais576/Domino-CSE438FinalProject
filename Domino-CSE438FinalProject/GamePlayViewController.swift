@@ -249,7 +249,7 @@ class GamePlayViewController: UIViewController {
                 rightEndZoneGlow.isHidden = false
             }
             
-            if gesture.state == UIGestureRecognizer.State.ended{
+            if gesture.state == UIGestureRecognizer.State.ended{ //when dragging stopped
                 //turn zone off
                 leftEndZone.isHidden = true
                 leftEndZoneGlow.isHidden = true
@@ -257,24 +257,27 @@ class GamePlayViewController: UIViewController {
                 rightEndZoneGlow.isHidden = true
                 //snaps back to place
                 currentTile.center = currentTile.originalCenter
-                //checks if tile is played in the field, left or right
-                if (110...640).contains(gesture.location(in: self.view).y) { //only if the tile is moved to this zone
-                    if gesture.location(in: self.view).x < 195 {  //checks played left or right
-                        currentTile.playedTo = "left"
-                    } else {
-                        currentTile.playedTo = "right"
-                    }
-                    if gameMaster.playTile(tile: currentTile){ //check if tile can be played
-                        gameMaster.skipCounter = 0 //reset skipCounter
-                        gameMaster.removeTile(tile: currentTile)
-                        view.addSubview(gameMaster.train.update(tile: currentTile)) // update train when a tile is removed
-                        if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{ // player has 0 tiles, game ends
-                            roundOverButton.isHidden = false
-                        }else{
-                            gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
-                            gameMaster.nextPlayer()
-                            reloadScreen()
-                        }
+                
+                //add checkzone for left and right indicators, checkzone is 3* width and height
+                let leftCheckZone = CGRect(x: leftEndZone.frame.origin.x - leftEndZone.frame.size.width, y: leftEndZone.frame.origin.y - leftEndZone.frame.size.height, width: leftEndZone.frame.size.width * 3, height: leftEndZone.frame.size.height * 3)
+                let rightCheckZone = CGRect(x: rightEndZone.frame.origin.x - rightEndZone.frame.size.width, y: rightEndZone.frame.origin.y - rightEndZone.frame.size.height, width: rightEndZone.frame.size.width * 3, height: rightEndZone.frame.size.height * 3)
+                if leftCheckZone.contains(gesture.location(in: self.view)){
+                    currentTile.playedTo = "left"
+                }
+                if rightCheckZone.contains(gesture.location(in: self.view)){
+                    currentTile.playedTo = "right"
+                }
+                
+                if gameMaster.playTile(tile: currentTile){ //check if tile can be played
+                    gameMaster.skipCounter = 0 //reset skipCounter
+                    gameMaster.removeTile(tile: currentTile)
+                    view.addSubview(gameMaster.train.update(tile: currentTile)) // update train when a tile is removed
+                    if gameMaster.players[gameMaster.currentPlayer].tilesOnHand.count == 0{ // player has 0 tiles, game ends
+                        roundOverButton.isHidden = false
+                    }else{
+                        gameMaster.displayOffScreen(player: gameMaster.currentPlayer)
+                        gameMaster.nextPlayer()
+                        reloadScreen()
                     }
                 }
             }
