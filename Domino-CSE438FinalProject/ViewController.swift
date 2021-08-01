@@ -73,6 +73,10 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func how2Play(_ sender: Any) {
+        let tutorialVC = TutorialVC()
+        navigationController?.pushViewController(tutorialVC, animated: true)
+    }
     
     @IBAction func clearPressed(_ sender: Any) {
         clearAll()
