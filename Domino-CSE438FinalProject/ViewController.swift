@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        navigationController?.setNavigationBarHidden(true, animated: false)//hides navigation bar
+        navigationController?.setNavigationBarHidden(true, animated: true)//hides navigation bar
         
     }
     
