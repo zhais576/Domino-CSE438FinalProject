@@ -113,14 +113,16 @@ class ScoreViewController: UIViewController {
         teamRedLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30.0)
         view.addSubview(teamRedLabel)
         //setup two buttons
-        newGameButton = UIButton(frame:CGRect(x: 145, y: 680, width: 100, height: 50))
-        newGameButton.setTitle("New Game", for: .normal)
+        newGameButton = UIButton(frame:CGRect(x: 20, y: 670, width: 350, height: 120))
+        newGameButton.layer.cornerRadius = 30
+        newGameButton.setTitle("Start New Game", for: .normal)
         newGameButton.setTitleColor(.white, for: .normal)
         newGameButton.backgroundColor = .systemGreen
         newGameButton.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
         view.addSubview(newGameButton)
-        newRoundButton = UIButton(frame:CGRect(x: 145, y: 680, width: 100, height: 50))
-        newRoundButton.setTitle(("New Round"), for: .normal)
+        newRoundButton = UIButton(frame:CGRect(x: 20, y: 670, width: 350, height: 120))
+        newRoundButton.layer.cornerRadius = 30
+        newRoundButton.setTitle(("Start Next Round"), for: .normal)
         newRoundButton.setTitleColor(.white, for: .normal)
         newRoundButton.backgroundColor = .systemGreen
         newRoundButton.addTarget(self, action: #selector(newRoundPressed), for: .touchUpInside)
