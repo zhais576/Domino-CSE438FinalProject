@@ -56,7 +56,6 @@ class TutorialVC: UIViewController {
         if indx == 1{
             nextButton.isHidden = true
             backButton.isHidden = true
-            print("buttons gone")
             self.navigationController?.popViewController(animated: false)
         }
         if indx > 1 {
