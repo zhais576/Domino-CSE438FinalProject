@@ -98,9 +98,9 @@ class GamePlayViewController: UIViewController {
         view.addSubview(playerTag)
         
         //setup Skip
-        skipButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 530))
+        skipButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 590))
         skipButton.backgroundColor = .systemPink
-        skipButton.setTitle("No Valid Dominos to Play! \n Tap to Skip Turn", for: .normal)
+        skipButton.setTitle("No Valid Dominos to Play! \n \n Tap to Skip Turn", for: .normal)
         skipButton.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
         skipButton.titleLabel?.lineBreakMode = .byWordWrapping
         skipButton.titleLabel?.textAlignment = .center
@@ -109,12 +109,12 @@ class GamePlayViewController: UIViewController {
         view.addSubview(skipButton)
         
         //setup Round Over
-        roundOverButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 530))
+        roundOverButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 590))
         roundOverButton.backgroundColor = .systemBlue
-        roundOverButton.setTitle("Round Over \n Tap to View Score", for: .normal)
+        roundOverButton.setTitle("Round Over \n \n Tap to Continue", for: .normal)
         roundOverButton.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
-        skipButton.titleLabel?.lineBreakMode = .byWordWrapping
-        skipButton.titleLabel?.textAlignment = .center
+        roundOverButton.titleLabel?.lineBreakMode = .byWordWrapping
+        roundOverButton.titleLabel?.textAlignment = .center
         roundOverButton.addTarget(self, action: #selector(roundIsOver), for: .touchUpInside)
         roundOverButton.layer.zPosition = 1
         view.addSubview(roundOverButton)
@@ -196,7 +196,7 @@ class GamePlayViewController: UIViewController {
         //setup blocker, blocker stops the last user seeing the new user's tiles, until the new user double taps
         entryBlocker = UIButton(frame: CGRect(x: 0, y: 702, width: 390, height: 142))
         entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        entryBlocker.setTitle("Pass the phone to \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
+        entryBlocker.setTitle("Pass the Phone to \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
         entryBlocker.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
         entryBlocker.titleLabel?.lineBreakMode = .byWordWrapping
         entryBlocker.titleLabel?.textAlignment = .center
@@ -241,7 +241,7 @@ class GamePlayViewController: UIViewController {
         view.addSubview(rightEndZone)
         
         //load labels
-        playerTag.text = "Team : \(gameMaster.players[gameMaster.currentPlayer].name)"
+        playerTag.text = "Team " + gameMaster.players[gameMaster.currentPlayer].team + " : \(gameMaster.players[gameMaster.currentPlayer].name)"
         skipButton.isHidden = true
         gameOverButton.isHidden = true
         roundOverButton.isHidden = true
@@ -321,7 +321,7 @@ class GamePlayViewController: UIViewController {
     
     func reloadScreen(){
         //update current player tag
-        playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
+        playerTag.text = "Team " + gameMaster.players[gameMaster.currentPlayer].team + " : \(gameMaster.players[gameMaster.currentPlayer].name)"
         //update player panel and stats panel color
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
@@ -538,12 +538,12 @@ class GamePlayViewController: UIViewController {
         if gameMaster.skipCounter == 4{ //skip 4 times, round ends
             roundOverButton.isHidden = false
         } else if team1Score >= 20 {
-            let winningAlert = UIAlertController(title: "team has won with with a score of 20 - \(team2Score)!", message: nil, preferredStyle: .alert)
+            let winningAlert = UIAlertController(title: "Team Blue has won with with a score of \(team1Score)!", message: nil, preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
             gameOverButton.isHidden = false
         } else if team2Score >= 20 {
-            let winningAlert = UIAlertController(title: "team 2 has won with with a score of 20 - \(team1Score)!", message: nil, preferredStyle: .alert)
+            let winningAlert = UIAlertController(title: "Team Red has won with with a score of \(team2Score)!", message: nil, preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
             gameOverButton.isHidden = false

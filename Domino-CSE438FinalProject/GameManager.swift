@@ -50,10 +50,10 @@ class GameManager {
         //shuffles all tiles
         boxOfTiles.shuffle()
         //create all 4 players each with tiles at hand and add them to the players array
-        player1 = Player(inputName: player1Name, inputTiles: Array(boxOfTiles[0...6]))
-        player2 = Player(inputName: player2Name, inputTiles: Array(boxOfTiles[14...20]))
-        player3 = Player(inputName: player3Name, inputTiles: Array(boxOfTiles[7...13]))
-        player4 = Player(inputName: player4Name, inputTiles: Array(boxOfTiles[21...27]))
+        player1 = Player(inputName: player1Name, inputTiles: Array(boxOfTiles[0...6]), myTeam: "Blue")
+        player2 = Player(inputName: player2Name, inputTiles: Array(boxOfTiles[14...20]), myTeam: "Red")
+        player3 = Player(inputName: player3Name, inputTiles: Array(boxOfTiles[7...13]), myTeam: "Blue")
+        player4 = Player(inputName: player4Name, inputTiles: Array(boxOfTiles[21...27]), myTeam: "Red")
         players = [player1, player2, player3, player4]
         assignTileColor(player: 0, color: "teal")
         assignTileColor(player: 1, color: "pink")

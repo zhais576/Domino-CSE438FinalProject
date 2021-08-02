@@ -13,11 +13,13 @@ class Player {
     
     var name: String
     var tilesOnHand: [Tile]
+    var team: String
     
     //MARK: - Init
-    init(inputName: String, inputTiles: [Tile]) {
+    init(inputName: String, inputTiles: [Tile], myTeam: String) {
         name = inputName
         tilesOnHand = inputTiles
+        team = myTeam
     }
     
     
