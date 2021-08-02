@@ -16,7 +16,6 @@ class ScoreViewController: UIViewController {
     var p3DotsLabel: UILabel!
     var p4DotsLabel: UILabel!
     var roundDotsLabel: UILabel!
-    var roundPtsLabel: UILabel!
     var team1PtsLabel: UILabel!
     var team2PtsLabel: UILabel!
     var newGameButton: UIButton!
@@ -39,7 +38,7 @@ class ScoreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = hexColor(hexInt: 0xFF121B35)
         //calculate player dots
         p1Dots = gameMaster.countDot(player: 0)
         p2Dots = gameMaster.countDot(player: 1)
@@ -54,37 +53,75 @@ class ScoreViewController: UIViewController {
         checkIfTeamWon()
     }
     
-    
+    //MARK: - Helper Functions
     
     func setUpView(){
         addImages()
         //set up label
-        p1DotsLabel = UILabel(frame: CGRect(x: 30, y: 80, width: 200, height: 30))
+        p1DotsLabel = UILabel(frame: CGRect(x: 30, y: 50, width: 340, height: 30))
+        p1DotsLabel.textColor = .white
+        p1DotsLabel.font = UIFont(name: "Avenir-Heavy", size: 17.0)
         view.addSubview(p1DotsLabel)
-        p2DotsLabel = UILabel(frame: CGRect(x: 30, y: 160, width: 200, height: 30))
+        p2DotsLabel = UILabel(frame: CGRect(x: 30, y: 150, width: 340, height: 30))
+        p2DotsLabel.textColor = .white
+        p2DotsLabel.font = UIFont(name: "Avenir-Heavy", size: 17.0)
         view.addSubview(p2DotsLabel)
-        p3DotsLabel = UILabel(frame: CGRect(x: 30, y: 240, width: 200, height: 30))
+        p3DotsLabel = UILabel(frame: CGRect(x: 30, y: 250, width: 340, height: 30))
+        p3DotsLabel.textColor = .white
+        p3DotsLabel.font = UIFont(name: "Avenir-Heavy", size: 17.0)
         view.addSubview(p3DotsLabel)
-        p4DotsLabel = UILabel(frame: CGRect(x: 30, y: 320, width: 200, height: 30))
+        p4DotsLabel = UILabel(frame: CGRect(x: 30, y: 350, width: 340, height: 30))
+        p4DotsLabel.textColor = .white
+        p4DotsLabel.font = UIFont(name: "Avenir-Heavy", size: 17.0)
         view.addSubview(p4DotsLabel)
-        roundDotsLabel = UILabel(frame: CGRect(x: 114, y: 420, width: 200, height: 30))
+        roundDotsLabel = UILabel(frame: CGRect(x: 145, y: 470, width: 200, height: 30))
+        roundDotsLabel.textAlignment = .right
+        roundDotsLabel.font = UIFont(name: "Avenir-Heavy", size: 18.0)
+        roundDotsLabel.textColor = .white
         view.addSubview(roundDotsLabel)
-        roundPtsLabel = UILabel(frame: CGRect(x: 114, y: 480, width: 200, height: 30))
-        view.addSubview(roundPtsLabel)
-        team1PtsLabel = UILabel(frame: CGRect(x: 80, y: 600, width: 200, height: 50))
-        team1PtsLabel.font = UIFont(name: "ArialRoundedMTBold", size: 37)
+        team1PtsLabel = UILabel(frame: CGRect(x: 0, y: 540, width: 195, height: 150))
+        team1PtsLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30)
+        team1PtsLabel.textColor = .systemTeal
+        team1PtsLabel.textAlignment = .center
+        team1PtsLabel.lineBreakMode = .byWordWrapping
         view.addSubview(team1PtsLabel)
-        team2PtsLabel = UILabel(frame: CGRect(x: 260, y: 600, width: 300, height: 50))
-        team2PtsLabel.font = UIFont(name: "ArialRoundedMTBold", size: 37)
+        team2PtsLabel = UILabel(frame: CGRect(x: 195, y: 540, width: 195, height: 150))
+        team2PtsLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30)
+        team2PtsLabel.textColor = .systemPink
+        team2PtsLabel.textAlignment = .center
+        team2PtsLabel.lineBreakMode = .byWordWrapping
         view.addSubview(team2PtsLabel)
+        //setup separater
+        let separater = UIView(frame: CGRect(x: 30, y: 450, width: 330, height: 3))
+        separater.backgroundColor = .orange
+        view.addSubview(separater)
+        let staticTotalLabel = UILabel(frame: CGRect(x: 30, y: 470, width: 50, height: 30))
+        staticTotalLabel.text = "Total: "
+        staticTotalLabel.textColor = .white
+        staticTotalLabel.font = UIFont(name: "Avenir-Heavy", size: 18.0)
+        view.addSubview(staticTotalLabel)
+        let teamBlueLabel = UILabel(frame: CGRect(x: 0, y: 545, width: 195, height: 60))
+        teamBlueLabel.text = "Team Blue"
+        teamBlueLabel.textColor = .systemTeal
+        teamBlueLabel.textAlignment = .center
+        teamBlueLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30.0)
+        view.addSubview(teamBlueLabel)
+        let teamRedLabel = UILabel(frame: CGRect(x: 195, y: 545, width: 195, height: 60))
+        teamRedLabel.text = "Team Red"
+        teamRedLabel.textColor = .systemPink
+        teamRedLabel.textAlignment = .center
+        teamRedLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30.0)
+        view.addSubview(teamRedLabel)
         //setup two buttons
         newGameButton = UIButton(frame:CGRect(x: 145, y: 680, width: 100, height: 50))
         newGameButton.setTitle("New Game", for: .normal)
+        newGameButton.setTitleColor(.white, for: .normal)
         newGameButton.backgroundColor = .systemGreen
         newGameButton.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
         view.addSubview(newGameButton)
         newRoundButton = UIButton(frame:CGRect(x: 145, y: 680, width: 100, height: 50))
         newRoundButton.setTitle(("New Round"), for: .normal)
+        newRoundButton.setTitleColor(.white, for: .normal)
         newRoundButton.backgroundColor = .systemGreen
         newRoundButton.addTarget(self, action: #selector(newRoundPressed), for: .touchUpInside)
         view.addSubview(newRoundButton)
@@ -100,12 +137,11 @@ class ScoreViewController: UIViewController {
         }
         
         //update dots labels
-        p1DotsLabel.text = "Player \(gameMaster.player1.name): \(p1Dots) dots"
-        p2DotsLabel.text = "Player \(gameMaster.player2.name): \(p2Dots) dots"
-        p3DotsLabel.text = "Player \(gameMaster.player3.name): \(p3Dots) dots"
-        p4DotsLabel.text = "Player \(gameMaster.player4.name): \(p4Dots) dots"
-        roundDotsLabel.text = "Round has \(totalDots) dots"
-        roundPtsLabel.text = "Round has \(totalPts) points"
+        p1DotsLabel.text = "Team Blue Player \(gameMaster.player1.name): \(p1Dots) dots"
+        p2DotsLabel.text = "Team Red Player \(gameMaster.player2.name): \(p2Dots) dots"
+        p3DotsLabel.text = "Team Blue Player \(gameMaster.player3.name): \(p3Dots) dots"
+        p4DotsLabel.text = "Team Red Player \(gameMaster.player4.name): \(p4Dots) dots"
+        roundDotsLabel.text = "\(totalDots) dots = \(totalPts) points"
         newGameButton.isHidden = true
         newRoundButton.isHidden = true
     }
@@ -115,13 +151,13 @@ class ScoreViewController: UIViewController {
         var yOffset: CGFloat = 0
         for player in gameMaster.players {
             for tile in player.tilesOnHand {
-                let tileImage = UIImageView(frame: CGRect(x: 30 + xOffset, y: 110 + yOffset, width: 25, height: 50))
+                let tileImage = UIImageView(frame: CGRect(x: 320 - xOffset, y: 85 + yOffset, width: 25, height: 50))
                 tileImage.image = tile.faceImage.image
                 view.addSubview(tileImage)
                 xOffset += 30
             }
             xOffset = 0
-            yOffset += 80
+            yOffset += 100
         }
     }
     
@@ -136,8 +172,8 @@ class ScoreViewController: UIViewController {
             currentTeam2Pts += totalPts
         }
         //reset team pts labels
-        team1PtsLabel.text = String(currentTeam1Pts)
-        team2PtsLabel.text = String(currentTeam2Pts)
+        team1PtsLabel.text = "\(currentTeam1Pts)"
+        team2PtsLabel.text = "\(currentTeam2Pts)"
         //update currentTeam1Pts and currentTeam2Pts to userdefault
         UserDefaultsHandler().encode(data: currentTeam1Pts, whereTo: .team1Score)
         UserDefaultsHandler().encode(data: currentTeam2Pts, whereTo: .team2Score)
@@ -177,4 +213,12 @@ class ScoreViewController: UIViewController {
         navigationController?.pushViewController(newGame, animated: false)
     }
 
+    func hexColor(hexInt: Int) -> UIColor{
+        let red  = CGFloat((hexInt >> 16) & 0xFF) / 255.0
+        let green = CGFloat((hexInt >> 8) & 0xFF) / 255.0
+        let blue = CGFloat(hexInt & 0xFF) / 255.0
+        let alpha = CGFloat((hexInt >> 24) & 0xFF) / 255.0
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
 }
