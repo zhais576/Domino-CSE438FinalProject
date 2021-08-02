@@ -59,7 +59,7 @@ class TutorialVC: UIViewController {
     }
     
     @objc func goForward(_ sender: UIButton!) {
-        if indx < 3 {
+        if indx < 6 {
             indx += 1
             self.imView.image = UIImage(named: "tutorial\(indx)")
         }
