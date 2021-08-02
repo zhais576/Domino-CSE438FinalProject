@@ -32,6 +32,7 @@ class GamePlayViewController: UIViewController {
     var skipPlayer: AVAudioPlayer!
     var playerPanelGlow: UIView!
     var statsPanelGlow: UIView!
+    var separater: UIView!
     var entryBlocker: UIButton!
     var leftEndZone: UIView!
     var rightEndZone: UIView!
@@ -74,21 +75,23 @@ class GamePlayViewController: UIViewController {
         view.backgroundColor = hexColor(hexInt: 0xFF121B35)
         
         //setup team scores
-        team1ScoreLabel = UILabel(frame: CGRect(x: 90, y: 50, width: 130, height: 30))
-        team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
+        team1ScoreLabel = UILabel(frame: CGRect(x: 27, y: 40, width: 160, height: 50))
+        team1ScoreLabel.text = "Team Blue: \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
         team1ScoreLabel.textColor = .white
         team1ScoreLabel.textAlignment = .center
+        team1ScoreLabel.font = UIFont(name: "Avenir-Heavy", size: 22.0)
         team1ScoreLabel.layer.zPosition = 1
         view.addSubview(team1ScoreLabel)
-        team2ScoreLabel = UILabel(frame: CGRect(x: 240, y: 50, width: 130, height: 30))
-        team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
+        team2ScoreLabel = UILabel(frame: CGRect(x: 202, y: 40, width: 160, height: 50))
+        team2ScoreLabel.text = "Team Red: \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
         team2ScoreLabel.textColor = .white
         team2ScoreLabel.textAlignment = .center
+        team2ScoreLabel.font = UIFont(name: "Avenir-Heavy", size: 22.0)
         team2ScoreLabel.layer.zPosition = 1
         view.addSubview(team2ScoreLabel)
         
         //setup current player tag
-        playerTag = UILabel(frame: CGRect(x: 60, y: 660, width: 374, height: 21))
+        playerTag = UILabel(frame: CGRect(x: 8, y: 662, width: 190, height: 30))
         playerTag.textColor = .white
         playerTag.layer.zPosition = 1
         view.addSubview(playerTag)
@@ -128,7 +131,7 @@ class GamePlayViewController: UIViewController {
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         playerPanelGlow = UIView(frame: CGRect(x: playerPanel.frame.origin.x - 30, y: playerPanel.frame.origin.y - 2, width: playerPanel.frame.width + 60, height: playerPanel.frame.height))
         playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        playerPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        playerPanelGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         playerPanelGlow.layer.shadowOpacity = 1
         playerPanelGlow.layer.shadowOffset = .zero
         playerPanelGlow.layer.shadowRadius = 10
@@ -143,11 +146,19 @@ class GamePlayViewController: UIViewController {
         drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         statsPanelGlow = UIView(frame: CGRect(x: statsPanel.frame.origin.x - 30, y: statsPanel.frame.origin.y - 2, width: statsPanel.frame.width + 60, height: statsPanel.frame.height))
         statsPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        statsPanelGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         statsPanelGlow.layer.shadowOpacity = 1
         statsPanelGlow.layer.shadowOffset = .zero
         statsPanelGlow.layer.shadowRadius = 10
         statsPanelGlow.layer.zPosition = 0
+        separater = UIView(frame: CGRect(x: 194, y: 40, width: 2, height: 50))
+        separater.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        separater.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
+        separater.layer.shadowOpacity = 1
+        separater.layer.shadowOffset = .zero
+        separater.layer.shadowRadius = 10
+        separater.layer.zPosition = 1
+        view.addSubview(separater)
         view.addSubview(statsPanelGlow)
         view.addSubview(statsPanel)
         
@@ -158,12 +169,24 @@ class GamePlayViewController: UIViewController {
         view.addSubview(miniTilePanel)
         
         //setup quit button
-        quitButton = UIButton(frame: CGRect(x: 30, y: 50, width: 50, height: 30))
-        quitButton.setTitle("quit", for: .normal)
-        quitButton.backgroundColor = .systemRed
+        quitButton = UIButton(frame: CGRect(x: 8, y: 614, width: 40, height: 40))
+        quitButton.layer.cornerRadius = quitButton.frame.width / 4
+        quitButton.setImage(UIImage(named: "pause"), for: .normal)
         quitButton.addTarget(self, action: #selector(quitPressed), for: .touchUpInside)
         quitButton.layer.zPosition = 2
         quitButton.isUserInteractionEnabled = true
+        drawShadow(view: quitButton, lineColor: hexColor(hexInt: 0xFFFE00FE), shadowColor: hexColor(hexInt: 0xFFFE00FE))
+        let quitButtonGLow = UIView(frame: quitButton.frame)
+        quitButtonGLow.layer.cornerRadius = quitButton.frame.width / 2
+        quitButtonGLow.backgroundColor = hexColor(hexInt: 0xFF121B35)
+        quitButtonGLow.layer.shadowColor = hexColor(hexInt: 0xFFFE00FE).cgColor
+        quitButtonGLow.layer.shadowOpacity = 1
+        quitButtonGLow.layer.shadowOffset = .zero
+        quitButtonGLow.layer.shadowRadius = 5
+        quitButton.layer.borderWidth = 2
+        quitButton.layer.borderColor = quitButtonGLow.layer.shadowColor
+        quitButtonGLow.layer.zPosition = 0
+        view.addSubview(quitButtonGLow)
         view.addSubview(quitButton)
         
         //setup blocker, blocker stops the last user seeing the new user's tiles, until the new user double taps
@@ -186,7 +209,7 @@ class GamePlayViewController: UIViewController {
         leftEndZoneGlow = UIView(frame: leftEndZone.frame)
         leftEndZoneGlow.layer.cornerRadius =  0.1088 * 25
         leftEndZoneGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        leftEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        leftEndZoneGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         leftEndZoneGlow.layer.shadowOpacity = 1
         leftEndZoneGlow.layer.shadowOffset = .zero
         leftEndZoneGlow.layer.shadowRadius = 5
@@ -203,7 +226,7 @@ class GamePlayViewController: UIViewController {
         rightEndZoneGlow = UIView(frame: rightEndZone.frame)
         rightEndZoneGlow.layer.cornerRadius =  0.1088 * 25
         rightEndZoneGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        rightEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        rightEndZoneGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         rightEndZoneGlow.layer.shadowOpacity = 1
         rightEndZoneGlow.layer.shadowOffset = .zero
         rightEndZoneGlow.layer.shadowRadius = 5
@@ -213,7 +236,7 @@ class GamePlayViewController: UIViewController {
         view.addSubview(rightEndZone)
         
         //load labels
-        playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
+        playerTag.text = "Team : \(gameMaster.players[gameMaster.currentPlayer].name)"
         skipButton.isHidden = true
         gameOverButton.isHidden = true
         roundOverButton.isHidden = true
@@ -295,9 +318,11 @@ class GamePlayViewController: UIViewController {
         playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        playerPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        playerPanelGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         statsPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
-        statsPanelGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        statsPanelGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
+        separater.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        separater.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         drawShadow(view: statsPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         //put on blocker so the tile isnt seen until tapped twice
         entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
@@ -470,7 +495,7 @@ class GamePlayViewController: UIViewController {
         leftEndZone.frame.origin = gameMaster.train.positions.leftPositions[gameMaster.train.leftIterator]
         drawShadow(view: leftEndZone, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         leftEndZoneGlow.frame = leftEndZone.frame
-        leftEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        leftEndZoneGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         var rightZoneSize = CGSize(width: 25, height: 50)
         if gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "left" || gameMaster.train.positions.rightOrientations[gameMaster.train.rightIterator] == "right"{
             rightZoneSize = CGSize(width: 50, height: 25)
@@ -479,7 +504,7 @@ class GamePlayViewController: UIViewController {
         rightEndZone.frame.origin = gameMaster.train.positions.rightPositions[gameMaster.train.rightIterator]
         drawShadow(view: rightEndZone, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.playerColors[gameMaster.currentPlayer])
         rightEndZoneGlow.frame = rightEndZone.frame
-        rightEndZoneGlow.layer.shadowColor = gameMaster.playerColors[gameMaster.currentPlayer].cgColor
+        rightEndZoneGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
     }
     
     // MARK: - SKIP PRESSED
@@ -494,11 +519,11 @@ class GamePlayViewController: UIViewController {
             switch gameMaster.currentPlayer {
             case 1, 3: // if members of team 2 skip their turn, team 1 gets some points.
                 team1Score += 1
-                team1ScoreLabel.text = "\(gameMaster.player1.name)/\(gameMaster.player3.name): \(team1Score)"
+                team1ScoreLabel.text = "Team Blue: \(team1Score)"
                 UserDefaultsHandler().encode(data: team1Score, whereTo: .team1Score)
             default:
                 team2Score += 1
-                team2ScoreLabel.text = "\(gameMaster.player2.name)/\(gameMaster.player4.name): \(team2Score)"
+                team2ScoreLabel.text = "Team Red: \(team2Score)"
                 UserDefaultsHandler().encode(data: team2Score, whereTo: .team2Score)
             }
         }
