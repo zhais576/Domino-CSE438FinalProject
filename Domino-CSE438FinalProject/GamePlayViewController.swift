@@ -91,8 +91,9 @@ class GamePlayViewController: UIViewController {
         view.addSubview(team2ScoreLabel)
         
         //setup current player tag
-        playerTag = UILabel(frame: CGRect(x: 8, y: 662, width: 190, height: 30))
+        playerTag = UILabel(frame: CGRect(x: 8, y: 662, width: 226, height: 30))
         playerTag.textColor = .white
+        playerTag.font = UIFont(name: "Avenir-Roman", size: 18.0)
         playerTag.layer.zPosition = 1
         view.addSubview(playerTag)
         
@@ -100,6 +101,7 @@ class GamePlayViewController: UIViewController {
         skipButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 530))
         skipButton.backgroundColor = .systemPink
         skipButton.setTitle("No Valid Dominos to Play! \n Tap to Skip Turn", for: .normal)
+        skipButton.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
         skipButton.titleLabel?.lineBreakMode = .byWordWrapping
         skipButton.titleLabel?.textAlignment = .center
         skipButton.addTarget(self, action: #selector(skipPressed), for: .touchUpInside)
@@ -110,6 +112,7 @@ class GamePlayViewController: UIViewController {
         roundOverButton = UIButton(frame: CGRect(x: 0, y: 110, width: 390, height: 530))
         roundOverButton.backgroundColor = .systemBlue
         roundOverButton.setTitle("Round Over \n Tap to View Score", for: .normal)
+        roundOverButton.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
         skipButton.titleLabel?.lineBreakMode = .byWordWrapping
         skipButton.titleLabel?.textAlignment = .center
         roundOverButton.addTarget(self, action: #selector(roundIsOver), for: .touchUpInside)
@@ -119,6 +122,7 @@ class GamePlayViewController: UIViewController {
         // setup game Over
         gameOverButton = UIButton(frame: CGRect(x: 146, y: 417, width: 120, height: 120))
         gameOverButton.setTitle("New Game", for: .normal)
+        gameOverButton.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
         gameOverButton.backgroundColor = .systemBlue
         gameOverButton.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
         gameOverButton.layer.zPosition = 2
@@ -182,7 +186,7 @@ class GamePlayViewController: UIViewController {
         quitButtonGLow.layer.shadowColor = hexColor(hexInt: 0xFFFE00FE).cgColor
         quitButtonGLow.layer.shadowOpacity = 1
         quitButtonGLow.layer.shadowOffset = .zero
-        quitButtonGLow.layer.shadowRadius = 5
+        quitButtonGLow.layer.shadowRadius = 10
         quitButton.layer.borderWidth = 2
         quitButton.layer.borderColor = quitButtonGLow.layer.shadowColor
         quitButtonGLow.layer.zPosition = 0
@@ -190,9 +194,10 @@ class GamePlayViewController: UIViewController {
         view.addSubview(quitButton)
         
         //setup blocker, blocker stops the last user seeing the new user's tiles, until the new user double taps
-        entryBlocker = UIButton(frame: CGRect(x: 0, y: 702, width: 390, height: 140))
+        entryBlocker = UIButton(frame: CGRect(x: 0, y: 702, width: 390, height: 142))
         entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         entryBlocker.setTitle("Pass the phone to \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
+        entryBlocker.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
         entryBlocker.titleLabel?.lineBreakMode = .byWordWrapping
         entryBlocker.titleLabel?.textAlignment = .center
         entryBlocker.addTarget(self, action: #selector(self.doubleTap), for: .touchDownRepeat)
@@ -286,12 +291,14 @@ class GamePlayViewController: UIViewController {
                 currentTile.center = currentTile.originalCenter
                 
                 //add checkzone for left and right indicators, checkzone is 3* width and height
-                let leftCheckZone = CGRect(x: leftEndZone.frame.origin.x - leftEndZone.frame.size.width, y: leftEndZone.frame.origin.y - leftEndZone.frame.size.height, width: leftEndZone.frame.size.width * 3, height: leftEndZone.frame.size.height * 3)
-                let rightCheckZone = CGRect(x: rightEndZone.frame.origin.x - rightEndZone.frame.size.width, y: rightEndZone.frame.origin.y - rightEndZone.frame.size.height, width: rightEndZone.frame.size.width * 3, height: rightEndZone.frame.size.height * 3)
-                if leftCheckZone.contains(gesture.location(in: self.view)){
+                let leftCheckZone = CGRect(x: leftEndZone.frame.origin.x - 100, y: leftEndZone.frame.origin.y - 100, width: 200, height: 200)
+                let rightCheckZone = CGRect(x: rightEndZone.frame.origin.x - 100, y: rightEndZone.frame.origin.y - 100, width: 200, height: 200)
+                
+                if leftCheckZone.contains(gesture.location(in: self.view)) && rightCheckZone.contains(gesture.location(in: self.view)){
+                    currentTile.playedTo = "first"
+                }else if leftCheckZone.contains(gesture.location(in: self.view)){
                     currentTile.playedTo = "left"
-                }
-                if rightCheckZone.contains(gesture.location(in: self.view)){
+                }else if rightCheckZone.contains(gesture.location(in: self.view)){
                     currentTile.playedTo = "right"
                 }
                 
@@ -307,6 +314,7 @@ class GamePlayViewController: UIViewController {
                         reloadScreen()
                     }
                 }
+                
             }
         }
     }
@@ -315,7 +323,6 @@ class GamePlayViewController: UIViewController {
         //update current player tag
         playerTag.text = "Player: \(gameMaster.players[gameMaster.currentPlayer].name)"
         //update player panel and stats panel color
-        playerPanel.backgroundColor = hexColor(hexInt: 0xFF121B35)
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         playerPanelGlow.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor

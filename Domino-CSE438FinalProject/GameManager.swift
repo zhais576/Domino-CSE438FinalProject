@@ -109,7 +109,7 @@ class GameManager {
     }
     
     func playTile(tile: Tile) -> Bool{ //attempts to play a tile, returns true if legal play
-        if train.leftEnd == -1{ //first tile ever played in a round
+        if tile.playedTo == "first" && train.leftEnd == -1{ //first tile ever played in a round
             train.leftEnd = tile.sides[0]
             train.rightEnd = tile.sides[1]
             tile.playedTo = "first"
