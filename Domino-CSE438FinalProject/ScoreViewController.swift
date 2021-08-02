@@ -83,13 +83,23 @@ class ScoreViewController: UIViewController {
         team1PtsLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30)
         team1PtsLabel.textColor = .systemTeal
         team1PtsLabel.textAlignment = .center
-        team1PtsLabel.lineBreakMode = .byWordWrapping
+        team1PtsLabel.layer.shadowColor = UIColor.blue.cgColor
+        team1PtsLabel.layer.shadowOffset = .zero
+        team1PtsLabel.layer.shadowRadius = 10
+        team1PtsLabel.layer.shadowOpacity = 1
+        team1PtsLabel.layer.masksToBounds = false
+        team1PtsLabel.layer.shouldRasterize = true
         view.addSubview(team1PtsLabel)
         team2PtsLabel = UILabel(frame: CGRect(x: 195, y: 540, width: 195, height: 150))
         team2PtsLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30)
         team2PtsLabel.textColor = .systemPink
         team2PtsLabel.textAlignment = .center
-        team2PtsLabel.lineBreakMode = .byWordWrapping
+        team2PtsLabel.layer.shadowColor = UIColor.red.cgColor
+        team2PtsLabel.layer.shadowOffset = .zero
+        team2PtsLabel.layer.shadowRadius = 10
+        team2PtsLabel.layer.shadowOpacity = 1
+        team2PtsLabel.layer.masksToBounds = false
+        team2PtsLabel.layer.shouldRasterize = true
         view.addSubview(team2PtsLabel)
         //setup separater
         let separater = UIView(frame: CGRect(x: 30, y: 455, width: 330, height: 3))
@@ -109,12 +119,24 @@ class ScoreViewController: UIViewController {
         teamBlueLabel.textColor = .systemTeal
         teamBlueLabel.textAlignment = .center
         teamBlueLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30.0)
+        teamBlueLabel.layer.shadowColor = UIColor.blue.cgColor
+        teamBlueLabel.layer.shadowOffset = .zero
+        teamBlueLabel.layer.shadowRadius = 10
+        teamBlueLabel.layer.shadowOpacity = 1
+        teamBlueLabel.layer.masksToBounds = false
+        teamBlueLabel.layer.shouldRasterize = true
         view.addSubview(teamBlueLabel)
         let teamRedLabel = UILabel(frame: CGRect(x: 195, y: 545, width: 195, height: 60))
         teamRedLabel.text = "Team Red"
         teamRedLabel.textColor = .systemPink
         teamRedLabel.textAlignment = .center
         teamRedLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30.0)
+        teamRedLabel.layer.shadowColor = UIColor.red.cgColor
+        teamRedLabel.layer.shadowOffset = .zero
+        teamRedLabel.layer.shadowRadius = 10
+        teamRedLabel.layer.shadowOpacity = 1
+        teamRedLabel.layer.masksToBounds = false
+        teamRedLabel.layer.shouldRasterize = true
         view.addSubview(teamRedLabel)
         //setup two buttons
         newGameButton = UIButton(frame:CGRect(x: 20, y: 690, width: 350, height: 100))
@@ -151,10 +173,10 @@ class ScoreViewController: UIViewController {
         }
         
         //update dots labels
-        p1DotsLabel.text = "Team Blue Player \(gameMaster.player1.name): \(p1Dots) dots"
-        p2DotsLabel.text = "Team Red Player \(gameMaster.player2.name): \(p2Dots) dots"
-        p3DotsLabel.text = "Team Blue Player \(gameMaster.player3.name): \(p3Dots) dots"
-        p4DotsLabel.text = "Team Red Player \(gameMaster.player4.name): \(p4Dots) dots"
+        p1DotsLabel.text = "Team Blue Player \(gameMaster.player1.name):      \(p1Dots) dots"
+        p2DotsLabel.text = "Team Red Player \(gameMaster.player2.name):      \(p2Dots) dots"
+        p3DotsLabel.text = "Team Blue Player \(gameMaster.player3.name):      \(p3Dots) dots"
+        p4DotsLabel.text = "Team Red Player \(gameMaster.player4.name):      \(p4Dots) dots"
         roundDotsLabel.text = "\(totalDots) dots = \(totalPts) points"
         newGameButton.isHidden = true
         newRoundButton.isHidden = true
@@ -205,13 +227,13 @@ class ScoreViewController: UIViewController {
         //replace these 2 lines with proper team points
         if currentTeam1Pts >= winningThreshold{
             //team1 win
-            let winningAlert = UIAlertController(title: "Team Blue has won with \(currentTeam1Pts) points!", message: "\(gameMaster.player1.name) and \(gameMaster.player3.name)", preferredStyle: .alert)
+            let winningAlert = UIAlertController(title: "Team Blue has won!", message: "Team Blue has \(currentTeam1Pts) points!", preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
             newGameButton.isHidden = false // new game
         }else if currentTeam2Pts >= winningThreshold{
             //team2 win
-            let winningAlert = UIAlertController(title: "Team Red has won with \(currentTeam1Pts) points!", message: "\(gameMaster.player2.name) and \(gameMaster.player4.name)", preferredStyle: .alert)
+            let winningAlert = UIAlertController(title: "Team Red has won!", message: "Team Blue has \(currentTeam2Pts) points!", preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
             newGameButton.isHidden = false //new game

@@ -77,23 +77,41 @@ class GamePlayViewController: UIViewController {
         //setup team scores
         team1ScoreLabel = UILabel(frame: CGRect(x: 27, y: 40, width: 160, height: 50))
         team1ScoreLabel.text = "Team Blue: \(UserDefaultsHandler().decode(fromWhere: .team1Score))"
-        team1ScoreLabel.textColor = .white
+        team1ScoreLabel.textColor = .systemTeal
         team1ScoreLabel.textAlignment = .center
         team1ScoreLabel.font = UIFont(name: "Avenir-Heavy", size: 22.0)
+        team1ScoreLabel.layer.shadowColor = UIColor.blue.cgColor
+        team1ScoreLabel.layer.shadowOffset = .zero
+        team1ScoreLabel.layer.shadowRadius = 10
+        team1ScoreLabel.layer.shadowOpacity = 1
+        team1ScoreLabel.layer.masksToBounds = false
+        team1ScoreLabel.layer.shouldRasterize = true
         team1ScoreLabel.layer.zPosition = 1
         view.addSubview(team1ScoreLabel)
         team2ScoreLabel = UILabel(frame: CGRect(x: 202, y: 40, width: 160, height: 50))
         team2ScoreLabel.text = "Team Red: \(UserDefaultsHandler().decode(fromWhere: .team2Score))"
-        team2ScoreLabel.textColor = .white
+        team2ScoreLabel.textColor = .systemPink
         team2ScoreLabel.textAlignment = .center
         team2ScoreLabel.font = UIFont(name: "Avenir-Heavy", size: 22.0)
+        team2ScoreLabel.layer.shadowColor = UIColor.red.cgColor
+        team2ScoreLabel.layer.shadowOffset = .zero
+        team2ScoreLabel.layer.shadowRadius = 10
+        team2ScoreLabel.layer.shadowOpacity = 1
+        team2ScoreLabel.layer.masksToBounds = false
+        team2ScoreLabel.layer.shouldRasterize = true
         team2ScoreLabel.layer.zPosition = 1
         view.addSubview(team2ScoreLabel)
         
         //setup current player tag
         playerTag = UILabel(frame: CGRect(x: 8, y: 662, width: 226, height: 30))
-        playerTag.textColor = .white
+        playerTag.textColor = gameMaster.playerColors[gameMaster.currentPlayer]
         playerTag.font = UIFont(name: "Avenir-Roman", size: 18.0)
+        playerTag.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
+        playerTag.layer.shadowOffset = .zero
+        playerTag.layer.shadowRadius = 10
+        playerTag.layer.shadowOpacity = 1
+        playerTag.layer.masksToBounds = false
+        playerTag.layer.shouldRasterize = true
         playerTag.layer.zPosition = 1
         view.addSubview(playerTag)
         
@@ -197,7 +215,7 @@ class GamePlayViewController: UIViewController {
         entryBlocker = UIButton(frame: CGRect(x: 0, y: 702, width: 390, height: 142))
         entryBlocker.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]
         entryBlocker.setTitle("Pass the Phone to \(gameMaster.players[gameMaster.currentPlayer].name) \n Double Tap to Continue \n", for: .normal)
-        entryBlocker.titleLabel?.font = UIFont(name: "Avenir-Roman", size: 18.0)
+        entryBlocker.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 18.0)
         entryBlocker.titleLabel?.lineBreakMode = .byWordWrapping
         entryBlocker.titleLabel?.textAlignment = .center
         entryBlocker.addTarget(self, action: #selector(self.doubleTap), for: .touchDownRepeat)
@@ -291,15 +309,19 @@ class GamePlayViewController: UIViewController {
                 currentTile.center = currentTile.originalCenter
                 
                 //add checkzone for left and right indicators, checkzone is 3* width and height
-                let leftCheckZone = CGRect(x: leftEndZone.frame.origin.x - 100, y: leftEndZone.frame.origin.y - 100, width: 200, height: 200)
-                let rightCheckZone = CGRect(x: rightEndZone.frame.origin.x - 100, y: rightEndZone.frame.origin.y - 100, width: 200, height: 200)
-                
+                let leftCheckZone = CGRect(x: leftEndZone.center.x - 100, y: leftEndZone.center.y - 100, width: 200, height: 200)
+                let rightCheckZone = CGRect(x: rightEndZone.center.x - 100, y: rightEndZone.center.y - 100, width: 200, height: 200)
+                print(leftCheckZone)
+                print(rightCheckZone)
                 if leftCheckZone.contains(gesture.location(in: self.view)) && rightCheckZone.contains(gesture.location(in: self.view)){
+                    print("played first")
                     currentTile.playedTo = "first"
                 }else if leftCheckZone.contains(gesture.location(in: self.view)){
                     currentTile.playedTo = "left"
+                    print("played left")
                 }else if rightCheckZone.contains(gesture.location(in: self.view)){
                     currentTile.playedTo = "right"
+                    print("played right")
                 }
                 
                 if gameMaster.playTile(tile: currentTile){ //check if tile can be played
@@ -322,6 +344,8 @@ class GamePlayViewController: UIViewController {
     func reloadScreen(){
         //update current player tag
         playerTag.text = "Team " + gameMaster.players[gameMaster.currentPlayer].team + " : \(gameMaster.players[gameMaster.currentPlayer].name)"
+        playerTag.textColor = gameMaster.playerColors[gameMaster.currentPlayer]
+        playerTag.layer.shadowColor = gameMaster.shadowColors[gameMaster.currentPlayer].cgColor
         //update player panel and stats panel color
         drawShadow(view: playerPanel, lineColor: gameMaster.playerColors[gameMaster.currentPlayer], shadowColor: gameMaster.shadowColors[gameMaster.currentPlayer])
         playerPanelGlow.backgroundColor = gameMaster.playerColors[gameMaster.currentPlayer]

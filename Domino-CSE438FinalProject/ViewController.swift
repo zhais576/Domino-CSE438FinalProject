@@ -18,6 +18,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var tutorialButton: UIButton!
+    @IBOutlet weak var titleBlue: UILabel!
+    @IBOutlet weak var titleRed: UILabel!
+    @IBOutlet weak var mainTitle: UILabel!
     
     //MARK: - Init
     
@@ -57,12 +60,12 @@ class ViewController: UIViewController {
             
             if tf == p1TextField || tf == p3TextField { // is in team 1
                 tf?.textColor = teal
-                border.borderColor = teal.cgColor
-                border.shadowColor = teal.cgColor
+                border.borderColor = UIColor.systemTeal.cgColor
+                border.shadowColor = UIColor.blue.cgColor
             } else {                                    // is in team 2
                 tf?.textColor = pink
-                border.borderColor = pink.cgColor
-                border.shadowColor = pink.cgColor
+                border.borderColor = UIColor.systemPink.cgColor
+                border.shadowColor = UIColor.red.cgColor
                 
             }
             tf?.layer.addSublayer(border)
@@ -80,6 +83,25 @@ class ViewController: UIViewController {
         tutorialButton.layer.shadowOpacity = 1
         tutorialButton.layer.shadowOffset = .zero
         tutorialButton.layer.shadowRadius = 5
+        //set title glow
+        mainTitle.layer.shadowColor = UIColor.white.cgColor
+        mainTitle.layer.shadowOffset = .zero
+        mainTitle.layer.shadowRadius = 10
+        mainTitle.layer.shadowOpacity = 1
+        mainTitle.layer.masksToBounds = false
+        mainTitle.layer.shouldRasterize = true
+        titleBlue.layer.shadowColor = UIColor.blue.cgColor
+        titleBlue.layer.shadowOffset = .zero
+        titleBlue.layer.shadowRadius = 10
+        titleBlue.layer.shadowOpacity = 1
+        titleBlue.layer.masksToBounds = false
+        titleBlue.layer.shouldRasterize = true
+        titleRed.layer.shadowColor = UIColor.red.cgColor
+        titleRed.layer.shadowOffset = .zero
+        titleRed.layer.shadowRadius = 10
+        titleRed.layer.shadowOpacity = 1
+        titleRed.layer.masksToBounds = false
+        titleRed.layer.shouldRasterize = true
     }
     
     
