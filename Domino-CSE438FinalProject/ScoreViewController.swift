@@ -74,7 +74,7 @@ class ScoreViewController: UIViewController {
         p4DotsLabel.textColor = .white
         p4DotsLabel.font = UIFont(name: "Avenir-Heavy", size: 17.0)
         view.addSubview(p4DotsLabel)
-        roundDotsLabel = UILabel(frame: CGRect(x: 145, y: 470, width: 200, height: 30))
+        roundDotsLabel = UILabel(frame: CGRect(x: 145, y: 475, width: 200, height: 30))
         roundDotsLabel.textAlignment = .right
         roundDotsLabel.font = UIFont(name: "Avenir-Heavy", size: 18.0)
         roundDotsLabel.textColor = .white
@@ -92,10 +92,14 @@ class ScoreViewController: UIViewController {
         team2PtsLabel.lineBreakMode = .byWordWrapping
         view.addSubview(team2PtsLabel)
         //setup separater
-        let separater = UIView(frame: CGRect(x: 30, y: 450, width: 330, height: 3))
+        let separater = UIView(frame: CGRect(x: 30, y: 455, width: 330, height: 3))
         separater.backgroundColor = .orange
+        separater.layer.shadowColor = separater.backgroundColor?.cgColor
+        separater.layer.shadowOpacity = 1
+        separater.layer.shadowOffset = .zero
+        separater.layer.shadowRadius = 5
         view.addSubview(separater)
-        let staticTotalLabel = UILabel(frame: CGRect(x: 30, y: 470, width: 50, height: 30))
+        let staticTotalLabel = UILabel(frame: CGRect(x: 30, y: 475, width: 50, height: 30))
         staticTotalLabel.text = "Total: "
         staticTotalLabel.textColor = .white
         staticTotalLabel.font = UIFont(name: "Avenir-Heavy", size: 18.0)
@@ -113,22 +117,30 @@ class ScoreViewController: UIViewController {
         teamRedLabel.font = UIFont(name: "ArialRoundedMTBold", size: 30.0)
         view.addSubview(teamRedLabel)
         //setup two buttons
-        newGameButton = UIButton(frame:CGRect(x: 20, y: 670, width: 350, height: 120))
+        newGameButton = UIButton(frame:CGRect(x: 20, y: 690, width: 350, height: 100))
         newGameButton.layer.cornerRadius = 30
         newGameButton.setTitle("Start New Game", for: .normal)
+        newGameButton.titleLabel?.font = UIFont(name: "ArialRoundedMTBold", size: 24.0)
         newGameButton.setTitleColor(.white, for: .normal)
         newGameButton.backgroundColor = .systemGreen
         newGameButton.addTarget(self, action: #selector(newGamePressed), for: .touchUpInside)
+        newGameButton.layer.shadowColor = UIColor.green.cgColor
+        newGameButton.layer.shadowOpacity = 1
+        newGameButton.layer.shadowOffset = .zero
+        newGameButton.layer.shadowRadius = 5
         view.addSubview(newGameButton)
-        newRoundButton = UIButton(frame:CGRect(x: 20, y: 670, width: 350, height: 120))
+        newRoundButton = UIButton(frame:CGRect(x: 20, y: 690, width: 350, height: 100))
         newRoundButton.layer.cornerRadius = 30
         newRoundButton.setTitle(("Start Next Round"), for: .normal)
+        newRoundButton.titleLabel?.font = UIFont(name: "ArialRoundedMTBold", size: 24.0)
         newRoundButton.setTitleColor(.white, for: .normal)
         newRoundButton.backgroundColor = .systemGreen
         newRoundButton.addTarget(self, action: #selector(newRoundPressed), for: .touchUpInside)
+        newRoundButton.layer.shadowColor = UIColor.green.cgColor
+        newRoundButton.layer.shadowOpacity = 1
+        newRoundButton.layer.shadowOffset = .zero
+        newRoundButton.layer.shadowRadius = 5
         view.addSubview(newRoundButton)
-        
-        
         //set up total dots and points
         totalDots = p1Dots + p2Dots + p3Dots + p4Dots
         
@@ -154,6 +166,14 @@ class ScoreViewController: UIViewController {
         for player in gameMaster.players {
             for tile in player.tilesOnHand {
                 let tileImage = UIImageView(frame: CGRect(x: 320 - xOffset, y: 85 + yOffset, width: 25, height: 50))
+                if tile.theme == "pink"{
+                    tileImage.layer.shadowColor = UIColor.red.cgColor
+                }else if tile.theme == "teal"{
+                    tileImage.layer.shadowColor = UIColor.blue.cgColor
+                }
+                tileImage.layer.shadowOpacity = 1
+                tileImage.layer.shadowOffset = .zero
+                tileImage.layer.shadowRadius = 5
                 tileImage.image = tile.faceImage.image
                 view.addSubview(tileImage)
                 xOffset += 30
@@ -185,13 +205,13 @@ class ScoreViewController: UIViewController {
         //replace these 2 lines with proper team points
         if currentTeam1Pts >= winningThreshold{
             //team1 win
-            let winningAlert = UIAlertController(title: "team 1  has won with with a score of 20 - \(currentTeam2Pts)!", message: nil, preferredStyle: .alert)
+            let winningAlert = UIAlertController(title: "Team Blue has won with \(currentTeam1Pts) points!", message: "\(gameMaster.player1.name) and \(gameMaster.player3.name)", preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
             newGameButton.isHidden = false // new game
         }else if currentTeam2Pts >= winningThreshold{
             //team2 win
-            let winningAlert = UIAlertController(title: "team 2  has won with with a score of 20 - \(currentTeam1Pts)!", message: nil, preferredStyle: .alert)
+            let winningAlert = UIAlertController(title: "Team Red has won with \(currentTeam1Pts) points!", message: "\(gameMaster.player2.name) and \(gameMaster.player4.name)", preferredStyle: .alert)
             winningAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             self.present(winningAlert, animated: true)
             newGameButton.isHidden = false //new game
