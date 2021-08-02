@@ -244,7 +244,7 @@ class GamePlayViewController: UIViewController {
         playerTag.text = "Team " + gameMaster.players[gameMaster.currentPlayer].team + " : \(gameMaster.players[gameMaster.currentPlayer].name)"
         skipButton.isHidden = true
         gameOverButton.isHidden = true
-        //roundOverButton.isHidden = true
+        roundOverButton.isHidden = true
         for tile in gameMaster.boxOfTiles{ //add all tiles to current view
             tile.layer.zPosition = 3
             //tile glowing color
