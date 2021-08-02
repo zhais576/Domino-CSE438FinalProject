@@ -311,17 +311,12 @@ class GamePlayViewController: UIViewController {
                 //add checkzone for left and right indicators, checkzone is 3* width and height
                 let leftCheckZone = CGRect(x: leftEndZone.center.x - 100, y: leftEndZone.center.y - 100, width: 200, height: 200)
                 let rightCheckZone = CGRect(x: rightEndZone.center.x - 100, y: rightEndZone.center.y - 100, width: 200, height: 200)
-                print(leftCheckZone)
-                print(rightCheckZone)
                 if leftCheckZone.contains(gesture.location(in: self.view)) && rightCheckZone.contains(gesture.location(in: self.view)){
-                    print("played first")
                     currentTile.playedTo = "first"
                 }else if leftCheckZone.contains(gesture.location(in: self.view)){
                     currentTile.playedTo = "left"
-                    print("played left")
                 }else if rightCheckZone.contains(gesture.location(in: self.view)){
                     currentTile.playedTo = "right"
-                    print("played right")
                 }
                 
                 if gameMaster.playTile(tile: currentTile){ //check if tile can be played
