@@ -50,16 +50,10 @@ class TutorialVC: UIViewController {
         nextButton.addTarget(self, action: #selector(self.goForward(_:)), for: .touchUpInside)
         view.addSubview(nextButton)
         
-        nextButton = UIButton(frame: CGRect(x: 310, y: 342, width: 160, height: 160))
-        nextButton.setTitle("Next                  ", for: UIControl.State.normal)
-        nextButton.tintColor = .white
-        nextButton.backgroundColor = backButton.backgroundColor
-        nextButton.layer.cornerRadius = 15
-        nextButton.addTarget(self, action: #selector(self.goForward(_:)), for: .touchUpInside)
-        view.addSubview(nextButton)
-        
         mmButton = UIButton(frame: CGRect(x: 310, y: 342, width: 160, height: 160))
-        mmButton.setTitle("Main Menu                ", for: UIControl.State.normal)
+        mmButton.setTitle("  Main    ----- \n Menu       -----", for: UIControl.State.normal)
+        mmButton.titleLabel?.lineBreakMode = .byWordWrapping
+        mmButton.titleLabel?.numberOfLines = 0
         mmButton.backgroundColor = .systemIndigo // TODO: Find color!
         mmButton.tintColor = .white
         mmButton.layer.cornerRadius = 15
