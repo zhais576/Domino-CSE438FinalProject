@@ -77,12 +77,14 @@ class ViewController: UIViewController {
         startButton.layer.shadowOpacity = 1
         startButton.layer.shadowOffset = .zero
         startButton.layer.shadowRadius = 5
+        
         //setup tutorial button
         tutorialButton.layer.cornerRadius = 10
         tutorialButton.layer.shadowColor = tutorialButton.backgroundColor?.cgColor
         tutorialButton.layer.shadowOpacity = 1
         tutorialButton.layer.shadowOffset = .zero
         tutorialButton.layer.shadowRadius = 5
+        
         //set title glow
         mainTitle.layer.shadowColor = UIColor.white.cgColor
         mainTitle.layer.shadowOffset = .zero

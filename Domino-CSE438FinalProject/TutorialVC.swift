@@ -14,7 +14,8 @@ class TutorialVC: UIViewController {
     var imView: UIImageView!
     var backButton: UIButton!
     var nextButton: UIButton!
-
+    var mmButton: UIButton!
+    
     //MARK: - Init
     override func viewDidLoad() {
         // Do any additional setup after loading the view.
@@ -49,9 +50,29 @@ class TutorialVC: UIViewController {
         nextButton.addTarget(self, action: #selector(self.goForward(_:)), for: .touchUpInside)
         view.addSubview(nextButton)
         
+        nextButton = UIButton(frame: CGRect(x: 310, y: 342, width: 160, height: 160))
+        nextButton.setTitle("Next                  ", for: UIControl.State.normal)
+        nextButton.tintColor = .white
+        nextButton.backgroundColor = backButton.backgroundColor
+        nextButton.layer.cornerRadius = 15
+        nextButton.addTarget(self, action: #selector(self.goForward(_:)), for: .touchUpInside)
+        view.addSubview(nextButton)
+        
+        mmButton = UIButton(frame: CGRect(x: 310, y: 342, width: 160, height: 160))
+        mmButton.setTitle("Main Menu                ", for: UIControl.State.normal)
+        mmButton.backgroundColor = .systemIndigo // TODO: Find color!
+        mmButton.tintColor = .white
+        mmButton.layer.cornerRadius = 15
+        mmButton.addTarget(self, action: #selector(self.mainMenu(_:)), for: .touchUpInside)
+        view.addSubview(mmButton)
+        
         displayButton()
     }
-    
+    @objc func mainMenu(_ sender:UIButton!) {
+        print("clicked")
+        self.navigationController?.popViewController(animated: false)
+        displayButton()
+    }
     @objc func goBack(_ sender:UIButton!) {
         if indx == 1{
             nextButton.isHidden = true
@@ -74,12 +95,15 @@ class TutorialVC: UIViewController {
     }
     
     func displayButton(){
-        if indx == 5{
+        print(indx)
+        if indx == 6{
             backButton.isHidden = false
             nextButton.isHidden = true
+            mmButton.isHidden = false
         }else{
             backButton.isHidden = false
             nextButton.isHidden = false
+            mmButton.isHidden = true
         }
     }
     
