@@ -54,7 +54,7 @@ class TutorialVC: UIViewController {
         mmButton.setTitle("  Main    ----- \n Menu       -----", for: UIControl.State.normal)
         mmButton.titleLabel?.lineBreakMode = .byWordWrapping
         mmButton.titleLabel?.numberOfLines = 0
-        mmButton.backgroundColor = .systemIndigo // TODO: Find color!
+        mmButton.backgroundColor = UIColor(displayP3Red: 94/256, green: 92/256, blue: 230/256, alpha: 0.7)
         mmButton.tintColor = .white
         mmButton.layer.cornerRadius = 15
         mmButton.addTarget(self, action: #selector(self.mainMenu(_:)), for: .touchUpInside)
