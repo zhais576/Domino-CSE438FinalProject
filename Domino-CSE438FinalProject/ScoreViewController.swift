@@ -208,6 +208,7 @@ class ScoreViewController: UIViewController {
     func addPtsToTeam(){
         //determine which team has won
         let allDots = [p1Dots, p2Dots, p3Dots, p4Dots]
+        let allDotsLabels = [p1DotsLabel, p2DotsLabel, p3DotsLabel, p4DotsLabel]
         if allDots.firstIndex(of: allDots.min()!)! % 2 == 0{ // winning player is 1 or 3
             //add totalPts to team here
             currentTeam1Pts += totalPts
@@ -215,6 +216,14 @@ class ScoreViewController: UIViewController {
             //add totalPts to team here
             currentTeam2Pts += totalPts
         }
+        let winningLabel = allDotsLabels[allDots.firstIndex(of: allDots.min()!)!]!
+        winningLabel.textColor = hexColor(hexInt: 0xFFFCC200)
+        winningLabel.layer.shadowColor = hexColor(hexInt: 0xFFFCC200).cgColor
+        winningLabel.layer.shadowOffset = .zero
+        winningLabel.layer.shadowRadius = 10
+        winningLabel.layer.shadowOpacity = 1
+        winningLabel.layer.masksToBounds = false
+        winningLabel.layer.shouldRasterize = true
         //reset team pts labels
         team1PtsLabel.text = "\(currentTeam1Pts)"
         team2PtsLabel.text = "\(currentTeam2Pts)"
