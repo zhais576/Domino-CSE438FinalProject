@@ -115,6 +115,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Zw1-TX-aeB"/>
                     <connections>
+                        <outlet property="logoBlue" destination="Dhk-dQ-Kgr" id="czQ-C8-4up"/>
+                        <outlet property="logoRed" destination="wkf-YD-Max" id="ls4-54-cBh"/>
                         <outlet property="mainTitle" destination="YEI-Et-S1y" id="F0p-yQ-wri"/>
                         <outlet property="p1TextField" destination="Znp-TP-ZeM" id="Q5b-5X-vaH"/>
                         <outlet property="p2TextField" destination="EGe-e5-8yb" id="wg5-XZ-N1M"/>
@@ -266,6 +268,17 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GoldFrame" translatesAutoresizingMaskIntoConstraints="NO" id="S19-0S-2na">
+                                <rect key="frame" x="6" y="522" width="189" height="139"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg1-hM-61y">
+                                <rect key="frame" x="6" y="540" width="195" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qsP-yj-vbX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -692,6 +705,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="GoldFrame" width="2180" height="1423"/>
         <image name="pause" width="500" height="500"/>
         <image name="pink66" width="500" height="1000"/>
         <image name="teal34" width="500" height="1000"/>

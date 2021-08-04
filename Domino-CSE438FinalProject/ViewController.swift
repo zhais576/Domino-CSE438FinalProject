@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     //MARK: - Outlets
     
+    @IBOutlet weak var logoRed: UIImageView!
+    @IBOutlet weak var logoBlue: UIImageView!
     @IBOutlet weak var p1TextField: UITextField!
     @IBOutlet weak var p2TextField: UITextField!
     @IBOutlet weak var p3TextField: UITextField!
@@ -104,6 +106,20 @@ class ViewController: UIViewController {
         titleRed.layer.shadowOpacity = 1
         titleRed.layer.masksToBounds = false
         titleRed.layer.shouldRasterize = true
+        
+        //set logo glow
+        logoBlue.layer.shadowColor = UIColor.blue.cgColor
+        logoBlue.layer.shadowOffset = .zero
+        logoBlue.layer.shadowRadius = 10
+        logoBlue.layer.shadowOpacity = 1
+        logoBlue.layer.masksToBounds = false
+        logoBlue.layer.shouldRasterize = true
+        logoRed.layer.shadowColor = UIColor.red.cgColor
+        logoRed.layer.shadowOffset = .zero
+        logoRed.layer.shadowRadius = 10
+        logoRed.layer.shadowOpacity = 1
+        logoRed.layer.masksToBounds = false
+        logoRed.layer.shouldRasterize = true
     }
     
     
