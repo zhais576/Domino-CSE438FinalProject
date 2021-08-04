@@ -63,7 +63,7 @@ class TutorialVC: UIViewController {
         displayButton()
     }
     @objc func mainMenu(_ sender:UIButton!) {
-        print("clicked")
+
         self.navigationController?.popViewController(animated: false)
         displayButton()
     }
@@ -89,7 +89,7 @@ class TutorialVC: UIViewController {
     }
     
     func displayButton(){
-        print(indx)
+
         if indx == 6{
             backButton.isHidden = false
             nextButton.isHidden = true
