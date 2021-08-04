@@ -20,6 +20,8 @@ class ScoreViewController: UIViewController {
     var team2PtsLabel: UILabel!
     var newGameButton: UIButton!
     var newRoundButton: UIButton!
+    var teamRedLabel: UILabel!
+    var teamBlueLabel: UILabel!
     
     //MARK: - Variables
     
@@ -114,7 +116,7 @@ class ScoreViewController: UIViewController {
         staticTotalLabel.textColor = .white
         staticTotalLabel.font = UIFont(name: "Avenir-Heavy", size: 18.0)
         view.addSubview(staticTotalLabel)
-        let teamBlueLabel = UILabel(frame: CGRect(x: 0, y: 545, width: 195, height: 60))
+        teamBlueLabel = UILabel(frame: CGRect(x: 0, y: 545, width: 195, height: 60))
         teamBlueLabel.text = "Team Blue"
         teamBlueLabel.textColor = .systemTeal
         teamBlueLabel.textAlignment = .center
@@ -126,7 +128,7 @@ class ScoreViewController: UIViewController {
         teamBlueLabel.layer.masksToBounds = false
         teamBlueLabel.layer.shouldRasterize = true
         view.addSubview(teamBlueLabel)
-        let teamRedLabel = UILabel(frame: CGRect(x: 195, y: 545, width: 195, height: 60))
+        teamRedLabel = UILabel(frame: CGRect(x: 195, y: 545, width: 195, height: 60))
         teamRedLabel.text = "Team Red"
         teamRedLabel.textColor = .systemPink
         teamRedLabel.textAlignment = .center
@@ -216,14 +218,14 @@ class ScoreViewController: UIViewController {
             //add totalPts to team here
             currentTeam2Pts += totalPts
         }
-        let winningLabel = allDotsLabels[allDots.firstIndex(of: allDots.min()!)!]!
-        winningLabel.textColor = hexColor(hexInt: 0xFFFCC200)
-        winningLabel.layer.shadowColor = hexColor(hexInt: 0xFFFCC200).cgColor
-        winningLabel.layer.shadowOffset = .zero
-        winningLabel.layer.shadowRadius = 10
-        winningLabel.layer.shadowOpacity = 1
-        winningLabel.layer.masksToBounds = false
-        winningLabel.layer.shouldRasterize = true
+        let winningPlayerLabel = allDotsLabels[allDots.firstIndex(of: allDots.min()!)!]!
+        winningPlayerLabel.textColor = hexColor(hexInt: 0xFFFCC200)
+        winningPlayerLabel.layer.shadowColor = hexColor(hexInt: 0xFFFCC200).cgColor
+        winningPlayerLabel.layer.shadowOffset = .zero
+        winningPlayerLabel.layer.shadowRadius = 10
+        winningPlayerLabel.layer.shadowOpacity = 1
+        winningPlayerLabel.layer.masksToBounds = false
+        winningPlayerLabel.layer.shouldRasterize = true
         //reset team pts labels
         team1PtsLabel.text = "\(currentTeam1Pts)"
         team2PtsLabel.text = "\(currentTeam2Pts)"

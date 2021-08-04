@@ -17,14 +17,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Neon Dominos!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEI-Et-S1y">
-                                <rect key="frame" x="0.0" y="185" width="390" height="70"/>
+                                <rect key="frame" x="0.0" y="195" width="390" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Znp-TP-ZeM">
-                                <rect key="frame" x="196" y="295" width="140" height="34"/>
+                                <rect key="frame" x="196" y="305" width="140" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.34509803919999998" green="0.7725490196" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,7 +44,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1A5-rn-0bM">
-                                <rect key="frame" x="196" y="501" width="140" height="34"/>
+                                <rect key="frame" x="196" y="511" width="140" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.82745098039999998" green="0.20392156859999999" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -52,7 +52,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EGe-e5-8yb">
-                                <rect key="frame" x="196" y="445" width="140" height="34"/>
+                                <rect key="frame" x="196" y="455" width="140" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.82745098039999998" green="0.20392156859999999" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,15 +60,11 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pink66" translatesAutoresizingMaskIntoConstraints="NO" id="wkf-YD-Max">
-                                <rect key="frame" x="88" y="41" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="teal34" translatesAutoresizingMaskIntoConstraints="NO" id="Dhk-dQ-Kgr">
-                                <rect key="frame" x="66" y="45" width="240" height="128"/>
+                                <rect key="frame" x="88" y="51" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jds-Hz-IMV">
-                                <rect key="frame" x="196" y="351" width="140" height="34"/>
+                                <rect key="frame" x="196" y="361" width="140" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -84,14 +80,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team Blue" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N90-Gf-Ecb">
-                                <rect key="frame" x="54" y="275" width="130" height="130"/>
+                                <rect key="frame" x="54" y="285" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="36"/>
                                 <color key="textColor" systemColor="systemTealColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team Red" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lei-c9-OLq">
-                                <rect key="frame" x="54" y="425" width="130" height="130"/>
+                                <rect key="frame" x="54" y="435" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="36"/>
                                 <color key="textColor" systemColor="systemPinkColor"/>
@@ -109,6 +105,10 @@
                                     <action selector="how2Play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vTz-Vh-JCH"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="teal34" translatesAutoresizingMaskIntoConstraints="NO" id="Dhk-dQ-Kgr">
+                                <rect key="frame" x="70" y="60" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.070588235294117646" green="0.10588235294117647" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
